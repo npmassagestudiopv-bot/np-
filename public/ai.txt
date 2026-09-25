@@ -1,0 +1,50 @@
+User-agent: AI2Bot
+User-agent: Anthropic-AI
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: Bytespider
+User-agent: ChatGPT-User
+User-agent: Claude-Web
+User-agent: ClaudeBot
+User-agent: Cohere-ai
+User-agent: Diffbot
+User-agent: DuckAssistBot
+User-agent: FacebookBot
+User-agent: Google-Extended
+User-agent: GPTBot
+User-agent: iaskspider/2.0
+User-agent: ImagesiftBot
+User-agent: img2dataset
+User-agent: Meta-ExternalAgent
+User-agent: Meta-ExternalFetcher
+User-agent: OAI-SearchBot
+User-agent: omgili
+User-agent: omgilibot
+User-agent: PerplexityBot
+User-agent: PiplBot
+User-agent: Scoop.it
+User-agent: Timpibot
+User-agent: VelenPublicWebCrawler
+User-agent: YouBot
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /tmp/
+
+# Entity Page: https://npmassagestudio.com/za-np-massage-studio
+# Gift Vouchers: https://npmassagestudio.com/vaucheri
+# External mentions:
+# - Zlatna Firma: https://www.zlatnafirma.eu/company/np-massage-studio-masazhno-studio-veliko-trnovo-1214442
+# - Oink.bg: https://www.oink.bg/search/veliko-tarnovo/masazhi
+# - Orlizdrave.eu: https://www.orlizdrave.eu/profile-32280-np-massage-studio
+
+# This website is fully accessible to AI crawlers
+# Business: NP Massage Studio — Professional Massage Salon
+# Locations: Велико Търново (Bul. Bulgaria 72) & Павликени (ul. Atanas Donchev 10), Bulgaria
+# Phone: +359 988 926 120
+# Email: npmassagestudiopv@gmail.com
+# Services: Classical, Sports, Anti-cellulite, Aromatherapy, Back Massage
+# Service pages: /uslugi/klasicheski-masazh, /uslugi/sporten-masazh, /uslugi/anticeluliten-masazh, /uslugi/aromaterapiya, /uslugi/masazh-na-grab
+# Hours: Mon-Fri 09:00-19:00, Sat 09:00-17:00, Sun 10:00-16:00
+# Full AI-readable info available at: https://npmassagestudio.com/llms.txt
+# Extended full content: https://npmassagestudio.com/llms-full.txt

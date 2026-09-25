@@ -1,0 +1,68 @@
+export const services = [
+  {
+    id: 'classical',
+    nameKey: 'serviceClassical',
+    descKey: 'serviceClassicalDesc',
+    fullKey: 'serviceClassicalFull',
+    priceKey: 'serviceClassicalPrice',
+    duration: 60,
+    price: 25,
+    image: '',
+    bg: 'bg-primary-50',
+  },
+  {
+    id: 'sport',
+    nameKey: 'serviceSport',
+    descKey: 'serviceSportDesc',
+    fullKey: 'serviceSportFull',
+    priceKey: 'serviceSportPrice',
+    duration: 60,
+    price: 25,
+    image: '',
+    bg: 'bg-secondary-50',
+  },
+  {
+    id: 'anticellulite',
+    nameKey: 'serviceAnticellulite',
+    descKey: 'serviceAnticelluliteDesc',
+    fullKey: 'serviceAnticelluliteFull',
+    priceKey: 'serviceAnticellulitePrice',
+    duration: 40,
+    price: 20,
+    image: '',
+    bg: 'bg-accent-50',
+  },
+  {
+    id: 'aromatherapy',
+    nameKey: 'serviceAromatherapy',
+    descKey: 'serviceAromatherapyDesc',
+    fullKey: 'serviceAromatherapyFull',
+    priceKey: 'serviceAromatherapyPrice',
+    duration: 60,
+    price: 30,
+    image: '',
+    bg: 'bg-primary-50',
+  },
+  {
+    id: 'back',
+    nameKey: 'serviceBack',
+    descKey: 'serviceBackDesc',
+    fullKey: 'serviceBackFull',
+    priceKey: 'serviceBackPrice',
+    duration: 40,
+    price: 15,
+    image: '',
+    bg: 'bg-secondary-50',
+  },
+];
+
+export const testimonials = [];
+
+export const faqs = [
+  { qKey: 'faqQ1', aKey: 'faqA1' },
+  { qKey: 'faqQ2', aKey: 'faqA2' },
+  { qKey: 'faqQ3', aKey: 'faqA3' },
+  { qKey: 'faqQ4', aKey: 'faqA4' },
+  { qKey: 'faqQ5', aKey: 'faqA5' },
+  { qKey: 'faqQ6', aKey: 'faqA6' },
+];

@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Paired BG/EN pages with hreflang alternates -->
+  <url>
+    <loc>https://npmassagestudio.com/</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/uslugi</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/uslugi" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/services" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/uslugi" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/services</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/uslugi" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/services" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/uslugi" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/uslugi/klasicheski-masazh</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/uslugi/klasicheski-masazh" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/services/klasicheski-masazh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/uslugi/klasicheski-masazh" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/services/klasicheski-masazh</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/uslugi/klasicheski-masazh" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/services/klasicheski-masazh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/uslugi/klasicheski-masazh" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/uslugi/sporten-masazh</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/uslugi/sporten-masazh" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/services/sporten-masazh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/uslugi/sporten-masazh" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/services/sporten-masazh</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/uslugi/sporten-masazh" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/services/sporten-masazh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/uslugi/sporten-masazh" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/uslugi/anticeluliten-masazh</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/uslugi/anticeluliten-masazh" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/services/anticeluliten-masazh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/uslugi/anticeluliten-masazh" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/services/anticeluliten-masazh</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/uslugi/anticeluliten-masazh" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/services/anticeluliten-masazh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/uslugi/anticeluliten-masazh" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/uslugi/aromaterapiya</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/uslugi/aromaterapiya" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/services/aromaterapiya" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/uslugi/aromaterapiya" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/services/aromaterapiya</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/uslugi/aromaterapiya" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/services/aromaterapiya" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/uslugi/aromaterapiya" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/uslugi/masazh-na-grab</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/uslugi/masazh-na-grab" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/services/masazh-na-grab" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/uslugi/masazh-na-grab" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/services/masazh-na-grab</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/uslugi/masazh-na-grab" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/services/masazh-na-grab" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/uslugi/masazh-na-grab" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/za-nas</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/za-nas" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/za-nas" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/about</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/za-nas" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/za-nas" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/lokacii</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/lokacii" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/locations" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/lokacii" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/locations</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/lokacii" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/locations" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/lokacii" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/za-np-massage-studio</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/za-np-massage-studio" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/about-np-massage-studio" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/za-np-massage-studio" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/about-np-massage-studio</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/za-np-massage-studio" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/about-np-massage-studio" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/za-np-massage-studio" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/vaucheri</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/vaucheri" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/vouchers" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/vaucheri" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/vouchers</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/vaucheri" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/vouchers" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/vaucheri" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/blog/polzi-klasicheski-masazh-veliko-tarnovo-pavlikeni</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog/polzi-klasicheski-masazh-veliko-tarnovo-pavlikeni" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog/polzi-klasicheski-masazh-veliko-tarnovo-pavlikeni" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog/polzi-klasicheski-masazh-veliko-tarnovo-pavlikeni" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/blog/polzi-klasicheski-masazh-veliko-tarnovo-pavlikeni</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog/polzi-klasicheski-masazh-veliko-tarnovo-pavlikeni" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog/polzi-klasicheski-masazh-veliko-tarnovo-pavlikeni" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog/polzi-klasicheski-masazh-veliko-tarnovo-pavlikeni" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/blog/sporten-masazh-vazstanovyavane-veliko-tarnovo</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog/sporten-masazh-vazstanovyavane-veliko-tarnovo" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog/sporten-masazh-vazstanovyavane-veliko-tarnovo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog/sporten-masazh-vazstanovyavane-veliko-tarnovo" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/blog/sporten-masazh-vazstanovyavane-veliko-tarnovo</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog/sporten-masazh-vazstanovyavane-veliko-tarnovo" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog/sporten-masazh-vazstanovyavane-veliko-tarnovo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog/sporten-masazh-vazstanovyavane-veliko-tarnovo" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/blog/anticeluliten-masazh-rezultati-pavlikeni</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog/anticeluliten-masazh-rezultati-pavlikeni" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog/anticeluliten-masazh-rezultati-pavlikeni" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog/anticeluliten-masazh-rezultati-pavlikeni" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/blog/anticeluliten-masazh-rezultati-pavlikeni</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog/anticeluliten-masazh-rezultati-pavlikeni" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog/anticeluliten-masazh-rezultati-pavlikeni" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog/anticeluliten-masazh-rezultati-pavlikeni" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/blog/aromaterapiya-eterichni-masla-veliko-tarnovo</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog/aromaterapiya-eterichni-masla-veliko-tarnovo" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog/aromaterapiya-eterichni-masla-veliko-tarnovo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog/aromaterapiya-eterichni-masla-veliko-tarnovo" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/blog/aromaterapiya-eterichni-masla-veliko-tarnovo</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog/aromaterapiya-eterichni-masla-veliko-tarnovo" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog/aromaterapiya-eterichni-masla-veliko-tarnovo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog/aromaterapiya-eterichni-masla-veliko-tarnovo" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/blog/masazh-stres-oblekchavane-veliko-tarnovo</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog/masazh-stres-oblekchavane-veliko-tarnovo" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog/masazh-stres-oblekchavane-veliko-tarnovo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog/masazh-stres-oblekchavane-veliko-tarnovo" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/blog/masazh-stres-oblekchavane-veliko-tarnovo</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog/masazh-stres-oblekchavane-veliko-tarnovo" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog/masazh-stres-oblekchavane-veliko-tarnovo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog/masazh-stres-oblekchavane-veliko-tarnovo" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/blog/kolko-chesto-masazh-rutina-np-massage</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog/kolko-chesto-masazh-rutina-np-massage" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog/kolko-chesto-masazh-rutina-np-massage" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog/kolko-chesto-masazh-rutina-np-massage" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/blog/kolko-chesto-masazh-rutina-np-massage</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog/kolko-chesto-masazh-rutina-np-massage" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog/kolko-chesto-masazh-rutina-np-massage" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog/kolko-chesto-masazh-rutina-np-massage" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/blog/masazhi-veliko-tarnovo-pavlikeni-pulno-rukovodstvo</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog/masazhi-veliko-tarnovo-pavlikeni-pulno-rukovodstvo" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog/masazhi-veliko-tarnovo-pavlikeni-pulno-rukovodstvo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog/masazhi-veliko-tarnovo-pavlikeni-pulno-rukovodstvo" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/blog/masazhi-veliko-tarnovo-pavlikeni-pulno-rukovodstvo</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog/masazhi-veliko-tarnovo-pavlikeni-pulno-rukovodstvo" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog/masazhi-veliko-tarnovo-pavlikeni-pulno-rukovodstvo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog/masazhi-veliko-tarnovo-pavlikeni-pulno-rukovodstvo" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/blog/chastichen-masazh-grab-oblekchavane-veliko-tarnovo</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog/chastichen-masazh-grab-oblekchavane-veliko-tarnovo" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog/chastichen-masazh-grab-oblekchavane-veliko-tarnovo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog/chastichen-masazh-grab-oblekchavane-veliko-tarnovo" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/blog/chastichen-masazh-grab-oblekchavane-veliko-tarnovo</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog/chastichen-masazh-grab-oblekchavane-veliko-tarnovo" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog/chastichen-masazh-grab-oblekchavane-veliko-tarnovo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog/chastichen-masazh-grab-oblekchavane-veliko-tarnovo" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/blog/pomaga-li-masazhat-pri-diskopatiya</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog/pomaga-li-masazhat-pri-diskopatiya" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog/pomaga-li-masazhat-pri-diskopatiya" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog/pomaga-li-masazhat-pri-diskopatiya" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/blog/pomaga-li-masazhat-pri-diskopatiya</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog/pomaga-li-masazhat-pri-diskopatiya" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog/pomaga-li-masazhat-pri-diskopatiya" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog/pomaga-li-masazhat-pri-diskopatiya" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/blog/razlika-lecheben-sporten-masazh</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog/razlika-lecheben-sporten-masazh" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog/razlika-lecheben-sporten-masazh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog/razlika-lecheben-sporten-masazh" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/blog/razlika-lecheben-sporten-masazh</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog/razlika-lecheben-sporten-masazh" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog/razlika-lecheben-sporten-masazh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog/razlika-lecheben-sporten-masazh" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/blog/kolko-vreme-trae-edin-masazh</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog/kolko-vreme-trae-edin-masazh" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog/kolko-vreme-trae-edin-masazh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog/kolko-vreme-trae-edin-masazh" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/blog/kolko-vreme-trae-edin-masazh</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog/kolko-vreme-trae-edin-masazh" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog/kolko-vreme-trae-edin-masazh" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog/kolko-vreme-trae-edin-masazh" />
+  </url>
+
+  <!-- REMOVED: off-topic digital marketing blog posts → noindex, removed from sitemap -->
+
+  <!-- REMOVED: off-topic digital marketing blog posts → noindex, removed from sitemap -->
+
+  <!-- REMOVED: off-topic digital marketing blog posts → noindex, removed from sitemap -->
+
+  <url>
+    <loc>https://npmassagestudio.com/blog</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/blog</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/blog" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/blog" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/blog" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/kontakti</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/kontakti" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/kontakti" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/contact</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/kontakti" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/kontakti" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/rezervaciya</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/rezervaciya" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/booking" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/rezervaciya" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/booking</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/rezervaciya" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/booking" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/rezervaciya" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/politika-poveritelnost</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/politika-poveritelnost" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/politika-poveritelnost" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/privacy</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/politika-poveritelnost" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/politika-poveritelnost" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/obshti-usloviya</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/obshti-usloviya" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/obshti-usloviya" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/terms</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/obshti-usloviya" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/terms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/obshti-usloviya" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/politika-biskvitki</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/politika-biskvitki" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/cookies" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/politika-biskvitki" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/cookies</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/politika-biskvitki" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/cookies" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/politika-biskvitki" />
+  </url>
+
+  <url>
+    <loc>https://npmassagestudio.com/videos-masazhi</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/videos-masazhi" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/videos-masazhi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/videos-masazhi" />
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/en/videos-masazhi</loc>
+    <lastmod>2026-08-05</lastmod>
+    <xhtml:link rel="alternate" hreflang="bg" href="https://npmassagestudio.com/videos-masazhi" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://npmassagestudio.com/en/videos-masazhi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://npmassagestudio.com/videos-masazhi" />
+  </url>
+
+  <!-- Local landing pages: Veliko Tarnovo + Pavlikeni ONLY (real locations) -->
+  <url>
+    <loc>https://npmassagestudio.com/masazhi-veliko-tarnovo</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/masazhi-pavlikeni</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/klassicheski-masazh-veliko-tarnovo</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/klassicheski-masazh-pavlikeni</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/sporten-masazh-veliko-tarnovo</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/sporten-masazh-pavlikeni</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/anticeluliten-masazh-veliko-tarnovo</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/anticeluliten-masazh-pavlikeni</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/aromaterapiya-veliko-tarnovo</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/aromaterapiya-pavlikeni</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/masazh-grab-veliko-tarnovo</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/masazh-grab-pavlikeni</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/relaksirasht-masazh-veliko-tarnovo</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/relaksirasht-masazh-pavlikeni</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/masazh-pri-bolki-v-garba</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/masazh-pri-stres-i-naprejenie</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/masazh-za-vazstanovyavane-sled-trenirovka</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/masazh-pri-glavobolie</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/lecheben-masazh-veliko-tarnovo</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/masazh-pri-shvanat-vrat</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/turski-masazh-veliko-tarnovo</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/dubok-takannen-masazh-veliko-tarnovo</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/masazhno-studio-veliko-tarnovo</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/profesionalen-masazh-veliko-tarnovo</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/masazh-pri-diskopatiya</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/naj-dobar-masazh-veliko-tarnovo</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/kade-lecheben-masazh-veliko-tarnovo</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/koj-masazh-pri-bolki-v-krasta</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/polzi-ot-redoven-masazh</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <!-- Service-area landing pages: Gabrovo, Gorna Oryahovitsa, Lyaskovets, Sevlievo -->
+  <url>
+    <loc>https://npmassagestudio.com/masazhi-gabrovo</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/masazhi-gorna-oryahovitsa</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/masazhi-lyaskovets</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/masazhi-sevlievo</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/klassicheski-masazh-gabrovo</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/klassicheski-masazh-gorna-oryahovitsa</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/klassicheski-masazh-lyaskovets</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/klassicheski-masazh-sevlievo</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/sporten-masazh-gabrovo</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/sporten-masazh-gorna-oryahovitsa</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/sporten-masazh-lyaskovets</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/sporten-masazh-sevlievo</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/anticeluliten-masazh-gabrovo</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/anticeluliten-masazh-gorna-oryahovitsa</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/anticeluliten-masazh-lyaskovets</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+  <url>
+    <loc>https://npmassagestudio.com/anticeluliten-masazh-sevlievo</loc>
+    <lastmod>2026-08-05</lastmod>
+  </url>
+</urlset>

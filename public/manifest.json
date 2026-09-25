@@ -1,0 +1,96 @@
+{
+  "name": "NP Massage Studio",
+  "short_name": "NP Massage",
+  "description": "Професионален масажен салон във Велико Търново и Павликени. Класически, спортен, антицелулитен масаж, ароматерапия и терапевтични процедури.",
+  "start_url": "https://npmassagestudio.com/",
+  "display": "standalone",
+  "background_color": "#1a4734",
+  "theme_color": "#1a4734",
+  "orientation": "portrait",
+  "scope": "https://npmassagestudio.com/",
+  "lang": "bg",
+  "id": "npmassagestudio-pwa-v1",
+  "icons": [
+    {
+      "src": "https://storage.readdy-site.link/project_files/ac01bae9-5287-435a-8690-39522f5115fa/6330f6e8-60f6-457b-ac34-35f89b069387_np-logo.png?v=33fb7cb01f14b974188dcbe0ed67c4e9",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://storage.readdy-site.link/project_files/ac01bae9-5287-435a-8690-39522f5115fa/6330f6e8-60f6-457b-ac34-35f89b069387_np-logo.png?v=33fb7cb01f14b974188dcbe0ed67c4e9",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://storage.readdy-site.link/project_files/ac01bae9-5287-435a-8690-39522f5115fa/6330f6e8-60f6-457b-ac34-35f89b069387_np-logo.png?v=33fb7cb01f14b974188dcbe0ed67c4e9",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://storage.readdy-site.link/project_files/ac01bae9-5287-435a-8690-39522f5115fa/6330f6e8-60f6-457b-ac34-35f89b069387_np-logo.png?v=33fb7cb01f14b974188dcbe0ed67c4e9",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://storage.readdy-site.link/project_files/ac01bae9-5287-435a-8690-39522f5115fa/6330f6e8-60f6-457b-ac34-35f89b069387_np-logo.png?v=33fb7cb01f14b974188dcbe0ed67c4e9",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://storage.readdy-site.link/project_files/ac01bae9-5287-435a-8690-39522f5115fa/6330f6e8-60f6-457b-ac34-35f89b069387_np-logo.png?v=33fb7cb01f14b974188dcbe0ed67c4e9",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://storage.readdy-site.link/project_files/ac01bae9-5287-435a-8690-39522f5115fa/6330f6e8-60f6-457b-ac34-35f89b069387_np-logo.png?v=33fb7cb01f14b974188dcbe0ed67c4e9",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://storage.readdy-site.link/project_files/ac01bae9-5287-435a-8690-39522f5115fa/6330f6e8-60f6-457b-ac34-35f89b069387_np-logo.png?v=33fb7cb01f14b974188dcbe0ed67c4e9",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["health", "wellness", "spa", "beauty"],
+  "screenshots": [
+    {
+      "src": "https://storage.readdy-site.link/project_files/ac01bae9-5287-435a-8690-39522f5115fa/6330f6e8-60f6-457b-ac34-35f89b069387_np-logo.png?v=33fb7cb01f14b974188dcbe0ed67c4e9",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "NP Massage Studio — професионален масажен салон"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Услуги",
+      "short_name": "Услуги",
+      "description": "Виж всички масажни услуги",
+      "url": "/uslugi",
+      "icons": [{ "src": "https://storage.readdy-site.link/project_files/ac01bae9-5287-435a-8690-39522f5115fa/6330f6e8-60f6-457b-ac34-35f89b069387_np-logo.png?v=33fb7cb01f14b974188dcbe0ed67c4e9", "sizes": "96x96" }]
+    },
+    {
+      "name": "Запази час",
+      "short_name": "Резервация",
+      "description": "Запази час за масаж",
+      "url": "/rezervaciya",
+      "icons": [{ "src": "https://storage.readdy-site.link/project_files/ac01bae9-5287-435a-8690-39522f5115fa/6330f6e8-60f6-457b-ac34-35f89b069387_np-logo.png?v=33fb7cb01f14b974188dcbe0ed67c4e9", "sizes": "96x96" }]
+    },
+    {
+      "name": "Контакти",
+      "short_name": "Контакти",
+      "description": "Свържи се с нас",
+      "url": "/kontakti",
+      "icons": [{ "src": "https://storage.readdy-site.link/project_files/ac01bae9-5287-435a-8690-39522f5115fa/6330f6e8-60f6-457b-ac34-35f89b069387_np-logo.png?v=33fb7cb01f14b974188dcbe0ed67c4e9", "sizes": "96x96" }]
+    }
+  ]
+}

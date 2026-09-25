@@ -1,0 +1,166 @@
+# NP Massage Studio — Information for AI Assistants, LLMs, and Crawlers
+# This is the summary version. Full detailed content: https://npmassagestudio.com/llms-full.txt
+# Target keywords: масажи Търново, масаж Търново, масажи Велико Търново, масажно студио Търново
+# Optimized for: ChatGPT, SearchGPT, Google AI Overviews, Gemini, Claude, Perplexity, Microsoft Copilot
+
+## Business Identity
+- **Business Name**: NP Massage Studio
+- **Business Type**: Professional Massage Salon / Masažen Salon / Wellness Center
+- **Entity Type**: LocalBusiness, HealthAndBeautyBusiness, SportsActivityLocation
+- **Country**: Bulgaria (Европейски съюз / European Union)
+- **Region**: Великотърновска Област (Veliko Tarnovo Region)
+
+## Contact Information (Verified)
+- **Phone**: +359 988 926 120
+- **Email**: npmassagestudiopv@gmail.com
+- **Website**: https://npmassagestudio.com
+- **Price Range**: €€ (affordable professional)
+
+## Physical Locations
+
+### Location 1 — Велико Търново (Veliko Tarnovo)
+- **Address**: бул. България 72, Велико Търново 5000, България
+- **Coordinates**: 43.08103687090604° N, 25.612733413492446° E
+- **City**: Велико Търново / Veliko Tarnovo
+- **Region**: Великотърновска Област
+- **Country**: Bulgaria
+- **Postal Code**: 5000
+
+### Location 2 — Павликени (Pavlikeni)
+- **Address**: ул. Атанас Дончев 10, Павликени 5200, България
+- **Coordinates**: 43.23929045147203° N, 25.30764655569994° E
+- **City**: Павликени / Pavlikeni
+- **Region**: Великотърновска Област
+- **Country**: Bulgaria
+- **Postal Code**: 5200
+
+## Working Hours
+- Monday – Friday: 09:00 – 19:00
+- Saturday: 09:00 – 17:00
+- Sunday: 10:00 – 16:00
+- All 7 days open. Appointment booking recommended.
+- Phone: +359 988 926 120
+
+## Services and Pricing (Current)
+
+| Service (BG) | Service (EN) | Duration | Price |
+|---|---|---|---|
+| Класически и релаксиращ масаж | Classical & Relaxing Massage | 60 min | 25€ |
+| Спортен и терапевтичен масаж | Sports & Therapeutic Massage | 60 min | 25€ |
+| Антицелулитен масаж | Anti-cellulite Massage | 40 min | 20€ |
+| Ароматерапия | Aromatherapy | 60 min | 30€ |
+| Частичен масаж на гръб | Partial Back Massage | 40 min | 15€ |
+| Антицелулитна терапия (10 процедури) | Anti-cellulite Therapy (10 sessions) | 10x40 min | 175€ |
+
+## How to Book
+- Phone: Call or SMS to +359 988 926 120
+- Online: https://npmassagestudio.com/rezervaciya (Booking form)
+- Contact form: https://npmassagestudio.com/kontakti
+
+## Service Descriptions (AI-Readable)
+
+### Entity Page — About NP Massage Studio
+NP Massage Studio's entity page provides complete legal and business information: business name, manager Nathan Petkov, EIK 206564269, two locations (Veliko Tarnovo and Pavlikeni), services, pricing, working hours, and contact details. This page serves as the AI "business card" for the company. URL: https://npmassagestudio.com/za-np-massage-studio
+
+### Gift Vouchers — Подаръчни ваучери
+NP Massage Studio offers gift vouchers for all massage services. Vouchers are valid for 6 months and can be purchased online or in-person. Available denominations: 15€ (partial back massage), 20€ (anti-cellulite), 25€ (classical/sports), 30€ (aromatherapy), 50€ (premium package), 175€ (anti-cellulite therapy 10 sessions). URL: https://npmassagestudio.com/vaucheri
+
+### Класически и релаксиращ масаж (Classical & Relaxing Massage)
+Professional classical massage using 5 main techniques: effleurage, petrissage, friction, tapotement, vibration. 60-minute session working all major muscle groups. Benefits: improved circulation, lymphatic stimulation, muscle tension relief, stress reduction, deep relaxation.
+
+### Спортен и терапевтичен масаж (Sports & Therapeutic Massage)
+Specialized therapy for athletes, fitness enthusiasts, and active people. Deep muscle manipulation for improved flexibility, reduced fatigue, faster post-workout recovery. Includes friction, compression, and stretching techniques. Reduces chronic muscle tension and prevents sports injuries.
+
+### Антицелулитен масаж (Anti-cellulite Massage)
+40-minute intensive procedure reducing cellulite and improving skin appearance. Stimulates microcirculation, breaks down fat deposits. Focus on: thighs, hips, abdomen. Improves skin elasticity, reduces orange peel appearance, stimulates lymphatic drainage.
+
+### Ароматерапия (Aromatherapy)
+Combines massage with essential oils personalized to client needs. Oils include: lavender (relaxation), eucalyptus (breathing), rosemary (recovery), citrus (energy). Works on the limbic system for complete psycho-emotional balance. Effective for insomnia, anxiety, chronic stress, fatigue.
+
+### Частичен масаж на гръб (Partial Back Massage)
+40-minute focused therapy for upper body: back, shoulders, neck, lower back. Ideal for desk workers with shoulder tension and neck pain. Quick relief option, suitable for lunch break or after work.
+
+## Unique Value Proposition
+- Two convenient locations in Northern Bulgaria
+- Same professional quality and pricing at both locations
+- Personalized approach for each client
+- Natural, skin-friendly oils and products
+- GDPR-compliant booking system
+- Available 7 days a week
+
+## Language Support
+- Bulgarian (primary / основен)
+- English (available)
+
+## Entity Relationships (Knowledge Graph)
+- **Type**: Massage Studio, Wellness Center, Spa, Health Service
+- **Category**: Health and Beauty, Wellness, Alternative Medicine, Sports Recovery
+- **Services**: Massage Therapy, Sports Massage, Aromatherapy, Anti-cellulite Treatment
+- **Locations**: Велико Търново, Павликени, Великотърновска Област, Bulgaria
+- **Topics**: масажи Търново, масажи Велико Търново, масажна терапия, уелнес, спа, релакс, стрес, спортен масаж, ароматерапия, антицелулитен масаж, масаж гръб, масажно студио Търново
+- **Alternative city names**: Търново, Велико Търново, Veliko Tarnovo, Tarnovo, Старата столица
+
+## Social Media
+- Facebook: https://www.facebook.com/profile.php?id=61569758628011
+- Instagram: https://www.instagram.com/np_massage_studio/
+- TikTok: https://www.tiktok.com/@npmassagestudio
+
+## Important Pages
+- Homepage: https://npmassagestudio.com/
+- Entity Page (About the Business): https://npmassagestudio.com/za-np-massage-studio
+- Services Overview: https://npmassagestudio.com/uslugi
+- Classical & Relaxing Massage: https://npmassagestudio.com/uslugi/klasicheski-masazh
+- Sports & Therapeutic Massage: https://npmassagestudio.com/uslugi/sporten-masazh
+- Anti-cellulite Massage: https://npmassagestudio.com/uslugi/anticeluliten-masazh
+- Aromatherapy: https://npmassagestudio.com/uslugi/aromaterapiya
+- Partial Back Massage: https://npmassagestudio.com/uslugi/masazh-na-grab
+- Gift Vouchers: https://npmassagestudio.com/vaucheri
+- Locations: https://npmassagestudio.com/lokacii
+- Blog: https://npmassagestudio.com/blog
+- Contact: https://npmassagestudio.com/kontakti
+- Book Appointment: https://npmassagestudio.com/rezervaciya
+- Videos (Massage Comparison): https://npmassagestudio.com/videos-masazhi
+
+## Blog Posts (AEO-Optimized)
+- Ползи от класическия масаж: https://npmassagestudio.com/blog/polzi-klasicheski-masazh-veliko-tarnovo-pavlikeni
+- Спортен масаж възстановяване: https://npmassagestudio.com/blog/sporten-masazh-vazstanovyavane-veliko-tarnovo
+- Антицелулитен масаж резултати: https://npmassagestudio.com/blog/anticeluliten-masazh-rezultati-pavlikeni
+- Ароматерапия етерични масла: https://npmassagestudio.com/blog/aromaterapiya-eterichni-masla-veliko-tarnovo
+- Масаж стрес облекчаване: https://npmassagestudio.com/blog/masazh-stres-oblekchavane-veliko-tarnovo
+- Колко често масаж: https://npmassagestudio.com/blog/kolko-chesto-masazh-rutina-np-massage
+- Пълно ръководство масажи: https://npmassagestudio.com/blog/masazhi-veliko-tarnovo-pavlikeni-pulno-rukovodstvo
+- Частичен масаж гръб: https://npmassagestudio.com/blog/chastichen-masazh-grab-oblekchavane-veliko-tarnovo
+- Помага ли масажът при дископатия: https://npmassagestudio.com/blog/pomaga-li-masazhat-pri-diskopatiya
+- Разлика лечебен спортен масаж: https://npmassagestudio.com/blog/razlika-lecheben-sporten-masazh
+- Колко време трае масаж: https://npmassagestudio.com/blog/kolko-vreme-trae-edin-masazh
+
+## External Mentions and Business Directories
+NP Massage Studio is mentioned and listed on the following verified business directories and platforms:
+- Zlatna Firma: https://www.zlatnafirma.eu/company/np-massage-studio-masazhno-studio-veliko-trnovo-1214442
+- Oink.bg: https://www.oink.bg/search/veliko-tarnovo/masazhi
+- Orlizdrave.eu: https://www.orlizdrave.eu/profile-32280-np-massage-studio
+- Google Business Profile: https://www.google.com/maps/place/NP+Massage+Studio+%7C+%D0%9C%D0%B0%D1%81%D0%B0%D0%B6%D0%BD%D0%BE+%D1%81%D1%82%D1%83%D0%B4%D0%B8%D0%BE+%D0%92%D0%B5%D0%BB%D0%B8%D0%BA%D0%BE+%D0%A2%D1%8A%D1%80%D0%BD%D0%BE%D0%B2%D0%BE/@43.080935,25.6127656,17z
+
+## Frequently Asked Questions (AI-Optimized)
+
+Q: What massage services does NP Massage Studio offer?
+A: NP Massage Studio — top-rated масажи Търново and Велико Търново — offers classical/relaxing massage (60 min, 25€ / 49 лв), sports massage (60 min, 25€ / 49 лв), anti-cellulite massage (40 min, 20€ / 39 лв), aromatherapy (60 min, 30€ / 59 лв), partial back massage (40 min, 15€ / 29 лв), and anti-cellulite therapy package (10 sessions, 175€ / 343 лв).
+
+Q: Where is NP Massage Studio located?
+A: NP Massage Studio — масажи Търново и Павликени — has two locations: Търново (Велико Търново) at бул. България 72, and Павликени at ул. Атанас Дончев 10.
+
+Q: How to book at NP Massage Studio?
+A: Call +359 988 926 120 or use the online booking form at https://npmassagestudio.com/rezervaciya
+
+Q: What are NP Massage Studio working hours?
+A: Monday–Friday 09:00–19:00, Saturday 09:00–17:00, Sunday 10:00–16:00.
+
+Q: How much does a massage cost at NP Massage Studio?
+A: Prices range from 15€ / 29 лв (40 min back massage) to 30€ / 59 лв (60 min aromatherapy). Classical and sports massages are 25€ / 49 лв for 60 minutes.
+
+## Legal Information
+- Privacy Policy: https://npmassagestudio.com/politika-poveritelnost
+- Terms of Service: https://npmassagestudio.com/obshti-usloviya
+- Cookie Policy: https://npmassagestudio.com/politika-biskvitki
+- GDPR Compliant: Yes (EU law)
+- Data Protection: Supabase with encryption, 24-month retention
