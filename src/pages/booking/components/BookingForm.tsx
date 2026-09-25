@@ -135,7 +135,27 @@ export default function BookingForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validate()) return;
+    if (!validate()) {
+      // Reveal all validation messages so the user always gets feedback.
+      setTouched({
+        name: true,
+        phone: true,
+        email: true,
+        service: true,
+        location: true,
+        appointment_date: true,
+        appointment_time: true,
+        message: true,
+      });
+      // Scroll to the first field with an error on the next paint.
+      setTimeout(() => {
+        const firstError = document.querySelector('#booking-form .border-red-300');
+        if (firstError) {
+          (firstError as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 50);
+      return;
+    }
     setSubmitting(true);
     setStatus('idle');
     try {
@@ -248,7 +268,7 @@ export default function BookingForm() {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-6" id="booking-form">
         {/* Step 1: Personal Data */}
         <div className="bg-background-100 rounded-2xl p-5 md:p-6 border border-background-200/70">
           <div className="flex items-center gap-3 mb-5">

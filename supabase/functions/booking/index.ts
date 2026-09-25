@@ -53,6 +53,177 @@ const VALID_TIMES = [
   '15:00', '16:00', '17:00', '18:00',
 ];
 
+// ── GOOGLE CALENDAR INTEGRATION ──────────────────────
+
+function base64UrlEncode(input: Uint8Array): string {
+  let binary = '';
+  for (let i = 0; i < input.length; i++) {
+    binary += String.fromCharCode(input[i]);
+  }
+  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function base64UrlFromString(str: string): string {
+  return base64UrlEncode(new TextEncoder().encode(str));
+}
+
+async function getGoogleAccessToken(): Promise<string | null> {
+  try {
+    const raw = Deno.env.get('GOOGLE_SERVICE_ACCOUNT_JSON');
+    if (!raw) return null;
+    const sa = JSON.parse(raw);
+    if (!sa.client_email || !sa.private_key) return null;
+
+    const now = Math.floor(Date.now() / 1000);
+    const header = { alg: 'RS256', typ: 'JWT' };
+    const claims = {
+      iss: sa.client_email,
+      scope: 'https://www.googleapis.com/auth/calendar',
+      aud: 'https://oauth2.googleapis.com/token',
+      iat: now,
+      exp: now + 3600,
+    };
+
+    const signingInput = `${base64UrlFromString(JSON.stringify(header))}.${base64UrlFromString(JSON.stringify(claims))}`;
+
+    const pem = String(sa.private_key).replace(/\\n/g, '\n');
+    const pemBody = pem
+      .replace('-----BEGIN PRIVATE KEY-----', '')
+      .replace('-----END PRIVATE KEY-----', '')
+      .replace(/\s/g, '');
+    const der = Uint8Array.from(atob(pemBody), (c) => c.charCodeAt(0));
+
+    const key = await crypto.subtle.importKey(
+      'pkcs8',
+      der,
+      { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' },
+      false,
+      ['sign'],
+    );
+
+    const signature = await crypto.subtle.sign(
+      'RSASSA-PKCS1-v1_5',
+      key,
+      new TextEncoder().encode(signingInput),
+    );
+
+    const jwt = `${signingInput}.${base64UrlEncode(new Uint8Array(signature))}`;
+
+    const tokenRes = await fetch('https://oauth2.googleapis.com/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({
+        grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+        assertion: jwt,
+      }),
+      signal: AbortSignal.timeout(5000),
+    });
+
+    if (!tokenRes.ok) {
+      console.error('Google token error:', await tokenRes.text());
+      return null;
+    }
+    const tokenData = await tokenRes.json();
+    return tokenData.access_token ?? null;
+  } catch (err) {
+    console.error('Google auth error:', err);
+    return null;
+  }
+}
+
+const SERVICE_LABELS: Record<string, string> = {
+  classical: 'Класически и релаксиращ масаж',
+  sport: 'Спортен и терапевтичен масаж',
+  anticellulite: 'Антицелулитен масаж',
+  aromatherapy: 'Ароматерапия',
+  back: 'Частичен масаж на гръб',
+};
+
+const SERVICE_DURATION: Record<string, number> = {
+  classical: 60,
+  sport: 60,
+  anticellulite: 40,
+  aromatherapy: 60,
+  back: 40,
+};
+
+const LOCATION_LABELS: Record<string, string> = {
+  vt: 'Велико Търново — бул. България 72',
+  pv: 'Павликени — ул. Атанас Дончев 10',
+};
+
+async function createCalendarEvent(appt: {
+  name: string;
+  email: string;
+  phone: string;
+  service: string;
+  location: string;
+  appointment_date: string;
+  appointment_time: string;
+  message?: string;
+}): Promise<string | null> {
+  const calendarId = Deno.env.get('GOOGLE_CALENDAR_ID');
+  if (!calendarId) return null;
+
+  const token = await getGoogleAccessToken();
+  if (!token) return null;
+
+  const duration = SERVICE_DURATION[appt.service] ?? 60;
+  const [h, m] = appt.appointment_time.split(':').map(Number);
+  const endTotal = h * 60 + m + duration;
+  const endH = String(Math.floor(endTotal / 60)).padStart(2, '0');
+  const endM = String(endTotal % 60).padStart(2, '0');
+
+  const serviceLabel = SERVICE_LABELS[appt.service] ?? appt.service;
+  const locationLabel = LOCATION_LABELS[appt.location] ?? '';
+
+  const descriptionLines = [
+    `Клиент: ${appt.name}`,
+    `Телефон: ${appt.phone}`,
+    `Имейл: ${appt.email}`,
+    `Услуга: ${serviceLabel}`,
+    `Локация: ${locationLabel}`,
+  ];
+  if (appt.message) {
+    descriptionLines.push('', `Бележка: ${appt.message}`);
+  }
+
+  const eventBody = {
+    summary: `Масаж: ${serviceLabel} — ${appt.name}`,
+    location: locationLabel,
+    description: descriptionLines.join('\n'),
+    start: {
+      dateTime: `${appt.appointment_date}T${appt.appointment_time}:00`,
+      timeZone: 'Europe/Sofia',
+    },
+    end: {
+      dateTime: `${appt.appointment_date}T${endH}:${endM}:00`,
+      timeZone: 'Europe/Sofia',
+    },
+    reminders: { useDefault: true },
+  };
+
+  const res = await fetch(
+    `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(eventBody),
+      signal: AbortSignal.timeout(5000),
+    },
+  );
+
+  if (!res.ok) {
+    console.error('Calendar event error:', await res.text());
+    return null;
+  }
+  const created = await res.json();
+  return created.id ?? null;
+}
+
 Deno.serve(async (req) => {
   const origin = req.headers.get('origin');
   const corsHeaders = getCorsHeaders(origin);
@@ -254,7 +425,27 @@ Deno.serve(async (req) => {
       });
     }
 
-    // === INSERT APPOINTMENT ===
+    // === GOOGLE CALENDAR SYNC (before insert) ===
+    // We create the calendar event BEFORE the row is inserted and store its id
+    // directly in the INSERT. This keeps the whole booking to a SINGLE write,
+    // so the "telegram" webhook (AFTER INSERT OR UPDATE) fires only once.
+    let googleEventId: string | null = null;
+    try {
+      googleEventId = await createCalendarEvent({
+        name: sanitize(body.name),
+        email: body.email.trim().toLowerCase(),
+        phone: sanitize(body.phone).substring(0, 20),
+        service: body.service,
+        location: body.location,
+        appointment_date: body.appointment_date,
+        appointment_time: body.appointment_time,
+        message: body.message ? sanitize(body.message).substring(0, 500) : '',
+      });
+    } catch (err) {
+      console.error('Calendar sync failed:', err);
+    }
+
+    // === INSERT APPOINTMENT (single write → single notification) ===
     const { data, error } = await supabase
       .from('appointments')
       .insert({
@@ -267,6 +458,7 @@ Deno.serve(async (req) => {
         appointment_time: body.appointment_time,
         message: body.message ? sanitize(body.message).substring(0, 500) : '',
         status: 'pending',
+        google_event_id: googleEventId,
       })
       .select('id')
       .single();
