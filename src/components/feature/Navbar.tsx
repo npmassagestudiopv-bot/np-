@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocalizedNav } from '@/hooks/useLocalizedNav';
 
@@ -20,7 +20,8 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const isHome = location.pathname === '/' || location.pathname === '';
+  const menuRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,14 +32,33 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
     if (mobileOpen) {
       document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
+      const panel = menuRef.current;
+      const trigger = menuButtonRef.current;
+      panel?.querySelector<HTMLButtonElement>('button')?.focus();
+      const handleKey = (event: KeyboardEvent) => {
+        if (event.key === 'Escape') setMobileOpen(false);
+        if (event.key !== 'Tab' || !panel) return;
+        const controls = panel.querySelectorAll<HTMLElement>('a[href], button:not([disabled])');
+        const first = controls[0];
+        const last = controls[controls.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
+      };
+      document.addEventListener('keydown', handleKey);
+      return () => {
+        document.body.style.overflow = previousOverflow;
+        document.removeEventListener('keydown', handleKey);
+        trigger?.focus();
+      };
     }
-    return () => {
-      document.body.style.overflow = '';
-    };
   }, [mobileOpen]);
 
   const handleNavClick = (path: string) => {
@@ -46,15 +66,11 @@ export default function Navbar() {
     handleNav(path);
   };
 
-  const logoIsInverted = !scrolled && isHome;
-
   const logoContent = (
     <img
       src={LOGO_URL}
       alt="NP Massage Studio"
-      className={`h-11 md:h-12 w-auto object-contain transition-all duration-500 ${
-        logoIsInverted ? 'brightness-0 invert' : ''
-      }`}
+      className="h-11 md:h-12 w-auto object-contain"
       width="48"
       height="48"
       loading="eager"
@@ -67,11 +83,8 @@ export default function Navbar() {
       {/* ====== DESKTOP + MOBILE NAVBAR BAR ====== */}
       <nav
         data-navbar="main"
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? 'bg-background-50 border-b border-background-200 shadow-sm'
-            : 'bg-black/30 backdrop-blur-[2px] md:bg-transparent'
-        }`}
+        aria-label={isEn ? 'Main navigation' : 'Основна навигация'}
+        className={`fixed top-0 left-0 right-0 z-50 bg-background-50 border-b border-background-200 transition-shadow duration-300 ${scrolled ? 'shadow-sm' : ''}`}
       >
         <div className="w-full px-5 md:px-6 lg:px-10">
           <div className="flex items-center justify-between h-[68px] md:h-20">
@@ -83,13 +96,7 @@ export default function Navbar() {
               }}
               className="flex items-center h-full cursor-pointer"
             >
-              {isHome ? (
-                <h1 className="flex items-center h-full m-0 p-0">
-                  {logoContent}
-                </h1>
-              ) : (
-                logoContent
-              )}
+              {logoContent}
             </a>
 
             {/* Desktop links */}
@@ -148,14 +155,12 @@ export default function Navbar() {
 
             {/* Hamburger — mobile only, hidden on lg+ */}
             <button
-              className={`lg:hidden w-[42px] h-[42px] flex items-center justify-center cursor-pointer rounded-full transition-all duration-300 ${
-                scrolled
-                  ? 'text-foreground-800 bg-background-200/80 hover:bg-background-300'
-                  : 'text-white bg-white/15 hover:bg-white/25 backdrop-blur-sm'
-              }`}
+              ref={menuButtonRef}
+              className="lg:hidden w-[44px] h-[44px] flex items-center justify-center cursor-pointer rounded-full text-foreground-800 bg-background-200/80 hover:bg-background-300 transition-colors duration-300"
               onClick={() => setMobileOpen(true)}
-              aria-label="Open menu"
+              aria-label={isEn ? 'Open menu' : 'Отвори менюто'}
               aria-expanded={mobileOpen}
+              aria-controls="mobile-navigation"
             >
               <i className="ri-menu-line text-xl" />
             </button>
@@ -181,19 +186,24 @@ export default function Navbar() {
 
         {/* Slide panel */}
         <div
+          ref={menuRef}
+          id="mobile-navigation"
+          role="dialog"
+          aria-modal={mobileOpen ? true : undefined}
+          aria-labelledby="mobile-navigation-title"
           className={`absolute top-0 right-0 bottom-0 w-[min(320px,85vw)] bg-background-50 transition-transform duration-300 ease-out ${
             mobileOpen ? 'translate-x-0' : 'translate-x-full'
           }`}
         >
           {/* Header */}
           <div className="flex items-center justify-between h-16 px-5 border-b border-background-200">
-            <span className="text-sm font-semibold tracking-wide uppercase text-foreground-800">
+            <span id="mobile-navigation-title" className="text-sm font-semibold tracking-wide uppercase text-foreground-800">
               {t('navMenu')}
             </span>
             <button
               className="w-10 h-10 flex items-center justify-center cursor-pointer rounded-full bg-background-200 hover:bg-background-300 transition-colors"
               onClick={() => setMobileOpen(false)}
-              aria-label="Close menu"
+              aria-label={isEn ? 'Close menu' : 'Затвори менюто'}
             >
               <i className="ri-close-line text-xl text-foreground-800" />
             </button>
@@ -229,7 +239,7 @@ export default function Navbar() {
           <div className="absolute bottom-0 left-0 right-0 px-5 pt-4 pb-6 border-t border-background-200 bg-background-50">
             <div className="flex items-center gap-4 mb-4">
               <button
-                onClick={toggleLang}
+                onClick={() => { setMobileOpen(false); toggleLang(); }}
                 className="flex items-center gap-2 text-sm font-medium text-foreground-800 cursor-pointer py-2 px-3 rounded-lg hover:bg-background-100 transition-colors"
                 aria-label={isEn ? 'Switch to Bulgarian' : 'Switch to English'}
               >

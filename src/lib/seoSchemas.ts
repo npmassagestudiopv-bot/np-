@@ -355,7 +355,7 @@ export function buildWebPageSchema(
   description: string,
   url: string,
   type = 'WebPage',
-  speakable?: { cssSelector?: string; xPath?: string }
+  speakable?: { cssSelector?: string | string[]; xPath?: string }
 ) {
   const data: Record<string, unknown> = {
     '@id': `${baseUrl}${url}`,

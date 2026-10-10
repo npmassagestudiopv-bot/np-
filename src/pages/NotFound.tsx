@@ -30,7 +30,7 @@ export default function NotFound() {
   return (
     <div className="min-h-screen bg-background-50">
       <Navbar />
-      <main className="pt-20 md:pt-24">
+      <main id="main-content" className="pt-20 md:pt-24">
         <div className="w-full px-4 md:px-6 lg:px-10 py-24 md:py-32">
           <div
             ref={ref}

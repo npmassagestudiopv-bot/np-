@@ -4,7 +4,7 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 export default function CtaSection() {
   const { t } = useTranslation();
-  const { handleNav } = useLocalizedNav();
+  const { getPath, handleNav, isEn } = useLocalizedNav();
   const { ref, isVisible } = useScrollReveal({ threshold: 0.15 });
 
   return (
@@ -38,10 +38,10 @@ export default function CtaSection() {
 
           <div className="flex flex-col items-center gap-4">
             <a
-              href="/rezervaciya"
+              href={getPath('/rezervaciya')}
               onClick={(e) => {
                 e.preventDefault();
-                handleNav('/rezervaciya');
+                handleNav(getPath('/rezervaciya'));
               }}
               className="inline-flex items-center justify-center px-10 py-4 bg-primary-500 text-background-50 font-medium text-sm rounded-full hover:bg-primary-600 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer btn-premium shadow-sm min-h-[48px]"
             >

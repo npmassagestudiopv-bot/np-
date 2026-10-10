@@ -108,9 +108,9 @@ export default function LandingPage({ title, description, location, service, can
   const areaMeta = isStudioCity ? null : (SERVICE_AREA_META[location] || null);
   const nearestStudio = areaMeta?.nearestStudio || 'Велико Търново';
 
-  const studioAddr = isStudioCity
+  const studioAddr = useMemo(() => isStudioCity
     ? (STUDIO_ADDRESSES[location] || STUDIO_ADDRESSES['Велико Търново'])
-    : { lat: areaMeta!.lat, lng: areaMeta!.lng, address: areaMeta!.nearestAddress };
+    : { lat: areaMeta!.lat, lng: areaMeta!.lng, address: areaMeta!.nearestAddress }, [isStudioCity, location, areaMeta]);
 
   const faqItems = useMemo(() => {
     if (isStudioCity) return FAQ_STUDIO.map((item) => ({ q: item.q, a: item.a }));
@@ -230,7 +230,7 @@ export default function LandingPage({ title, description, location, service, can
   return (
     <div className="min-h-screen bg-background-50">
       <Navbar />
-      <main className="pt-20 md:pt-24">
+      <main id="main-content" className="pt-20 md:pt-24">
         <section className="w-full px-4 md:px-6 lg:px-10 py-12 md:py-16">
           <div className="max-w-5xl mx-auto">
             {!isStudioCity && areaMeta && (

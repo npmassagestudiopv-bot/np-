@@ -14,54 +14,72 @@ const SERVICE_CITIES = [
 
 const UNIQUE_POINTS = [
   {
-    icon: 'ri-map-pin-2-line',
-    title: 'Две локации в региона',
-    desc: 'Единственият масажен салон в региона с два професионално оборудвани салона — Велико Търново (бул. България 72) и Павликени (ул. Атанас Дончев 10). Обслужваме клиенти от Велико Търново, Павликени, Габрово, Горна Оряховица, Лясковец и Севлиево.',
-    stat: '2 ЛОКАЦИИ',
+    "icon": "ri-map-pin-2-line",
+    "title": "Две удобни локации",
+    "desc": "Велико Търново, бул. България 72, и Павликени, ул. Атанас Дончев 10. Изберете студиото, което ви е удобно.",
+    "stat": "2 ЛОКАЦИИ",
+    "titleEn": "Two convenient locations",
+    "descEn": "72 Bulgaria Blvd., Veliko Tarnovo, and 10 Atanas Donchev St., Pavlikeni. Choose the studio that suits you.",
+    "statEn": "2 LOCATIONS"
   },
   {
-    icon: 'ri-calendar-check-line',
-    title: 'Работим 7 дни в седмицата',
-    desc: 'За разлика от повечето салони, NP Massage Studio работи всеки ден, включително неделя (10:00–16:00). Понеделник–Петък: 09:00–19:00, Събота: 09:00–17:00. Удълженото работно време дава възможност за резервация дори след работа.',
-    stat: '7/7 ДНИ',
+    "icon": "ri-calendar-check-line",
+    "title": "Време за вашето посещение",
+    "desc": "Работим всеки ден. Проверете свободните часове онлайн и изберете удобна дата за посещение.",
+    "stat": "7/7 ДНИ",
+    "titleEn": "Time for your visit",
+    "descEn": "We are open every day. Check availability online and choose a convenient date for your visit.",
+    "statEn": "7 DAYS"
   },
   {
-    icon: 'ri-shield-check-line',
-    title: 'Лицензиран професионален екип',
-    desc: 'Управителят Натан Петков е сертифициран масажист с многогодишен опит. Всеки терапевт в NP Massage Studio преминава строг подбор и работи с доказани техники. Използваме само висококачествени натурални масла без парабени и изкуствени аромати.',
-    stat: '100% НАТУРАЛНО',
+    "icon": "ri-shield-check-line",
+    "title": "Внимание към комфорта",
+    "desc": "Споделете предпочитанията си преди масажа. Натискът и темпото се съобразяват с вашия комфорт.",
+    "stat": "С ГРИЖА",
+    "titleEn": "Attention to your comfort",
+    "descEn": "Tell us your preferences before the massage. Pressure and pace are adjusted to your comfort.",
+    "statEn": "WITH CARE"
   },
   {
-    icon: 'ri-price-tag-3-line',
-    title: 'Прозрачни и достъпни цени',
-    desc: 'Цените ни са конкурентни и напълно прозрачни — без скрити такси и допълнителни разходи. Класически и спортен масаж: 25 € (60 мин), Антицелулитен: 20 € (40 мин), Ароматерапия: 30 € (60 мин), Масаж на гръб: 15 € (40 мин). Пакет антицелулитна терапия (10 процедури): 175 €.',
-    stat: 'ОТ 15 €',
+    "icon": "ri-price-tag-3-line",
+    "title": "Ясни цени и продължителност",
+    "desc": "Пет услуги на цени 15–30 € за 40–60 минути. Пакетът от 10 антицелулитни процедури е 175 €.",
+    "stat": "ОТ 15 €",
+    "titleEn": "Clear prices and duration",
+    "descEn": "Five services at 15–30 € for 40–60 minutes. A package of 10 anti-cellulite sessions costs 175 €.",
+    "statEn": "FROM 15 €"
   },
   {
-    icon: 'ri-smartphone-line',
-    title: 'Удобна онлайн резервация',
-    desc: 'Запазете час за секунди чрез онлайн формата на сайта — без нужда от обаждане. Изберете услуга, локация, дата и час. Потвърждаваме резервацията ви по SMS или обаждане в рамките на 2 часа. Системата работи 24/7.',
-    stat: '24/7 ОНЛАЙН',
+    "icon": "ri-smartphone-line",
+    "title": "Лесна заявка за час",
+    "desc": "Изберете услуга, локация, дата и свободен час. След изпращане ще се свържем с вас за потвърждение.",
+    "stat": "ОНЛАЙН",
+    "titleEn": "Easy booking request",
+    "descEn": "Choose a service, location, date and available time. We will contact you to confirm after you submit.",
+    "statEn": "ONLINE"
   },
   {
-    icon: 'ri-user-heart-line',
-    title: 'Персонализиран подход',
-    desc: 'Всяка процедура е съобразена с индивидуалните нужди, здравословното състояние и предпочитанията на клиента. Комбинираме класически и модерни техники за оптимален резултат — независимо дали търсите релакс, спортно възстановяване или терапевтичен ефект.',
-    stat: 'ИНДИВИДУАЛНО',
-  },
+    "icon": "ri-user-heart-line",
+    "title": "Масаж според вашите нужди",
+    "desc": "За отпускане или след физическо натоварване — ще ви помогнем да изберете подходящата услуга.",
+    "stat": "ИНДИВИДУАЛНО",
+    "titleEn": "Massage for your needs",
+    "descEn": "For relaxation or after physical activity — we will help you choose the service that suits you.",
+    "statEn": "PERSONAL CARE"
+  }
 ];
 
 // Stats that differentiate NP from competitors
 const DIFFERENTIATOR_STATS = [
-  { value: '5+', label: 'Вида масажни услуги' },
-  { value: '2', label: 'Салона в региона' },
-  { value: '7/7', label: 'Дни в седмицата' },
-  { value: '15 €', label: 'Начална цена' },
+  { value: '5', label: 'Масажни услуги', labelEn: 'Massage services' },
+  { value: '2', label: 'Студиа', labelEn: 'Studios' },
+  { value: '7/7', label: 'Дни в седмицата', labelEn: 'Days a week' },
+  { value: '15 €', label: 'Начална цена', labelEn: 'Starting price' },
 ];
 
 export default function WhyChooseNp() {
   const { t } = useTranslation();
-  const { handleNav } = useLocalizedNav();
+  const { getPath, handleNav, isEn } = useLocalizedNav();
 
   const { ref: whyRef, isVisible: whyVisible } = useScrollReveal({ threshold: 0.1 });
   const { ref: statsRef, isVisible: statsVisible } = useScrollReveal({ threshold: 0.15 });
@@ -77,13 +95,13 @@ export default function WhyChooseNp() {
           }`}
         >
           <span className="inline-block px-4 py-1.5 bg-accent-100 text-accent-800 text-xs font-medium rounded-full mb-4">
-            ЗАЩО NP MASSAGE STUDIO
+            {isEn ? 'WHY NP MASSAGE STUDIO' : 'ЗАЩО NP MASSAGE STUDIO'}
           </span>
           <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground-950 mb-4">
-            Най-добрият избор за масажи Търново
+            {isEn ? 'Care you can feel' : 'Грижа, която усещате'}
           </h2>
           <p className="text-sm md:text-base text-foreground-600 max-w-xl mx-auto leading-relaxed">
-            Ето какво ни отличава от другите масажни салони в региона — факти, не обещания
+            {isEn ? 'Clear information, attentive care and time for you.' : 'Ясна информация, внимание към детайла и време за вас.'}
           </p>
         </div>
 
@@ -97,7 +115,7 @@ export default function WhyChooseNp() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {DIFFERENTIATOR_STATS.map((stat, i) => (
               <div
-                key={stat.label}
+                key={isEn ? stat.labelEn : stat.label}
                 className="bg-background-100 rounded-2xl p-5 md:p-6 border border-background-200/70 text-center hover:border-primary-300/50 transition-all duration-500"
                 style={{ transitionDelay: `${i * 80}ms` }}
               >
@@ -105,7 +123,7 @@ export default function WhyChooseNp() {
                   {stat.value}
                 </div>
                 <div className="text-xs text-foreground-600 font-medium">
-                  {stat.label}
+                  {isEn ? stat.labelEn : stat.label}
                 </div>
               </div>
             ))}
@@ -121,7 +139,7 @@ export default function WhyChooseNp() {
         >
           {UNIQUE_POINTS.map((point, index) => (
             <div
-              key={point.title}
+              key={isEn ? point.titleEn : point.title}
               className="bg-background-100 rounded-2xl p-6 border border-background-200/70 hover:border-primary-300/50 transition-all duration-500 group"
               style={{ transitionDelay: `${index * 80}ms` }}
             >
@@ -130,14 +148,14 @@ export default function WhyChooseNp() {
                   <i className={`${point.icon} text-accent-700 text-lg`} />
                 </div>
                 <span className="text-xs font-bold text-primary-600 bg-primary-50 px-2 py-1 rounded-full tracking-wide">
-                  {point.stat}
+                  {isEn ? point.statEn : point.stat}
                 </span>
               </div>
               <h3 className="font-heading text-base md:text-lg font-semibold text-foreground-950 mb-2">
-                {point.title}
+                {isEn ? point.titleEn : point.title}
               </h3>
               <p className="text-sm text-foreground-600 leading-relaxed">
-                {point.desc}
+                {isEn ? point.descEn : point.desc}
               </p>
             </div>
           ))}
@@ -146,9 +164,9 @@ export default function WhyChooseNp() {
         {/* Cities We Serve */}
         <div className="max-w-6xl mx-auto mt-12 md:mt-16 bg-background-100 rounded-2xl p-6 md:p-8 border border-background-200/70">
           <h3 className="font-heading text-lg font-semibold text-foreground-950 mb-1 text-center">
-            Градове, които обслужваме
+            {isEn ? 'Welcoming clients from across the region' : 'Посрещаме клиенти от региона'}
           </h3>
-          <p className="text-xs text-foreground-500 text-center mb-5">NP Massage Studio обслужва клиенти от целия регион</p>
+          <p className="text-xs text-foreground-500 text-center mb-5">{isEn ? 'Our studios are in Veliko Tarnovo and Pavlikeni' : 'Студиата ни са във Велико Търново и Павликени'}</p>
           <div className="flex flex-wrap justify-center gap-2 md:gap-3">
             {SERVICE_CITIES.map((city) => (
               <Link
@@ -162,11 +180,11 @@ export default function WhyChooseNp() {
           </div>
           <div className="text-center mt-5">
             <Link
-              to="/videos-masazhi"
+              to={getPath('/videos-masazhi')}
               className="inline-flex items-center gap-1.5 text-sm text-accent-600 hover:text-accent-700 font-medium transition-colors cursor-pointer"
             >
               <i className="ri-scales-3-line" />
-              Сравни всички видове масажи
+              {isEn ? 'Compare massage services' : 'Сравни видовете масажи'}
               <i className="ri-arrow-right-line text-xs" />
             </Link>
           </div>
@@ -175,18 +193,18 @@ export default function WhyChooseNp() {
         {/* Bottom CTA */}
         <div className="text-center mt-12 md:mt-16">
           <a
-            href="/rezervaciya"
+            href={getPath('/rezervaciya')}
             onClick={(e) => {
               e.preventDefault();
-              handleNav('/rezervaciya');
+              handleNav(getPath('/rezervaciya'));
             }}
             className="inline-flex items-center gap-2 px-10 py-4 bg-primary-500 text-background-50 font-medium text-sm rounded-full hover:bg-primary-600 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer min-h-[48px]"
           >
-            Запази час сега
+            {t('heroCta')}
             <i className="ri-arrow-right-line" />
           </a>
           <p className="text-xs text-foreground-500 mt-3">
-            или се обадете на{' '}
+            {isEn ? 'or call ' : 'или се обадете на '}
             <a href="tel:+359988926120" className="text-primary-600 hover:text-primary-700 font-medium transition-colors cursor-pointer">
               +359 988 926 120
             </a>

@@ -19,7 +19,7 @@ export default function PrivacyPolicyPage() {
     description: isEn
       ? 'Privacy Policy of NP Massage Studio. How we collect, use and protect your personal data. GDPR compliant. Contact: +359 988 926 120.'
       : 'Политика за поверителност на NP Massage Studio. Как събираме, използваме и защитаваме вашите лични данни съгласно GDPR. Контакт: +359 988 926 120.',
-    canonical: '/politika-poveritelnost',
+    canonical: isEn ? '/en/privacy' : '/politika-poveritelnost',
     lastModified: '2026-06-08',
     hreflangs: [
       { lang: 'bg', url: '/politika-poveritelnost' },
@@ -123,7 +123,7 @@ export default function PrivacyPolicyPage() {
   return (
     <div className="min-h-screen bg-background-50">
       <Navbar />
-      <main className="pt-20 md:pt-24">
+      <main id="main-content" className="pt-20 md:pt-24">
         <section className="w-full px-4 md:px-6 lg:px-10 py-12 md:py-16">
           <div className="max-w-3xl mx-auto">
             <h1 className="font-heading text-3xl md:text-4xl font-semibold text-foreground-950 mb-8">

@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import Navbar from '@/components/feature/Navbar';
 import Footer from '@/components/feature/Footer';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
@@ -99,7 +99,6 @@ export default function VouchersPage() {
   const { handleNav, isEn } = useLocalizedNav();
   const [selectedVoucher, setSelectedVoucher] = useState<string | null>(null);
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
-  const formRef = useRef<HTMLFormElement>(null);
 
   useSeo(useMemo(() => ({
     title: 'Подаръчни ваучери за масаж | NP Масажно студио — Велико Търново и Павликени',
@@ -171,7 +170,7 @@ export default function VouchersPage() {
   return (
     <div className="min-h-screen bg-background-50">
       <Navbar />
-      <main className="pt-20 md:pt-24">
+      <main id="main-content" className="pt-20 md:pt-24">
         <HeroSection isEn={isEn} />
 
         <section className="w-full px-4 md:px-6 lg:px-10 py-14 md:py-20">
@@ -185,7 +184,6 @@ export default function VouchersPage() {
             />
 
             <OrderForm
-              ref={formRef}
               selectedVoucher={selectedVoucher}
               onSubmit={handleSubmit}
               formStatus={formStatus}

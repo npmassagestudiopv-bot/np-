@@ -1,64 +1,20 @@
-import { useLayoutEffect, useEffect, useRef } from 'react';
-
-interface SeoSchema {
-  type: string;
-  data: Record<string, unknown>;
-}
-
-interface SeoOptions {
-  title?: string;
-  description?: string;
-  keywords?: string;
-  canonical?: string;
-  hreflangs?: Array<{ lang: string; url: string }>;
-  og?: {
-    title?: string;
-    description?: string;
-    url?: string;
-    image?: string;
-    type?: string;
-    locale?: string;
-    localeAlternate?: string[];
-  };
-  twitter?: {
-    title?: string;
-    description?: string;
-    image?: string;
-    card?: string;
-  };
-  schemas?: SeoSchema[];
-  robots?: string;
-  lastModified?: string;
-  noIndex?: boolean;
-  geo?: {
-    placename?: string;
-    region?: string;
-    position?: string;
-    icbm?: string;
-  };
-}
+import { useLayoutEffect, useContext, useRef } from 'react';
+import { SeoRenderContext, type SeoOptions } from '@/lib/seoContext';
+import { normalizeSeo } from '@/lib/seoMetadata';
+export type { SeoOptions, SeoSchema } from '@/lib/seoContext';
 
 const baseUrl = (import.meta as unknown as { env: Record<string, string> }).env.VITE_SITE_URL || 'https://npmassagestudio.com';
 
 export { baseUrl };
 
-function getSeoKey(options: SeoOptions): string {
-  return `${options.title || ''}|${options.description || ''}|${(options.schemas || []).length}`;
-}
-
-function scheduleIdle(callback: () => void) {
-  if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
-    window.requestIdleCallback(callback, { timeout: 2000 });
-  } else {
-    setTimeout(callback, 1);
-  }
-}
-
-export function useSeo(options: SeoOptions) {
+export function useSeo(input: SeoOptions) {
+  const options = normalizeSeo(input, baseUrl);
   const appliedKey = useRef('');
+  const collect = useContext(SeoRenderContext);
+  collect?.(options);
 
   useLayoutEffect(() => {
-    const key = getSeoKey(options);
+    const key = JSON.stringify(options);
     if (appliedKey.current === key) return;
     appliedKey.current = key;
 
@@ -98,6 +54,7 @@ export function useSeo(options: SeoOptions) {
     }
     robotsMeta.setAttribute('content', robotsContent);
 
+    if (!lastModified) document.querySelector('meta[name="last-modified"]')?.remove();
     if (lastModified) {
       let meta = document.querySelector('meta[name="last-modified"]') as HTMLMetaElement | null;
       if (!meta) {
@@ -115,7 +72,7 @@ export function useSeo(options: SeoOptions) {
         link.setAttribute('rel', 'canonical');
         document.head.appendChild(link);
       }
-      link.setAttribute('href', canonical.startsWith('http') ? canonical : `${baseUrl}${canonical}`);
+      link.setAttribute('href', canonical.startsWith('http') ? canonical : new URL(canonical, baseUrl).href);
     } else {
       const existingCanonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
       if (existingCanonical) {
@@ -139,7 +96,7 @@ export function useSeo(options: SeoOptions) {
     const ogTags = [
       { property: 'og:title', value: og?.title || title },
       { property: 'og:description', value: og?.description || description },
-      { property: 'og:url', value: og?.url || (canonical ? `${baseUrl}${canonical}` : undefined) },
+      { property: 'og:url', value: og?.url || (canonical ? new URL(canonical, baseUrl).href : undefined) },
       { property: 'og:image', value: og?.image || 'https://storage.helloreaddy.io/project_files/ac01bae9-5287-435a-8690-39522f5115fa/a44364ff-b9d6-4117-8394-dcd7f0becbd6_compressed_--.webp' },
       { property: 'og:type', value: og?.type || 'website' },
       { property: 'og:locale', value: og?.locale || 'bg_BG' },
@@ -156,9 +113,12 @@ export function useSeo(options: SeoOptions) {
           document.head.appendChild(meta);
         }
         meta.setAttribute('content', tag.value);
+      } else {
+        document.querySelector(`meta[property="${tag.property}"]`)?.remove();
       }
     });
 
+    document.querySelectorAll('meta[property="og:locale:alternate"]').forEach((el) => el.remove());
     if (og?.localeAlternate && og.localeAlternate.length > 0) {
       og.localeAlternate.forEach((locale) => {
         let meta = document.querySelector(`meta[property="og:locale:alternate"][content="${locale}"]`) as HTMLMetaElement | null;
@@ -189,6 +149,7 @@ export function useSeo(options: SeoOptions) {
       }
     });
 
+    document.querySelectorAll('meta[name^="geo."], meta[name="ICBM"]').forEach((el) => el.remove());
     if (geo) {
       const geoMap: Record<string, string> = {
         'geo.placename': geo.placename || '',
@@ -207,39 +168,15 @@ export function useSeo(options: SeoOptions) {
         meta.setAttribute('content', value);
       });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // Replace page schemas even when the next page has none. This also removes
+    // the pre-rendered schemas so initial HTML and client navigation agree.
+    document.querySelectorAll('script[type="application/ld+json"]').forEach((el) => el.remove());
+    for (const schema of options.schemas || []) {
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.dataset.dynamicSeo = 'true';
+      script.textContent = JSON.stringify({ '@context': 'https://schema.org', '@type': schema.type, ...schema.data });
+      document.head.appendChild(script);
+    }
   }, [options]);
-
-  // Heavy schema injection — defer to idle time so it does not block paint
-  useEffect(() => {
-    const { schemas } = options;
-    if (!schemas || schemas.length === 0) return;
-
-    let cancelled = false;
-    const timer = scheduleIdle(() => {
-      if (cancelled) return;
-
-      document.querySelectorAll('script[type="application/ld+json"]').forEach((el) => {
-        if (el.getAttribute('data-dynamic-seo') === 'true') el.remove();
-      });
-
-      schemas.forEach((schema) => {
-        const script = document.createElement('script');
-        script.setAttribute('type', 'application/ld+json');
-        script.setAttribute('data-dynamic-seo', 'true');
-        script.textContent = JSON.stringify({
-          '@context': 'https://schema.org',
-          '@type': schema.type,
-          ...schema.data,
-        });
-        document.head.appendChild(script);
-      });
-    });
-
-    return () => {
-      cancelled = true;
-      if (typeof timer === 'number') clearTimeout(timer);
-    };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [options.schemas]);
 }

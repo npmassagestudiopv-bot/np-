@@ -4,7 +4,7 @@ import { useLocalizedNav } from '@/hooks/useLocalizedNav';
 
 export default function EntityBlock() {
   const { t } = useTranslation();
-  const { handleNav } = useLocalizedNav();
+  const { getPath, handleNav, isEn } = useLocalizedNav();
   const { ref, isVisible } = useScrollReveal({ threshold: 0.15 });
 
   return (
@@ -37,9 +37,6 @@ export default function EntityBlock() {
                 <span itemProp="description">{t('entityBlock')}</span>
               </p>
 
-              <p className="text-sm text-foreground-700 leading-relaxed mb-6">
-                <strong>NP Massage Studio</strong> е професионален <strong>масажен салон в Търново</strong> (<strong>Велико Търново</strong>) и <strong>Павликени</strong>, управляван от <strong>Натан Петков</strong>. Салонът предлага <strong>класически масаж</strong>, <strong>спортен масаж</strong>, <strong>антицелулитен масаж</strong>, <strong>ароматерапия</strong> и <strong>масаж на гръб</strong> на достъпни цени. <strong>Масажи Търново</strong>, <strong>масажи Велико Търново</strong> и <strong>масажи Павликени</strong> — това е нашата специализация. Запазете час на <strong>+359 988 926 120</strong>.
-              </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mb-6">
                 <div className="flex items-center gap-3 bg-background-50 rounded-xl px-3 py-2.5 border border-background-200/50">
@@ -107,8 +104,8 @@ export default function EntityBlock() {
 
               <div className="flex flex-col sm:flex-row gap-3 mt-5 border-t border-background-200/70 pt-5">
                 <a
-                  href="/rezervaciya"
-                  onClick={(e) => { e.preventDefault(); handleNav('/rezervaciya'); }}
+                  href={getPath('/rezervaciya')}
+                  onClick={(e) => { e.preventDefault(); handleNav(getPath('/rezervaciya')); }}
                   className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-primary-500 text-background-50 text-sm font-medium rounded-full hover:bg-primary-600 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer btn-premium min-h-[44px]"
                 >
                   <i className="ri-calendar-check-line" />

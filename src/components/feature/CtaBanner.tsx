@@ -7,7 +7,7 @@ interface CtaBannerProps {
 
 export default function CtaBanner({ variant = 'primary' }: CtaBannerProps) {
   const { t } = useTranslation();
-  const { handleNav } = useLocalizedNav();
+  const { getPath, handleNav, isEn } = useLocalizedNav();
 
   if (variant === 'primary') {
     return (
@@ -20,10 +20,10 @@ export default function CtaBanner({ variant = 'primary' }: CtaBannerProps) {
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
           <a
-            href="/rezervaciya"
+            href={getPath('/rezervaciya')}
             onClick={(e) => {
               e.preventDefault();
-              handleNav('/rezervaciya');
+              handleNav(getPath('/rezervaciya'));
             }}
             className="inline-flex items-center justify-center px-8 py-4 bg-background-50 text-primary-700 font-medium text-sm rounded-full hover:bg-background-100 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer shadow-sm min-h-[48px]"
           >
@@ -53,10 +53,10 @@ export default function CtaBanner({ variant = 'primary' }: CtaBannerProps) {
       </p>
       <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
         <a
-          href="/rezervaciya"
+          href={getPath('/rezervaciya')}
           onClick={(e) => {
             e.preventDefault();
-            handleNav('/rezervaciya');
+            handleNav(getPath('/rezervaciya'));
           }}
           className="inline-flex items-center justify-center px-8 py-4 bg-primary-500 text-background-50 font-medium text-sm rounded-full hover:bg-primary-600 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer shadow-sm min-h-[48px]"
         >

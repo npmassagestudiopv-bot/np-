@@ -1,6 +1,8 @@
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState, useMemo, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { getBookingOps } from '@/lib/supabase';
+import { availabilityIsReady, isPastStudioSlot, studioNow } from '@/lib/bookingAvailability';
+import { useLocalizedNav } from '@/hooks/useLocalizedNav';
 
 const timeSlots = [
   '09:00', '10:00', '11:00', '12:00', '13:00', '14:00',
@@ -47,6 +49,7 @@ const locations = [
 
 export default function BookingForm() {
   const { t } = useTranslation();
+  const { isEn } = useLocalizedNav();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -65,6 +68,10 @@ export default function BookingForm() {
   const [takenSlots, setTakenSlots] = useState<string[]>([]);
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [dayBlocked, setDayBlocked] = useState(false);
+  const [slotsError, setSlotsError] = useState(false);
+  const [checkedKey, setCheckedKey] = useState('');
+  const [retrySlots, setRetrySlots] = useState(0);
+  const slotsReady = availabilityIsReady(formData.appointment_date, formData.location, checkedKey, loadingSlots, slotsError);
 
   // Cached lazy-loaded booking operations
   const bookingOpsRef = useRef<Awaited<ReturnType<typeof getBookingOps>> | null>(null);
@@ -78,32 +85,43 @@ export default function BookingForm() {
 
   // Fetch available slots when date and location are selected
   useEffect(() => {
-    const { appointment_date, location } = formData;
+    const appointment_date = formData.appointment_date;
+    const location = formData.location;
     if (!appointment_date || !location) {
       setTakenSlots([]);
       setDayBlocked(false);
+      setLoadingSlots(false);
+      setSlotsError(false);
+      setCheckedKey('');
       return;
     }
     let cancelled = false;
     setLoadingSlots(true);
+    setSlotsError(false);
+    setCheckedKey('');
     ensureBookingOps()
       .then((ops) => ops.fetchAvailableSlots(appointment_date, location))
       .then(({ takenSlots: slots, blocked }) => {
         if (cancelled) return;
         setTakenSlots(slots);
         setDayBlocked(blocked);
+        setCheckedKey(`${appointment_date}|${location}`);
         if (blocked) {
           setFormData((prev) => ({ ...prev, appointment_time: '' }));
         }
       })
       .catch(() => {
-        if (!cancelled) { setTakenSlots([]); setDayBlocked(false); }
+        if (!cancelled) {
+          setSlotsError(true);
+          setCheckedKey('');
+          setFormData((prev) => ({ ...prev, appointment_time: '' }));
+        }
       })
       .finally(() => {
         if (!cancelled) setLoadingSlots(false);
       });
     return () => { cancelled = true; };
-  }, [formData.appointment_date, formData.location]);
+  }, [formData.appointment_date, formData.location, retrySlots]);
 
   // Clear selected time if it becomes taken
   useEffect(() => {
@@ -137,6 +155,7 @@ export default function BookingForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submitting) return;
     if (!validate()) {
       // Reveal all validation messages so the user always gets feedback.
       setTouched({
@@ -158,6 +177,7 @@ export default function BookingForm() {
       }, 50);
       return;
     }
+    if (!slotsReady || dayBlocked) return;
     setSubmitting(true);
     setStatus('idle');
     try {
@@ -205,27 +225,14 @@ export default function BookingForm() {
       setErrors((prev) => { const n = { ...prev }; delete n[field]; return n; });
     }
     if (status === 'slotTaken') setStatus('idle');
+    if (field === 'location' || field === 'appointment_date') {
+      setFormData((prev) => ({ ...prev, appointment_time: '' }));
+      setDayBlocked(false);
+    }
   };
 
-  const minDate = useMemo(() => {
-    const today = new Date();
-    const y = today.getFullYear();
-    const m = String(today.getMonth() + 1).padStart(2, '0');
-    const d = String(today.getDate()).padStart(2, '0');
-    return `${y}-${m}-${d}`;
-  }, []);
-
-  // A slot is "past" when it is on today's date and the time has already gone by.
-  const isPastSlot = (slot: string) => {
-    if (!formData.appointment_date) return false;
-    const now = new Date();
-    const y = now.getFullYear();
-    const m = String(now.getMonth() + 1).padStart(2, '0');
-    const d = String(now.getDate()).padStart(2, '0');
-    if (formData.appointment_date !== `${y}-${m}-${d}`) return false;
-    const [h, min] = slot.split(':').map(Number);
-    return h * 60 + min <= now.getHours() * 60 + now.getMinutes();
-  };
+  const minDate = studioNow().date;
+  const isPastSlot = (slot: string) => isPastStudioSlot(formData.appointment_date, slot);
 
   const inputBase = 'w-full px-4 py-3 rounded-lg border text-base md:text-sm bg-background-50 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-400/50';
 
@@ -238,7 +245,7 @@ export default function BookingForm() {
     <div>
       {/* Status Messages */}
       {status === 'success' && (
-        <div className="bg-green-50 border border-green-200 rounded-xl p-5 mb-6 flex items-start gap-3 animate-fade-in">
+        <div role="status" className="bg-green-50 border border-green-200 rounded-xl p-5 mb-6 flex items-start gap-3 animate-fade-in">
           <div className="w-10 h-10 flex items-center justify-center bg-green-100 rounded-full flex-shrink-0">
             <i className="ri-checkbox-circle-line text-green-600" />
           </div>
@@ -262,7 +269,7 @@ export default function BookingForm() {
       )}
 
       {dayBlocked && (
-        <div className="bg-red-50 border border-red-200 rounded-xl p-5 mb-6 flex items-start gap-3 animate-fade-in">
+        <div role="alert" className="bg-red-50 border border-red-200 rounded-xl p-5 mb-6 flex items-start gap-3 animate-fade-in">
           <div className="w-10 h-10 flex items-center justify-center bg-red-100 rounded-full flex-shrink-0">
             <i className="ri-close-circle-line text-red-600" />
           </div>
@@ -274,7 +281,7 @@ export default function BookingForm() {
       )}
 
       {status === 'error' && (
-        <div className="bg-red-50 border border-red-200 rounded-xl p-5 mb-6 flex items-start gap-3 animate-fade-in">
+        <div role="alert" className="bg-red-50 border border-red-200 rounded-xl p-5 mb-6 flex items-start gap-3 animate-fade-in">
           <div className="w-10 h-10 flex items-center justify-center bg-red-100 rounded-full flex-shrink-0">
             <i className="ri-error-warning-line text-red-600" />
           </div>
@@ -379,6 +386,7 @@ export default function BookingForm() {
                 <button
                   key={service.key}
                   type="button"
+                  aria-pressed={isSelected}
                   onClick={() => handleChange('service', service.key)}
                   className={`relative text-left p-4 rounded-xl border transition-all duration-300 cursor-pointer ${
                     isSelected
@@ -439,6 +447,7 @@ export default function BookingForm() {
                   <button
                     key={loc.key}
                     type="button"
+                    aria-pressed={isSelected}
                     onClick={() => handleChange('location', loc.key)}
                     className={`relative text-left p-4 rounded-xl border transition-all duration-300 cursor-pointer ${
                       isSelected
@@ -521,6 +530,16 @@ export default function BookingForm() {
                 <i className="ri-information-line mr-1" />
                 Първо изберете локация и дата, за да видите наличните часове
               </p>
+            ) : slotsError ? (
+              <div role="alert" className="text-sm text-foreground-700 bg-background-50 rounded-lg p-4 border border-background-200">
+                <p>{isEn ? 'We could not check availability. Please try again or call us.' : 'Не успяхме да проверим свободните часове. Опитайте отново или ни се обадете.'}</p>
+                <div className="flex flex-wrap gap-4 mt-3">
+                  <button type="button" onClick={() => setRetrySlots((value) => value + 1)} className="min-h-[44px] font-medium text-primary-700 underline underline-offset-4">{isEn ? 'Try again' : 'Опитай отново'}</button>
+                  <a href="tel:+359988926120" className="min-h-[44px] inline-flex items-center font-medium text-primary-700">+359 988 926 120</a>
+                </div>
+              </div>
+            ) : !slotsReady ? (
+              <p role="status" className="text-sm text-foreground-600 p-4">{isEn ? 'Checking availability…' : 'Проверяваме свободните часове…'}</p>
             ) : dayBlocked ? (
               <p className="text-sm text-red-500 bg-red-50 rounded-lg p-4 border border-dashed border-red-200">
                 <i className="ri-close-circle-line mr-1" />
@@ -531,13 +550,14 @@ export default function BookingForm() {
                 {timeSlots.map((slot) => {
                   const isTaken = takenSlots.includes(slot);
                   const isPast = isPastSlot(slot);
-                  const isDisabled = isTaken || isPast;
+                  const isDisabled = !slotsReady || isTaken || isPast;
                   const isSelected = formData.appointment_time === slot;
                   return (
                     <button
                       key={slot}
                       type="button"
                       disabled={isDisabled}
+                      aria-pressed={isSelected}
                       onClick={() => handleChange('appointment_time', slot)}
                       className={`relative py-2.5 px-2 rounded-lg text-sm font-medium transition-all duration-200 border cursor-pointer whitespace-nowrap ${
                         isDisabled
@@ -557,7 +577,7 @@ export default function BookingForm() {
               </div>
             )}
 
-            {formData.appointment_date && formData.location && !loadingSlots && !dayBlocked && (
+            {slotsReady && !dayBlocked && (
               timeSlots.some((s) => !takenSlots.includes(s) && !isPastSlot(s)) ? (
                 <p className="text-xs text-green-600 mt-2">
                   <i className="ri-check-line mr-1" />
@@ -610,7 +630,7 @@ export default function BookingForm() {
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <button
             type="submit"
-            disabled={submitting || dayBlocked}
+            disabled={submitting || dayBlocked || (Boolean(formData.appointment_date && formData.location) && !slotsReady)}
             className="w-full sm:w-auto px-10 py-3.5 bg-primary-500 text-background-50 font-medium text-sm rounded-full hover:bg-primary-600 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer disabled:opacity-60 btn-premium"
           >
             {submitting ? (
@@ -627,7 +647,7 @@ export default function BookingForm() {
           </button>
           <p className="text-xs text-foreground-500">
             <i className="ri-lock-line mr-1" />
-            Вашите данни са защитени и се използват само за резервация
+            {isEn ? 'Your details are used to arrange and confirm your booking.' : 'Използваме данните ви за организиране и потвърждение на резервацията.'}
           </p>
         </div>
       </form>

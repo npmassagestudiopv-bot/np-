@@ -4,7 +4,7 @@ import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 export default function AboutSection() {
   const { t } = useTranslation();
-  const { handleNav } = useLocalizedNav();
+  const { getPath, handleNav, isEn } = useLocalizedNav();
   const { ref, isVisible } = useScrollReveal({ threshold: 0.15 });
 
   return (
@@ -76,10 +76,10 @@ export default function AboutSection() {
             </div>
 
             <a
-              href="/za-nas"
+              href={getPath('/za-nas')}
               onClick={(e) => {
                 e.preventDefault();
-                handleNav('/za-nas');
+                handleNav(getPath('/za-nas'));
               }}
               className="inline-flex items-center gap-2 px-6 py-3 bg-primary-500 text-background-50 text-sm font-medium rounded-full hover:bg-primary-600 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer btn-premium min-h-[48px]"
             >
