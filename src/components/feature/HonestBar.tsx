@@ -5,7 +5,7 @@ interface HonestBarProps {
 }
 
 export default function HonestBar({ isEn }: HonestBarProps) {
-  const { handleNav } = useLocalizedNav();
+  const { getPath, handleNav } = useLocalizedNav();
 
   return (
     <div className="bg-secondary-50 rounded-2xl p-6 md:p-8 border border-secondary-200/60 mb-12">
@@ -35,7 +35,7 @@ export default function HonestBar({ isEn }: HonestBarProps) {
               +359 988 926 120
             </a>
             <button
-              onClick={() => handleNav('/kontakti')}
+              onClick={() => handleNav(getPath('/kontakti'))}
               className="inline-flex items-center gap-2 px-5 py-2.5 border border-secondary-300 text-secondary-700 text-sm font-medium rounded-full hover:bg-secondary-50 transition-all duration-300 whitespace-nowrap cursor-pointer"
             >
               <span className="w-4 h-4 flex items-center justify-center">

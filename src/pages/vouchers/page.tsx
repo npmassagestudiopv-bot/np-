@@ -1,3 +1,5 @@
+import { voucherFaqEn } from '@/mocks/englishFaqs';
+import { localizePageSeo } from '@/lib/localizedSeo';
 import { useState, useMemo } from 'react';
 import Navbar from '@/components/feature/Navbar';
 import Footer from '@/components/feature/Footer';
@@ -81,7 +83,7 @@ const VOUCHER_OPTIONS = [
   },
 ];
 
-const VOUCHER_FAQ = [
+const VOUCHER_FAQ_BG = [
   { q: 'Как работят подаръчните ваучери?', a: 'Попълвате формата с избраната услуга и данните на получателя. Свързваме се с вас за потвърждение и изпращане на ваучера.' },
   { q: 'Колко важи ваучерът?', a: 'Подаръчните ваучери важат 6 месеца от датата на издаване. В рамките на тези 6 месеца ваучерът може да бъде използван за всяко запазване на час.' },
   { q: 'Може ли ваучерът да се използва в двете локации?', a: 'Да, ваучерите важат за двете ни локации — Велико Търново (бул. България 72) и Павликени (ул. Атанас Дончев 10).' },
@@ -89,18 +91,28 @@ const VOUCHER_FAQ = [
   { q: 'Мога ли да поръчам ваучер по телефон?', a: 'Да, можете да се обадите на +359 988 926 120 и ще ви помогнем да оформите ваучера директно по телефон.' },
 ];
 
-const PRODUCT_SCHEMAS = [
+function voucherProductSchemas(isEn: boolean) {
+  const englishProducts = [
+    buildProductSchema('Classical Massage Gift Voucher', 'A 60-minute classical massage at NP Massage Studio.', '25', 'EUR', undefined, 'vaucher-relaksirast', true),
+    buildProductSchema('Aromatherapy Gift Voucher', 'A 60-minute aromatherapy session at NP Massage Studio.', '30', 'EUR', undefined, 'vaucher-aromaterapiya', true),
+    buildProductSchema('Anti-cellulite Package Gift Voucher', 'Ten anti-cellulite sessions at NP Massage Studio.', '175', 'EUR', undefined, 'vaucher-anticeluliten-paket', true),
+  ];
+  const products = [
   buildProductSchema('Подаръчен ваучер Релаксиращ масаж', 'Подаръчен ваучер за релаксиращ масаж в NP Massage Studio Велико Търново.', '25', 'EUR', undefined, 'vaucher-relaksirast'),
   buildProductSchema('Подаръчен ваучер Ароматерапия', 'Подаръчен ваучер за ароматерапия в NP Massage Studio Велико Търново.', '30', 'EUR', undefined, 'vaucher-aromaterapiya'),
   buildProductSchema('Подаръчен ваучер Антицелулитен пакет', 'Подаръчен ваучер за антицелулитен пакет 10 процедури в NP Massage Studio.', '175', 'EUR', undefined, 'vaucher-anticeluliten-paket'),
 ];
+  return (isEn ? englishProducts : products).map((schema) => ({ ...schema, data: { ...schema.data, offers: { ...schema.data.offers, url: `${baseUrl}${isEn ? '/en/vouchers' : '/vaucheri'}` } } }));
+}
 
 export default function VouchersPage() {
   const { handleNav, isEn } = useLocalizedNav();
   const [selectedVoucher, setSelectedVoucher] = useState<string | null>(null);
   const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
 
-  useSeo(useMemo(() => ({
+  const VOUCHER_FAQ = isEn ? voucherFaqEn : VOUCHER_FAQ_BG;
+
+  useSeo(useMemo(() => localizePageSeo({
     title: 'Подаръчни ваучери за масаж | NP Масажно студио — Велико Търново и Павликени',
     description: 'Подарете незабравимо преживяване! Подаръчни ваучери за класически, спортен, антицелулитен масаж, ароматерапия и масаж на гръб в NP Масажно студио. Две локации: Велико Търново и Павликени. Тел: +359 988 926 120.',
     keywords: 'подаръчен ваучер масаж, ваучер за масаж Велико Търново, подарък масаж Търново, ваучер ароматерапия, ваучер спортен масаж, NP Масажно студио ваучери',
@@ -128,9 +140,9 @@ export default function VouchersPage() {
       ]),
       buildLocalBusinessSchema(),
       buildFaqSchema(VOUCHER_FAQ),
-      ...PRODUCT_SCHEMAS,
+      ...voucherProductSchemas(isEn),
     ],
-  }), [isEn]));
+  }, '/vaucheri', isEn), [isEn, VOUCHER_FAQ]));
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -220,7 +232,7 @@ function HeroSection({ isEn }: { isEn: boolean }) {
     <section className="relative w-full h-[340px] md:h-[420px] overflow-hidden">
       <img
         src="https://readdy.ai/api/search-image?query=Elegant%20gift%20voucher%20presentation%20with%20ribbon%2C%20luxury%20spa%20atmosphere%2C%20warm%20golden%20light%2C%20candles%2C%20soft%20towels%2C%20massage%20oils%20on%20marble%20surface%2C%20serene%20and%20relaxing%20spa%20environment%2C%20premium%20gift%20concept%2C%20muted%20warm%20tones%2C%20editorial%20photography&width=1600&height=840&seq=voucher-hero-2026&orientation=landscape"
-        alt="Подаръчни ваучери за масаж NP Massage Studio Велико Търново"
+        alt={isEn ? "Massage gift vouchers at NP Massage Studio in Veliko Tarnovo" : "Подаръчни ваучери за масаж NP Massage Studio Велико Търново"}
         className="w-full h-full object-cover object-top"
         loading="eager"
         decoding="async"
@@ -579,6 +591,7 @@ const OrderForm = ({
 };
 
 function FaqSection({ isEn }: { isEn: boolean }) {
+  const VOUCHER_FAQ = isEn ? voucherFaqEn : VOUCHER_FAQ_BG;
   const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
   const [open, setOpen] = useState<number | null>(null);
 

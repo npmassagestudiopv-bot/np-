@@ -33,7 +33,7 @@ export default function TermsPage() {
         '/obshti-usloviya'
       ),
       buildBreadcrumbSchema([
-        { name: 'Начало', url: '/' },
+        { name: isEn ? 'Home' : 'Начало', url: isEn ? '/en' : '/' },
         { name: isEn ? 'Terms of Service' : 'Общи условия' },
       ]),
       buildLocalBusinessSchema(),

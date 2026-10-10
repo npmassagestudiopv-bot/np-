@@ -1,3 +1,4 @@
+import { useLocalizedNav } from '@/hooks/useLocalizedNav';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +14,7 @@ interface ConsentState {
 
 export default function CookieBanner() {
   const { t } = useTranslation();
+  const { getPath } = useLocalizedNav();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
@@ -75,10 +77,10 @@ export default function CookieBanner() {
                   {t('cookieBannerText')}
                 </p>
                 <div className="flex flex-wrap gap-3 mt-2">
-                  <a href="/politika-biskvitki" onClick={(e) => { e.preventDefault(); navigate('/politika-biskvitki'); }} className="text-xs text-primary-600 hover:text-primary-700 underline cursor-pointer">
+                  <a href={getPath('/politika-biskvitki')} onClick={(e) => { e.preventDefault(); navigate(getPath('/politika-biskvitki')); }} className="text-xs text-primary-600 hover:text-primary-700 underline cursor-pointer">
                     {t('cookiePolicyLink')}
                   </a>
-                  <a href="/politika-poveritelnost" onClick={(e) => { e.preventDefault(); navigate('/politika-poveritelnost'); }} className="text-xs text-primary-600 hover:text-primary-700 underline cursor-pointer">
+                  <a href={getPath('/politika-poveritelnost')} onClick={(e) => { e.preventDefault(); navigate(getPath('/politika-poveritelnost')); }} className="text-xs text-primary-600 hover:text-primary-700 underline cursor-pointer">
                     {t('privacyPolicyLink')}
                   </a>
                 </div>

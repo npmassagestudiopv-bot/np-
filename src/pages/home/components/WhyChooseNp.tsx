@@ -4,12 +4,12 @@ import { useLocalizedNav } from '@/hooks/useLocalizedNav';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 const SERVICE_CITIES = [
-  { name: 'Велико Търново', path: '/masazhi-veliko-tarnovo' },
-  { name: 'Павликени', path: '/masazhi-pavlikeni' },
-  { name: 'Габрово', path: '/masazhi-gabrovo' },
-  { name: 'Горна Оряховица', path: '/masazhi-gorna-oryahovitsa' },
-  { name: 'Лясковец', path: '/masazhi-lyaskovets' },
-  { name: 'Севлиево', path: '/masazhi-sevlievo' },
+  { name: 'Велико Търново', nameEn: 'Veliko Tarnovo', path: '/masazhi-veliko-tarnovo' },
+  { name: 'Павликени', nameEn: 'Pavlikeni', path: '/masazhi-pavlikeni' },
+  { name: 'Габрово', nameEn: 'Gabrovo', path: '/masazhi-gabrovo' },
+  { name: 'Горна Оряховица', nameEn: 'Gorna Oryahovitsa', path: '/masazhi-gorna-oryahovitsa' },
+  { name: 'Лясковец', nameEn: 'Lyaskovets', path: '/masazhi-lyaskovets' },
+  { name: 'Севлиево', nameEn: 'Sevlievo', path: '/masazhi-sevlievo' },
 ];
 
 const UNIQUE_POINTS = [
@@ -171,10 +171,10 @@ export default function WhyChooseNp() {
             {SERVICE_CITIES.map((city) => (
               <Link
                 key={city.path}
-                to={city.path}
+                to={isEn ? '/en/locations' : city.path}
                 className="px-4 py-2 bg-background-50 text-foreground-700 text-sm font-medium rounded-full border border-background-200/70 hover:border-primary-300/60 hover:text-primary-600 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer"
               >
-                {city.name}
+                {isEn ? city.nameEn : city.name}
               </Link>
             ))}
           </div>

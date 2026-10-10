@@ -1,3 +1,4 @@
+import { useLocalizedNav } from '@/hooks/useLocalizedNav';
 import { useTranslation } from 'react-i18next';
 import { useLayoutEffect } from 'react';
 
@@ -6,6 +7,7 @@ const HERO_IMAGE_DESKTOP = 'https://readdy.ai/api/search-image?query=Relaxing%20
 
 export default function BookingHero() {
   const { t } = useTranslation();
+  const { isEn } = useLocalizedNav();
 
   // Preload hero image for faster LCP
   useLayoutEffect(() => {
@@ -27,7 +29,7 @@ export default function BookingHero() {
           src={HERO_IMAGE_DESKTOP}
           srcSet={`${HERO_IMAGE_MOBILE} 800w, ${HERO_IMAGE_DESKTOP} 1600w`}
           sizes="(max-width: 800px) 800px, 1600px"
-          alt="NP Massage Studio - резервация за масаж"
+          alt={isEn ? "Book a massage at NP Massage Studio" : "NP Massage Studio - резервация за масаж"}
           className="w-full h-full object-cover object-center"
           width={1600}
           height={600}
@@ -43,7 +45,7 @@ export default function BookingHero() {
           <div className="inline-flex items-center gap-2 bg-background-50/10 backdrop-blur-sm border border-background-50/20 rounded-full px-4 py-1.5 mb-6">
             <i className="ri-calendar-check-line text-accent-400 text-sm" />
             <span className="text-sm text-background-50 font-medium">
-              Онлайн резервация 24/7
+              {isEn ? "Online booking requests 24/7" : "Онлайн резервация 24/7"}
             </span>
           </div>
 
@@ -70,7 +72,7 @@ export default function BookingHero() {
               <div className="w-8 h-8 flex items-center justify-center bg-background-50/10 rounded-full">
                 <i className="ri-time-line text-sm" />
               </div>
-              <span>7 дни в седмицата</span>
+              <span>{isEn ? "Open seven days a week" : "7 дни в седмицата"}</span>
             </div>
           </div>
         </div>

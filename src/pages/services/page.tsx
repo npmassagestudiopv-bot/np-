@@ -1,3 +1,6 @@
+import { serviceSeoItems, serviceProductSchemas } from '@/lib/serviceSeo';
+import { servicesFaqEn } from '@/mocks/englishFaqs';
+import { localizePageSeo } from '@/lib/localizedSeo';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useMemo, useState } from 'react';
 import Navbar from '@/components/feature/Navbar';
@@ -20,7 +23,7 @@ import {
   buildProductSchema,
 } from '@/lib/seoSchemas';
 
-const FAQ_ITEMS = [
+const FAQ_ITEMS_BG = [
   { q: 'Колко дълго продължава един масаж?', a: 'Класическият, спортният и релаксиращият масаж продължават 60 минути. Антицелулитният масаж и частичният масаж на гръб са 40 минути. Ароматерапията е 60 минути.' },
   { q: 'Трябва ли предварително записване?', a: 'Да, препоръчваме предварително записване на +359 988 926 120 за по-добра организация и персонализирано обслужване.' },
   { q: 'Какви продукти използвате?', a: 'Работим с висококачествени натурални масла и продукти, нежни към кожата. За ароматерапия използваме чисти етерични масла.' },
@@ -62,7 +65,9 @@ export default function ServicesPage() {
   const { handleNav, isEn } = useLocalizedNav();
   const [hoveredService, setHoveredService] = useState<string | null>(null);
 
-  useSeo(useMemo(() => ({
+  const FAQ_ITEMS = isEn ? servicesFaqEn : FAQ_ITEMS_BG;
+
+  useSeo(useMemo(() => localizePageSeo({
     title: 'Услуги и цени | NP Масажно студио — 15–30 €',
     description: 'Пълен списък с масажни услуги и цени в NP Масажно студио. Класически масаж 25 €, спортен масаж 25 €, антицелулитен 20 €, ароматерапия 30 €, масаж на гръб 15 €. Две локации: Велико Търново и Павликени. Запази час: +359 988 926 120.',
     keywords: 'масажни услуги Велико Търново, цени масаж Търново, класически масаж цена, спортен масаж цена, антицелулитен масаж, ароматерапия Велико Търново, масаж на гръб цена, NP Масажно студио',
@@ -80,14 +85,14 @@ export default function ServicesPage() {
     schemas: [
       buildWebPageSchema('Услуги и цени | NP Massage Studio', 'Масажни услуги и цени в NP Massage Studio — Велико Търново и Павликени.', '/uslugi', 'CollectionPage'),
       buildBreadcrumbSchema([{ name: 'Начало', url: '/' }, { name: 'Услуги', url: '/uslugi' }]),
-      buildOfferCatalogSchema(SERVICES_SCHEMA_ITEMS),
+      buildOfferCatalogSchema(serviceSeoItems(isEn), isEn),
       buildFaqSchema(FAQ_ITEMS),
       buildLocalBusinessSchema(),
       buildPersonSchema(),
       HOWTO_CHOOSE,
-      ...PRODUCT_SCHEMAS,
+      ...serviceProductSchemas(isEn),
     ],
-  }), [isEn]));
+  }, '/uslugi', isEn), [isEn, FAQ_ITEMS]));
 
   return (
     <div className="min-h-screen bg-background-50">

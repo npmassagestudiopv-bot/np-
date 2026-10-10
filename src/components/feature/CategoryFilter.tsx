@@ -1,3 +1,4 @@
+import { categoryLabel } from '@/lib/blogCategories';
 import { useState } from 'react';
 
 interface CategoryFilterProps {
@@ -25,7 +26,7 @@ export default function CategoryFilter({ categories, activeCategory, onChange, i
         </button>
         {categories.map((cat) => (
           <button
-            key={cat}
+            key={categoryLabel(cat, isEn)}
             onClick={() => onChange(cat)}
             className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 whitespace-nowrap cursor-pointer ${
               activeCategory === cat
@@ -33,7 +34,7 @@ export default function CategoryFilter({ categories, activeCategory, onChange, i
                 : 'bg-background-100 text-foreground-700 hover:bg-background-200/50 border border-background-200/70'
             }`}
           >
-            {cat}
+            {categoryLabel(cat, isEn)}
           </button>
         ))}
       </div>
@@ -43,7 +44,7 @@ export default function CategoryFilter({ categories, activeCategory, onChange, i
           className="w-full flex items-center justify-between px-4 py-3 bg-background-100 rounded-xl border border-background-200/70 text-sm font-medium text-foreground-700 cursor-pointer"
         >
           <span>
-            {isEn ? 'Category:' : 'Категория:'} {activeCategory || (isEn ? 'All' : 'Всички')}
+            {isEn ? 'Category:' : 'Категория:'} {activeCategory ? categoryLabel(activeCategory, isEn) : (isEn ? 'All' : 'Всички')}
           </span>
           <span className="w-5 h-5 flex items-center justify-center text-foreground-500">
             <i className={`ri-arrow-up-s-line transition-transform duration-300 ${isOpen ? '' : 'rotate-180'}`} />
@@ -65,13 +66,13 @@ export default function CategoryFilter({ categories, activeCategory, onChange, i
             </button>
             {categories.map((cat) => (
               <button
-                key={cat}
+                key={categoryLabel(cat, isEn)}
                 onClick={() => { onChange(cat); setIsOpen(false); }}
                 className={`w-full text-left px-4 py-3 text-sm cursor-pointer transition-colors border-t border-background-200/50 ${
                   activeCategory === cat ? 'bg-primary-50 text-primary-700 font-medium' : 'text-foreground-700 hover:bg-background-200/30'
                 }`}
               >
-                {cat}
+                {categoryLabel(cat, isEn)}
               </button>
             ))}
           </div>

@@ -1,3 +1,4 @@
+import { useLocalizedNav } from '@/hooks/useLocalizedNav';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 interface ChatGPTProofProps {
@@ -5,6 +6,7 @@ interface ChatGPTProofProps {
 }
 
 export default function ChatGPTProof({ isEn }: ChatGPTProofProps) {
+  const { getPath } = useLocalizedNav();
   const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
 
   return (
@@ -54,7 +56,7 @@ export default function ChatGPTProof({ isEn }: ChatGPTProofProps) {
                 Perplexity
               </a>
               <a
-                href="/za-np-massage-studio"
+                href={getPath('/za-np-massage-studio')}
                 className="inline-flex items-center gap-2 px-4 py-2 border border-primary-300 text-primary-700 text-sm font-medium rounded-full hover:bg-primary-50 transition-all duration-300 whitespace-nowrap cursor-pointer"
               >
                 <span className="w-4 h-4 flex items-center justify-center">

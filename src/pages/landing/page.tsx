@@ -102,7 +102,7 @@ const LOCATION_PAGE_MAP: Record<string, string> = {
 
 export default function LandingPage({ title, description, location, service, canonicalPath }: LandingPageProps) {
   const { t } = useTranslation();
-  const { handleNav } = useLocalizedNav();
+  const { handleNav, location: locationObj } = useLocalizedNav();
 
   const isStudioCity = STUDIO_CITIES.has(location);
   const areaMeta = isStudioCity ? null : (SERVICE_AREA_META[location] || null);
@@ -149,10 +149,10 @@ export default function LandingPage({ title, description, location, service, can
     keywords: `${service.toLowerCase()} ${location.toLowerCase()}, ${service.toLowerCase()} Велико Търново, масаж ${location.toLowerCase()}, NP Масажно студио ${location}, професионален масаж, запази час масаж`,
     canonical: canonicalPath,
     lastModified: '2026-06-20',
-    hreflangs: [
+    hreflangs: locationObj.pathname === canonicalPath ? [
       { lang: 'bg', url: canonicalPath },
       { lang: 'x-default', url: canonicalPath },
-    ],
+    ] : [],
     og: {
       title,
       description,
@@ -225,7 +225,7 @@ export default function LandingPage({ title, description, location, service, can
         },
       },
     ].filter(Boolean),
-  }), [title, description, location, service, canonicalPath, isStudioCity, nearestStudio, areaMeta, studioAddr, faqItems]));
+  }), [title, description, location, service, canonicalPath, isStudioCity, nearestStudio, areaMeta, studioAddr, faqItems, locationObj.pathname]));
 
   return (
     <div className="min-h-screen bg-background-50">

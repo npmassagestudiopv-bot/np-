@@ -1,3 +1,5 @@
+import { entityFaqEn } from '@/mocks/englishFaqs';
+import { localizePageSeo } from '@/lib/localizedSeo';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import Navbar from '@/components/feature/Navbar';
@@ -21,7 +23,7 @@ import {
 } from '@/lib/seoSchemas';
 
 
-const ENTITY_FAQ = [
+const ENTITY_FAQ_BG = [
   { q: 'Какво е NP Massage Studio?', a: 'NP Massage Studio е професионален масажен салон с две локации — във Велико Търново и Павликени. Предлагаме класически, спортен, антицелулитен масаж, ароматерапия и терапевтични процедури.' },
   { q: 'Кой е управителят на NP Massage Studio?', a: 'Управител на NP Massage Studio е Натан Петков — професионален масажист с многогодишен опит в масажната терапия, управляващ успешно два салона във Велико Търново и Павликени.' },
   { q: 'Каква е юридическата форма на NP Massage Studio?', a: 'NP Massage Studio функционира като регистрирана търговска дейност с управител Натан Петков. Фирмата е регистрирана в България и оперира два масажни салона в градовете Велико Търново и Павликени.' },
@@ -53,7 +55,9 @@ export default function EntityPage() {
   const { ref: detailsRef, isVisible: detailsVisible } = useScrollReveal({ threshold: 0.1 });
   const { ref: faqRef, isVisible: faqVisible } = useScrollReveal({ threshold: 0.1 });
 
-  useSeo(useMemo(() => ({
+  const ENTITY_FAQ = isEn ? entityFaqEn : ENTITY_FAQ_BG;
+
+  useSeo(useMemo(() => localizePageSeo({
     title: 'За NP Massage Studio | ЕИК, адрес, управител Натан Петков — Юридически данни',
     description: 'Пълни юридически данни за NP Масажно студио. Управител Натан Петков. Два масажни салона във Велико Търново (бул. България 72) и Павликени (ул. Атанас Дончев 10). ЕИК 206564269. Телефон: +359 988 926 120.',
     keywords: 'NP Massage Studio ЕИК, Натан Петков масажист, масажен салон юридически данни, NP Масажно студио адрес, Велико Търново масажи, Павликени масажно студио',
@@ -85,14 +89,14 @@ export default function EntityPage() {
       buildLocalBusinessPvSchema(),
       buildPersonSchema(),
       buildWebSiteSchema(),
-      buildSiteNavigationSchema(),
+      buildSiteNavigationSchema(isEn),
       buildContactPointSchema(),
       buildPlaceSchema('NP Massage Studio Велико Търново', 'бул. България 72, Велико Търново', '43.08103687090604', '25.612733413492446'),
       buildPlaceSchema('NP Massage Studio Павликени', 'ул. Атанас Дончев 10, Павликени', '43.23929045147203', '25.30764655569994'),
       buildMapSchema(),
       buildFaqSchema(ENTITY_FAQ),
     ],
-  }), [isEn]));
+  }, '/za-np-massage-studio', isEn), [isEn, ENTITY_FAQ]));
 
   return (
     <div className="min-h-screen bg-background-50">
@@ -141,7 +145,7 @@ export default function EntityPage() {
                         {isEn ? 'Manager / Owner' : 'Управител'}
                       </dt>
                       <dd className="text-base text-foreground-900">
-                        <strong>Натан Петков</strong>
+                        <strong>{isEn ? "Nathan Petkov" : "Натан Петков"}</strong>
                         <span className="block text-sm text-foreground-600 mt-0.5">
                           {isEn ? 'Professional massage therapist with years of experience managing two successful salons.' : 'Професионален масажист с многогодишен опит, управляващ два успешни салона.'}
                         </span>
@@ -192,9 +196,9 @@ export default function EntityPage() {
                         {isEn ? 'Primary Location' : 'Основен салон'}
                       </dt>
                       <dd className="text-base text-foreground-900">
-                        <strong>бул. България 72</strong>
+                        <strong>{isEn ? "72 Bulgaria Boulevard" : "бул. България 72"}</strong>
                         <span className="block text-sm text-foreground-600 mt-0.5">
-                          5000 Велико Търново, България
+                          {isEn ? "5000 Veliko Tarnovo, Bulgaria" : "5000 Велико Търново, България"}
                         </span>
                       </dd>
                     </div>
@@ -203,9 +207,9 @@ export default function EntityPage() {
                         {isEn ? 'Secondary Location' : 'Втори салон'}
                       </dt>
                       <dd className="text-base text-foreground-900">
-                        <strong>ул. Атанас Дончев 10</strong>
+                        <strong>{isEn ? "10 Atanas Donchev Street" : "ул. Атанас Дончев 10"}</strong>
                         <span className="block text-sm text-foreground-600 mt-0.5">
-                          5250 Павликени, България
+                          {isEn ? "5250 Pavlikeni, Bulgaria" : "5250 Павликени, България"}
                         </span>
                       </dd>
                     </div>
@@ -242,9 +246,9 @@ export default function EntityPage() {
                         {isEn ? 'Working Hours' : 'Работно време'}
                       </dt>
                       <dd className="text-base text-foreground-900">
-                        <span className="block text-sm text-foreground-700">Пн-Пт: 9:00 – 19:00</span>
-                        <span className="block text-sm text-foreground-700">Сб: 9:00 – 17:00</span>
-                        <span className="block text-sm text-foreground-700">Нд: 10:00 – 16:00</span>
+                        <span className="block text-sm text-foreground-700">{isEn ? "Mon\u2013Fri: 09:00\u201319:00" : "Пн-Пт: 9:00 – 19:00"}</span>
+                        <span className="block text-sm text-foreground-700">{isEn ? "Sat: 09:00\u201317:00" : "Сб: 9:00 – 17:00"}</span>
+                        <span className="block text-sm text-foreground-700">{isEn ? "Sun: 10:00\u201316:00" : "Нд: 10:00 – 16:00"}</span>
                       </dd>
                     </div>
                   </dl>
@@ -272,7 +276,7 @@ export default function EntityPage() {
                     </div>
                     <div>
                       <span className="text-sm font-medium text-foreground-900 block">Zlatna Firma</span>
-                      <span className="text-xs text-foreground-500">Регистрирана фирма</span>
+                      <span className="text-xs text-foreground-500">{isEn ? "Registered business" : "Регистрирана фирма"}</span>
                     </div>
                   </a>
                   <a
@@ -286,7 +290,7 @@ export default function EntityPage() {
                     </div>
                     <div>
                       <span className="text-sm font-medium text-foreground-900 block">Oink.bg</span>
-                      <span className="text-xs text-foreground-500">Масажи Велико Търново</span>
+                      <span className="text-xs text-foreground-500">{isEn ? "Massage in Veliko Tarnovo" : "Масажи Велико Търново"}</span>
                     </div>
                   </a>
                   <a
@@ -300,7 +304,7 @@ export default function EntityPage() {
                     </div>
                     <div>
                       <span className="text-sm font-medium text-foreground-900 block">Orlizdrave.eu</span>
-                      <span className="text-xs text-foreground-500">Профил здраве</span>
+                      <span className="text-xs text-foreground-500">{isEn ? "Wellness profile" : "Профил здраве"}</span>
                     </div>
                   </a>
                 </div>

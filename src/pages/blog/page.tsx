@@ -1,3 +1,6 @@
+import { categoryLabel } from '@/lib/blogCategories';
+import { blogFaqEn } from '@/mocks/englishFaqs';
+import { localizePageSeo } from '@/lib/localizedSeo';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState, useMemo, useContext } from 'react';
 import { PrerenderDataContext } from '@/lib/prerenderContext';
@@ -34,7 +37,7 @@ interface BlogPost {
   category?: string;
 }
 
-const FAQ_BLOG = [
+const FAQ_BLOG_BG = [
   { q: 'Какво ще намеря в блога на NP Massage Studio?', a: 'В блога публикуваме полезни статии за ползите от масажа, видовете масажни терапии, съвети за здраве и уелнес, информация за ароматерапия, антицелулитни процедури и спортен масаж.' },
   { q: 'Как често публикувате нови статии?', a: 'Публикуваеме нови статии редовно, обикновено всяка седмица или две. Следете ни за актуална информация за масажна терапия и уелнес.' },
   { q: 'Мога ли да споделя статии от блога?', a: 'Да, можете свободно да споделяте статии от блога в социалните мрежи. Всички статии са полезни за всеки, който се интересува от масажи и здраве.' },
@@ -80,7 +83,9 @@ export default function BlogPage() {
     return posts.filter((p) => p.category === activeCategory);
   }, [posts, activeCategory]);
 
-  useSeo(useMemo(() => ({
+  const FAQ_BLOG = isEn ? blogFaqEn : FAQ_BLOG_BG;
+
+  useSeo(useMemo(() => localizePageSeo({
     title: 'Блог за масажи и здраве | NP Massage Studio',
     description: 'Статии за масажна терапия и здраве от NP Massage Studio. Класически, спортен, антицелулитен масаж, ароматерапия. Велико Търново и Павликени. +359 988 926 120.',
     keywords: 'блог масажи, ползи от масаж, класически масаж статии, спортен масаж съвети, лечебен масаж информация, антицелулитен масаж блог, ароматерапия ползи, NP Масажно студио блог',
@@ -109,11 +114,11 @@ export default function BlogPage() {
         description: isEn ? p.excerpt_en : p.excerpt_bg,
         publishedAt: p.published_at,
         slug: p.slug,
-      }))),
+      })), isEn),
       buildLocalBusinessSchema(),
       buildFaqSchema(FAQ_BLOG),
     ],
-  }), [posts, isEn]));
+  }, '/blog', isEn), [posts, isEn, FAQ_BLOG]));
 
 
 
@@ -218,7 +223,7 @@ function BlogCard({ article, index, isEn }: { article: BlogPost; index: number; 
             <>
               <span className="w-1 h-1 rounded-full bg-foreground-300" />
               <span className="bg-secondary-100 text-secondary-700 px-2 py-0.5 rounded-full text-xs font-medium">
-                {article.category}
+                {categoryLabel(article.category, isEn)}
               </span>
             </>
           )}

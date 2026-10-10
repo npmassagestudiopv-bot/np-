@@ -141,9 +141,9 @@ export default function BookingForm() {
     if (!formData.appointment_date) newErrors.appointment_date = t('contactRequired');
     if (!formData.appointment_time) newErrors.appointment_time = t('contactRequired');
     if (formData.appointment_time && takenSlots.includes(formData.appointment_time)) {
-      newErrors.appointment_time = 'Този час вече е зает. Моля, изберете друг.';
+      newErrors.appointment_time = isEn ? "This time is already booked. Please choose another." : "Този час вече е зает. Моля, изберете друг.";
     } else if (formData.appointment_time && isPastSlot(formData.appointment_time)) {
-      newErrors.appointment_time = 'Този час вече е минал. Моля, изберете по-късен час или друг ден.';
+      newErrors.appointment_time = isEn ? "This time has passed. Choose a later time or another date." : "Този час вече е минал. Моля, изберете по-късен час или друг ден.";
     }
     if (formData.message.length > 500) newErrors.message = 'Max 500 characters';
     if (field) {
@@ -196,11 +196,11 @@ export default function BookingForm() {
         setStatus('slotTaken');
         const { takenSlots: slots } = await ops.fetchAvailableSlots(formData.appointment_date, formData.location);
         setTakenSlots(slots);
-        setErrors((prev) => ({ ...prev, appointment_time: 'Този час вече е зает. Моля, изберете друг.' }));
+        setErrors((prev) => ({ ...prev, appointment_time: isEn ? "This time is already booked. Please choose another." : "Този час вече е зает. Моля, изберете друг." }));
       } else if (result?.error === 'Day is blocked') {
         setDayBlocked(true);
         setFormData((prev) => ({ ...prev, appointment_time: '' }));
-        setErrors((prev) => ({ ...prev, appointment_date: 'Този ден е почивен. Моля, изберете друга дата.' }));
+        setErrors((prev) => ({ ...prev, appointment_date: isEn ? "The studio is closed on this date. Please choose another date." : "Този ден е почивен. Моля, изберете друга дата." }));
       } else {
         setStatus('success');
         setFormData({
@@ -250,7 +250,7 @@ export default function BookingForm() {
             <i className="ri-checkbox-circle-line text-green-600" />
           </div>
           <div>
-            <p className="font-medium text-green-800 text-sm">Резервацията е получена!</p>
+            <p className="font-medium text-green-800 text-sm">{isEn ? "Your booking request has been received!" : "Резервацията е получена!"}</p>
             <p className="text-sm text-green-600 mt-0.5">{t('bookingSuccess') || 'Ще се свържем с вас за потвърждение.'}</p>
           </div>
         </div>
@@ -262,8 +262,8 @@ export default function BookingForm() {
             <i className="ri-time-line text-accent-600" />
           </div>
           <div>
-            <p className="font-medium text-accent-800 text-sm">Часът вече е зает</p>
-            <p className="text-sm text-accent-600 mt-0.5">Този час току-що беше резервиран от друг клиент. Моля, изберете друг час от списъка.</p>
+            <p className="font-medium text-accent-800 text-sm">{isEn ? "This time is already booked" : "Часът вече е зает"}</p>
+            <p className="text-sm text-accent-600 mt-0.5">{isEn ? "This time has just been booked. Please choose another available time." : "Този час току-що беше резервиран от друг клиент. Моля, изберете друг час от списъка."}</p>
           </div>
         </div>
       )}
@@ -274,8 +274,8 @@ export default function BookingForm() {
             <i className="ri-close-circle-line text-red-600" />
           </div>
           <div>
-            <p className="font-medium text-red-800 text-sm">Почивен ден</p>
-            <p className="text-sm text-red-600 mt-0.5">Студиото не работи на тази дата. Моля, изберете друга дата за вашия час.</p>
+            <p className="font-medium text-red-800 text-sm">{isEn ? "Studio closed" : "Почивен ден"}</p>
+            <p className="text-sm text-red-600 mt-0.5">{isEn ? "The studio is closed on this date. Please choose another date." : "Студиото не работи на тази дата. Моля, изберете друга дата за вашия час."}</p>
           </div>
         </div>
       )}
@@ -286,7 +286,7 @@ export default function BookingForm() {
             <i className="ri-error-warning-line text-red-600" />
           </div>
           <div>
-            <p className="font-medium text-red-800 text-sm">Възникна грешка</p>
+            <p className="font-medium text-red-800 text-sm">{isEn ? "Something went wrong" : "Възникна грешка"}</p>
             <p className="text-sm text-red-600 mt-0.5">{t('bookingError') || 'Моля, обадете се на +359 988 926 120.'}</p>
           </div>
         </div>
@@ -299,7 +299,7 @@ export default function BookingForm() {
             <div className="w-8 h-8 flex items-center justify-center bg-primary-500 rounded-full">
               <span className="text-background-50 text-sm font-semibold">1</span>
             </div>
-            <h3 className="font-heading text-base font-semibold text-foreground-950">Вашите данни</h3>
+            <h3 className="font-heading text-base font-semibold text-foreground-950">{isEn ? "Your details" : "Вашите данни"}</h3>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -315,7 +315,7 @@ export default function BookingForm() {
                 onChange={(e) => handleChange('name', e.target.value)}
                 onBlur={() => validate('name')}
                 className={getInputClasses('name')}
-                placeholder="Вашето име"
+                placeholder={isEn ? "Your name" : "Вашето име"}
                 autoComplete="name"
               />
               {touched.name && errors.name && (
@@ -370,7 +370,7 @@ export default function BookingForm() {
             <div className="w-8 h-8 flex items-center justify-center bg-primary-500 rounded-full">
               <span className="text-background-50 text-sm font-semibold">2</span>
             </div>
-            <h3 className="font-heading text-base font-semibold text-foreground-950">Изберете услуга</h3>
+            <h3 className="font-heading text-base font-semibold text-foreground-950">{isEn ? "Choose a service" : "Изберете услуга"}</h3>
           </div>
 
           {touched.service && errors.service && (
@@ -409,7 +409,7 @@ export default function BookingForm() {
                         <span className={`text-xs font-semibold ${isSelected ? 'text-primary-600' : 'text-foreground-600'}`}>
                           {service.price}
                         </span>
-                        <span className="text-xs text-foreground-400">· {service.duration}</span>
+                        <span className="text-xs text-foreground-400">· {isEn ? service.duration.replace('мин', 'min') : service.duration}</span>
                       </div>
                     </div>
                     {isSelected && (
@@ -430,7 +430,7 @@ export default function BookingForm() {
             <div className="w-8 h-8 flex items-center justify-center bg-primary-500 rounded-full">
               <span className="text-background-50 text-sm font-semibold">3</span>
             </div>
-            <h3 className="font-heading text-base font-semibold text-foreground-950">Локация, дата и час</h3>
+            <h3 className="font-heading text-base font-semibold text-foreground-950">{isEn ? "Studio, date and time" : "Локация, дата и час"}</h3>
           </div>
 
           {/* Location Cards */}
@@ -515,12 +515,12 @@ export default function BookingForm() {
               {loadingSlots && (
                 <span className="inline-flex items-center gap-1 text-xs text-foreground-400">
                   <i className="ri-loader-4-line animate-spin" />
-                  Зареждане...
+                  {isEn ? "Loading..." : "Зареждане..."}
                 </span>
               )}
               {takenSlots.length > 0 && !loadingSlots && (
                 <span className="text-xs text-accent-600 bg-accent-50 px-2 py-0.5 rounded-full">
-                  {takenSlots.length} заети
+                  {takenSlots.length} {isEn ? 'booked' : 'заети'}
                 </span>
               )}
             </label>
@@ -528,7 +528,7 @@ export default function BookingForm() {
             {!formData.appointment_date || !formData.location ? (
               <p className="text-sm text-foreground-400 bg-background-50 rounded-lg p-4 border border-dashed border-background-300">
                 <i className="ri-information-line mr-1" />
-                Първо изберете локация и дата, за да видите наличните часове
+                {isEn ? "Choose a studio and date to see available times" : "Първо изберете локация и дата, за да видите наличните часове"}
               </p>
             ) : slotsError ? (
               <div role="alert" className="text-sm text-foreground-700 bg-background-50 rounded-lg p-4 border border-background-200">
@@ -543,7 +543,7 @@ export default function BookingForm() {
             ) : dayBlocked ? (
               <p className="text-sm text-red-500 bg-red-50 rounded-lg p-4 border border-dashed border-red-200">
                 <i className="ri-close-circle-line mr-1" />
-                Този ден е почивен. Моля, изберете друга дата.
+                {isEn ? "The studio is closed on this date. Please choose another date." : "Този ден е почивен. Моля, изберете друга дата."}
               </p>
             ) : (
               <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
@@ -569,7 +569,7 @@ export default function BookingForm() {
                     >
                       {slot}
                       {isDisabled && (
-                        <span className="sr-only">{isPast ? 'минал' : 'зает'}</span>
+                        <span className="sr-only">{isEn ? (isPast ? 'past' : 'booked') : (isPast ? 'минал' : 'зает')}</span>
                       )}
                     </button>
                   );
@@ -581,12 +581,12 @@ export default function BookingForm() {
               timeSlots.some((s) => !takenSlots.includes(s) && !isPastSlot(s)) ? (
                 <p className="text-xs text-green-600 mt-2">
                   <i className="ri-check-line mr-1" />
-                  Има свободни часове за този ден
+                  {isEn ? "Appointments are available on this date" : "Има свободни часове за този ден"}
                 </p>
               ) : (
                 <p className="text-xs text-accent-600 mt-2">
                   <i className="ri-information-line mr-1" />
-                  Няма свободни часове за този ден{formData.appointment_date === minDate ? ' — моля, изберете следващ ден.' : '.'}
+                  {isEn ? 'No appointments are available on this date' : 'Няма свободни часове за този ден'}{formData.appointment_date === minDate ? (isEn ? ' — please choose another day.' : ' — моля, изберете следващ ден.') : '.'}
                 </p>
               )
             )}
@@ -602,7 +602,7 @@ export default function BookingForm() {
             <div className="w-8 h-8 flex items-center justify-center bg-primary-500 rounded-full">
               <span className="text-background-50 text-sm font-semibold">4</span>
             </div>
-            <h3 className="font-heading text-base font-semibold text-foreground-950">Допълнителна информация</h3>
+            <h3 className="font-heading text-base font-semibold text-foreground-950">{isEn ? "Additional information" : "Допълнителна информация"}</h3>
           </div>
 
           <label htmlFor="booking-message" className="block text-sm font-medium text-foreground-800 mb-1.5">
@@ -616,7 +616,7 @@ export default function BookingForm() {
             rows={4}
             maxLength={500}
             className="w-full px-4 py-3 rounded-lg border text-base md:text-sm bg-background-50 border-background-200 hover:border-background-300 focus:outline-none focus:ring-2 focus:ring-primary-400/50 transition-colors duration-300 resize-none"
-            placeholder="Допълнителна информация (алергии, предпочитания, въпроси)..."
+            placeholder={isEn ? "Additional information (allergies, preferences, questions)..." : "Допълнителна информация (алергии, предпочитания, въпроси)..."}
           />
           <div className="flex justify-between mt-1">
             {errors.message && <p className="text-xs text-red-500">{errors.message}</p>}

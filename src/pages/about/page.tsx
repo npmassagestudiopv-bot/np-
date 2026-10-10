@@ -1,3 +1,5 @@
+import { aboutFaqEn } from '@/mocks/englishFaqs';
+import { localizePageSeo } from '@/lib/localizedSeo';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import Navbar from '@/components/feature/Navbar';
@@ -19,7 +21,7 @@ import {
   buildProductSchema,
 } from '@/lib/seoSchemas';
 
-const FAQ_ITEMS_ABOUT = [
+const FAQ_ITEMS_ABOUT_BG = [
   { q: 'Колко дълго съществува NP Massage Studio?', a: 'NP Massage Studio е основано с ясна мисия — да предоставя достъпни, професионални масажни услуги на жителите и гостите на Велико Търново и Павликени. Студиото е лидер в масажните услуги в региона с две локации и екип от опитни терапевти.' },
   { q: 'Колко локации има NP Massage Studio?', a: 'NP Massage Studio има две локации: Велико Търново (бул. България 72) и Павликени (ул. Атанас Дончев 10). И двете локации предлагат пълната гама от услуги — класически масаж, спортен масаж, антицелулитен масаж, ароматерапия и масаж на гръб.' },
   { q: 'Какви са ценностите на NP Massage Studio?', a: 'Ние вярваме в персонализирания подход, качество без компромис, натурални продукти и създаване на пространство за истинска релаксация и възстановяване. Всеки клиент получава индивидуално внимание и процедура, съобразена с неговите нужди.' },
@@ -42,7 +44,9 @@ export default function AboutPage() {
   const { t } = useTranslation();
   const { handleNav, isEn } = useLocalizedNav();
 
-  useSeo(useMemo(() => ({
+  const FAQ_ITEMS_ABOUT = isEn ? aboutFaqEn : FAQ_ITEMS_ABOUT_BG;
+
+  useSeo(useMemo(() => localizePageSeo({
     title: 'За нас | NP Масажно студио — Професионален масажен салон Велико Търново и Павликени',
     description: 'Научете повече за NP Масажно студио — история, философия и мисия. Два масажни салона: Велико Търново (бул. България 72) и Павликени (ул. Атанас Дончев 10). Управител Натан Петков. Запази час: +359 988 926 120.',
     keywords: 'за нас масажно студио, NP Massage Studio история, масажен салон Велико Търново, Натан Петков масажист, масажно студио Павликени',
@@ -66,7 +70,7 @@ export default function AboutPage() {
       buildFaqSchema(FAQ_ITEMS_ABOUT),
       HOWTO_BOOK,
     ],
-  }), [isEn]));
+  }, '/za-nas', isEn), [isEn, FAQ_ITEMS_ABOUT]));
 
   return (
     <div className="min-h-screen bg-background-50">
@@ -111,7 +115,7 @@ export default function AboutPage() {
 
 function AboutStory() {
   const { t } = useTranslation();
-  const { handleNav } = useLocalizedNav();
+  const { getPath, handleNav, isEn } = useLocalizedNav();
   const { ref, isVisible } = useScrollReveal({ threshold: 0.15 });
 
   return (
@@ -120,8 +124,8 @@ function AboutStory() {
         <div className="relative rounded-3xl overflow-hidden">
           <img
             src="https://storage.readdy-site.link/project_files/ac01bae9-5287-435a-8690-39522f5115fa/2691eb60-f360-4193-82f1-9b528f891f5e_--.webp?v=f6db808cc0666055cc69fcc418030dfe"
-            alt="NP Massage Studio — интериор на масажния салон във Велико Търново"
-            title="NP Massage Studio — Велико Търново"
+            alt={isEn ? "Inside NP Massage Studio in Veliko Tarnovo" : "NP Massage Studio — интериор на масажния салон във Велико Търново"}
+            title={isEn ? "NP Massage Studio \u2014 Veliko Tarnovo" : "NP Massage Studio — Велико Търново"}
             className="w-full h-80 md:h-[420px] lg:h-[500px] object-cover object-top"
             loading="lazy"
             decoding="async"
@@ -147,8 +151,8 @@ function AboutStory() {
           {t('aboutQuote')}
         </p>
         <a
-          href="/kontakti"
-          onClick={(e) => { e.preventDefault(); handleNav('/kontakti'); }}
+          href={getPath('/kontakti')}
+          onClick={(e) => { e.preventDefault(); handleNav(getPath('/kontakti')); }}
           className="inline-flex items-center gap-2 px-6 py-3 bg-primary-500 text-background-50 text-sm font-medium rounded-full hover:bg-primary-600 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer btn-premium min-h-[48px]"
         >
           {t('ctaButton')}
@@ -160,6 +164,7 @@ function AboutStory() {
 }
 
 function AboutOwner() {
+  const { isEn } = useLocalizedNav();
   const { ref, isVisible } = useScrollReveal({ threshold: 0.15 });
 
   return (
@@ -171,30 +176,30 @@ function AboutOwner() {
           </div>
           <div className="flex-1">
             <h2 className="font-heading text-xl md:text-2xl font-semibold text-foreground-950 mb-3">
-              За управителя — Натан Петков
+              {isEn ? "About the manager \u2014 Nathan Petkov" : "За управителя — Натан Петков"}
             </h2>
-            <p className="text-base text-foreground-700 leading-relaxed mb-3">
+            <p className="text-base text-foreground-700 leading-relaxed mb-3">{isEn ? "Nathan Petkov manages NP Massage Studio in Veliko Tarnovo and Pavlikeni. His approach centres on careful work, individual attention and your comfort." : <>
               <strong>Натан Петков</strong> е основател и управител на <strong>NP Massage Studio</strong>. С многогодишен опит в <strong>масажната терапия</strong>, той успешно изгражда и управлява два професионални <strong>масажни салона във Велико Търново</strong> и <strong>Павликени</strong>. Неговата философия е проста — <strong>точност</strong>, <strong>професионализъм</strong> и <strong>индивидуален подход</strong> към всеки клиент.
-            </p>
-            <p className="text-base text-foreground-700 leading-relaxed mb-3">
+            </>}</p>
+            <p className="text-base text-foreground-700 leading-relaxed mb-3">{isEn ? "Choose a service, location and available time through the website. We will contact you to confirm the appointment and discuss your preferences." : <>
               Под негово ръководство <strong>NP Massage Studio</strong> се превърна в доверено име за <strong>масажи Велико Търново</strong> и <strong>масажи Павликени</strong>. Салоните са известни с чистата си среда, квалифицираните терапевти и удобната система за <strong>онлайн резервация на масаж</strong>.
-            </p>
+            </>}</p>
             <div className="flex flex-wrap items-center gap-2 mt-4">
               <span className="inline-flex items-center gap-1 px-3 py-1 bg-primary-100 text-primary-700 text-xs font-medium rounded-full">
                 <i className="ri-verified-badge-line text-sm" />
-                Лицензиран терапевт
+                {isEn ? "Massage practitioner" : "Лицензиран терапевт"}
               </span>
               <span className="inline-flex items-center gap-1 px-3 py-1 bg-accent-100 text-accent-700 text-xs font-medium rounded-full">
                 <i className="ri-store-2-line text-sm" />
-                2 локации
+                {isEn ? "Two studios" : "2 локации"}
               </span>
               <span className="inline-flex items-center gap-1 px-3 py-1 bg-secondary-100 text-secondary-700 text-xs font-medium rounded-full">
                 <i className="ri-time-line text-sm" />
-                Многогодишен опит
+                {isEn ? "Experienced approach" : "Многогодишен опит"}
               </span>
               <span className="inline-flex items-center gap-1 px-3 py-1 bg-primary-100 text-primary-700 text-xs font-medium rounded-full">
                 <i className="ri-star-fill text-sm text-amber-400" />
-                Професионално обслужване
+                {isEn ? "Professional service" : "Професионално обслужване"}
               </span>
             </div>
           </div>

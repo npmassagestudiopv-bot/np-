@@ -20,7 +20,7 @@ export default function AboutSection() {
             <div className="relative rounded-3xl overflow-hidden">
               <img
                 src="https://storage.readdy-site.link/project_files/ac01bae9-5287-435a-8690-39522f5115fa/2691eb60-f360-4193-82f1-9b528f891f5e_--.webp?v=f6db808cc0666055cc69fcc418030dfe"
-                alt="NP Massage Studio - интерьор"
+                alt={isEn ? "Inside NP Massage Studio" : "NP Massage Studio - интерьор"}
                 className="w-full h-80 md:h-[420px] lg:h-[500px] object-cover object-top"
                 width="800"
                 height="600"
@@ -52,7 +52,7 @@ export default function AboutSection() {
                 </div>
                 <div>
                   <div className="text-sm font-bold text-foreground-900">5.0</div>
-                  <div className="text-[10px] text-foreground-500">отзиви в Google</div>
+                  <div className="text-[10px] text-foreground-500">{isEn ? "Google reviews" : "отзиви в Google"}</div>
                 </div>
               </div>
               <div className="flex items-center gap-2 bg-background-50 rounded-xl px-3 py-2 border border-background-200/50">
@@ -61,7 +61,7 @@ export default function AboutSection() {
                 </div>
                 <div>
                   <div className="text-sm font-bold text-foreground-900">2</div>
-                  <div className="text-[10px] text-foreground-500">локации</div>
+                  <div className="text-[10px] text-foreground-500">{isEn ? "studios" : "локации"}</div>
                 </div>
               </div>
               <div className="flex items-center gap-2 bg-background-50 rounded-xl px-3 py-2 border border-background-200/50">
@@ -70,7 +70,7 @@ export default function AboutSection() {
                 </div>
                 <div>
                   <div className="text-sm font-bold text-foreground-900">7/7</div>
-                  <div className="text-[10px] text-foreground-500">дни в седмицата</div>
+                  <div className="text-[10px] text-foreground-500">{isEn ? "days a week" : "дни в седмицата"}</div>
                 </div>
               </div>
             </div>

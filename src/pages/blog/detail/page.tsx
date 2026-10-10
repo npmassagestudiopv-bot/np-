@@ -1,3 +1,5 @@
+import { categoryLabel } from '@/lib/blogCategories';
+import { blogFaqEn } from '@/mocks/englishFaqs';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState, useMemo, useCallback, useContext } from 'react';
 import { PrerenderDataContext } from '@/lib/prerenderContext';
@@ -30,7 +32,7 @@ const OFF_TOPIC_SLUGS = new Set([
   'masazhni-studia-veliko-tarnovo-seo-online-reklama',
 ]);
 
-const FAQ_BLOG_DETAIL: Array<{ q: string; a: string }> = [
+const FAQ_BLOG_DETAIL_BG: Array<{ q: string; a: string }> = [
   { q: 'Колко често публикувате нови статии в блога?', a: 'Публикуваме нови статии редовно, обикновено всяка седмица или две. Следете блога ни за актуална информация за масажна терапия, здраве и уелнес от NP Massage Studio.' },
   { q: 'Мога ли да споделя статии от блога на NP Massage Studio?', a: 'Да, можете свободно да споделяте всички статии в социалните мрежи. Насърчаваме споделянето на полезна информация за ползите от масажа и здравословния начин на живот.' },
   { q: 'Кой пише статиите в блога?', a: 'Статиите се пишат от екипа на NP Massage Studio под ръководството на Натан Петков — професионален масажист с многогодишен опит. Съдържанието е базирано на реален опит и професионални познания.' },
@@ -75,8 +77,8 @@ function buildBlogPostingSchema(post: BlogPost, isEn: boolean) {
       dateModified: post.published_at,
       author: {
         '@type': 'Person',
-        name: 'Натан Петков',
-        url: `${baseUrl}/za-np-massage-studio`,
+        name: isEn ? 'Nathan Petkov' : 'Натан Петков',
+        url: `${baseUrl}${isEn ? "/en/about-np-massage-studio" : "/za-np-massage-studio"}`,
         '@id': `${baseUrl}/#person`,
       },
       publisher: {
@@ -117,7 +119,8 @@ export default function BlogDetailPage() {
   const { t } = useTranslation();
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
-  const { isEn } = useLocalizedNav();
+  const { isEn, getPath } = useLocalizedNav();
+  const FAQ_BLOG_DETAIL = isEn ? blogFaqEn : FAQ_BLOG_DETAIL_BG;
   const staticData = useContext(PrerenderDataContext);
   const [post, setPost] = useState<BlogPost | null>(staticData?.posts.find((item) => item.slug === slug) || null);
   const [allPosts, setAllPosts] = useState<BlogPost[]>(staticData?.posts || []);
@@ -189,8 +192,8 @@ export default function BlogDetailPage() {
       const schemas = [
         buildWebPageSchema(title, description, `/blog/${post.slug}`, 'WebPage'),
         buildBreadcrumbSchema([
-          { name: 'Начало', url: '/' },
-          { name: 'Блог', url: '/blog' },
+          { name: isEn ? 'Home' : 'Начало', url: isEn ? '/en' : '/' },
+          { name: isEn ? 'Blog' : 'Блог', url: isEn ? '/en/blog' : '/blog' },
           { name: title },
         ]),
         buildBlogPostingSchema(post, isEn),
@@ -201,7 +204,7 @@ export default function BlogDetailPage() {
       ];
 
       return {
-        title: `${title} | NP Massage Studio Блог`,
+        title: `${title} | NP Massage Studio ${isEn ? "Blog" : "Блог"}`,
         description,
         canonical: isEn ? `/en/blog/${post.slug}` : `/blog/${post.slug}`,
         lastModified: post.published_at,
@@ -220,7 +223,7 @@ export default function BlogDetailPage() {
         },
         schemas,
       };
-    }, [post, isEn, loading])
+    }, [post, isEn, loading, FAQ_BLOG_DETAIL])
   );
 
   useEffect(() => {
@@ -284,7 +287,7 @@ export default function BlogDetailPage() {
                     : 'Статията, която търсите, не съществува или е преместена.'}
                 </p>
                 <button
-                  onClick={() => navigate('/blog')}
+                  onClick={() => navigate(getPath('/blog'))}
                   className="inline-flex items-center gap-2 px-6 py-3 bg-primary-500 text-background-50 text-sm font-medium rounded-full hover:bg-primary-600 transition-all duration-300 cursor-pointer"
                 >
                   <i className="ri-arrow-left-line" />
@@ -374,7 +377,7 @@ export default function BlogDetailPage() {
             <div className="mt-12 pt-8 border-t border-background-200/70">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <button
-                  onClick={() => navigate('/blog')}
+                  onClick={() => navigate(getPath('/blog'))}
                   className="inline-flex items-center gap-2 text-sm font-medium text-primary-600 hover:text-primary-700 transition-colors duration-300 cursor-pointer"
                 >
                   <i className="ri-arrow-left-line" />
@@ -383,7 +386,7 @@ export default function BlogDetailPage() {
                 <div className="flex items-center gap-3">
                   <span className="text-xs text-foreground-500">{isEn ? 'Share:' : 'Сподели:'}</span>
                   <a
-                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${baseUrl}/blog/${post.slug}`)}`}
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${baseUrl}${isEn ? '/en' : ''}/blog/${post.slug}`)}`}
                     target="_blank"
                     rel="noopener noreferrer nofollow"
                     className="w-8 h-8 flex items-center justify-center rounded-full bg-background-100 hover:bg-primary-100 text-foreground-600 hover:text-primary-600 transition-all duration-300"
@@ -392,7 +395,7 @@ export default function BlogDetailPage() {
                     <i className="ri-facebook-fill text-sm" />
                   </a>
                   <a
-                    href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`${baseUrl}/blog/${post.slug}`)}&text=${encodeURIComponent(title)}`}
+                    href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`${baseUrl}${isEn ? '/en' : ''}/blog/${post.slug}`)}&text=${encodeURIComponent(title)}`}
                     target="_blank"
                     rel="noopener noreferrer nofollow"
                     className="w-8 h-8 flex items-center justify-center rounded-full bg-background-100 hover:bg-primary-100 text-foreground-600 hover:text-primary-600 transition-all duration-300"
@@ -401,7 +404,7 @@ export default function BlogDetailPage() {
                     <i className="ri-twitter-x-fill text-sm" />
                   </a>
                   <a
-                    href={`mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`${baseUrl}/blog/${post.slug}`)}`}
+                    href={`mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`${baseUrl}${isEn ? '/en' : ''}/blog/${post.slug}`)}`}
                     className="w-8 h-8 flex items-center justify-center rounded-full bg-background-100 hover:bg-primary-100 text-foreground-600 hover:text-primary-600 transition-all duration-300"
                     aria-label="Share by email"
                   >
@@ -435,6 +438,7 @@ export default function BlogDetailPage() {
 }
 
 function AuthorBlock({ isEn, publishedAt }: { isEn: boolean; publishedAt: string }) {
+  const { getPath } = useLocalizedNav();
   const dateStr = publishedAt ? new Date(publishedAt).toLocaleDateString(isEn ? 'en-US' : 'bg-BG', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
 
   return (
@@ -443,18 +447,18 @@ function AuthorBlock({ isEn, publishedAt }: { isEn: boolean; publishedAt: string
         <i className="ri-user-star-line text-primary-600 text-xl" />
       </div>
       <div>
-        <p className="text-sm font-semibold text-foreground-900">Натан Петков</p>
+        <p className="text-sm font-semibold text-foreground-900">{isEn ? "Nathan Petkov" : "Натан Петков"}</p>
         <p className="text-xs text-foreground-500">
           {isEn ? 'Professional Massage Therapist, NP Massage Studio' : 'Професионален масажист, NP Massage Studio'}
           {' · '}
           <time dateTime={publishedAt}>{dateStr}</time>
         </p>
         <div className="flex flex-wrap items-center gap-2 mt-1">
-          <a href="/za-np-massage-studio" className="text-xs text-primary-600 hover:text-primary-700 transition-colors">
+          <a href={getPath('/za-np-massage-studio')} className="text-xs text-primary-600 hover:text-primary-700 transition-colors">
             {isEn ? 'About the owner' : 'За управителя'}
           </a>
           <span className="text-foreground-300">|</span>
-          <a href="/uslugi" className="text-xs text-primary-600 hover:text-primary-700 transition-colors">
+          <a href={getPath('/uslugi')} className="text-xs text-primary-600 hover:text-primary-700 transition-colors">
             {isEn ? 'Services' : 'Услуги'}
           </a>
         </div>
@@ -484,7 +488,7 @@ function CtaBlock({ isEn }: { isEn: boolean }) {
       </p>
       <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
         <button
-          onClick={() => navigate('/rezervaciya')}
+          onClick={() => navigate(isEn ? '/en/booking' : '/rezervaciya')}
           className="inline-flex items-center justify-center px-8 py-4 bg-background-50 text-primary-700 font-medium text-sm rounded-full hover:bg-background-100 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer min-h-[48px]"
         >
           {isEn ? 'Book an Appointment' : 'Запази час'}

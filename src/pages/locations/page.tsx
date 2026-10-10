@@ -1,3 +1,5 @@
+import { locationsFaqEn } from '@/mocks/englishFaqs';
+import { localizePageSeo } from '@/lib/localizedSeo';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import Navbar from '@/components/feature/Navbar';
@@ -17,7 +19,7 @@ import {
   buildWebPageSchema,
 } from '@/lib/seoSchemas';
 
-const FAQ_LOCATIONS = [
+const FAQ_LOCATIONS_BG = [
   { q: 'Как да намеря NP Massage Studio във Велико Търново?', a: 'NP Massage Studio се намира на бул. България 72, Велико Търново 5000. Лесно достъпно с удобен паркинг в близост. Можете да ни намерите и на Google Maps — търсете NP Massage Studio.' },
   { q: 'Как да намеря NP Massage Studio в Павликени?', a: 'NP Massage Studio в Павликени се намира на ул. Атанас Дончев 10, Павликени 5200. Централна локация в сърцето на Павликени, с удобен достъп и паркинг.' },
   { q: 'Има ли паркинг на двете локации?', a: 'Да, и двете локации разполагат с удобен паркинг в близост. Велико Търново е на бул. България 72, Павликени е на ул. Атанас Дончев 10. И двете имат лесен достъп.' },
@@ -30,7 +32,9 @@ export default function LocationsPage() {
   const { t } = useTranslation();
   const { isEn } = useLocalizedNav();
 
-  useSeo(useMemo(() => ({
+  const FAQ_LOCATIONS = isEn ? locationsFaqEn : FAQ_LOCATIONS_BG;
+
+  useSeo(useMemo(() => localizePageSeo({
     title: 'Локации | NP Масажно студио — Велико Търново (бул. България 72) и Павликени (ул. Атанас Дончев 10)',
     description: 'Две локации на NP Масажно студио: Велико Търново на бул. България 72 и Павликени на ул. Атанас Дончев 10. Обслужваме клиенти от Габрово, Севлиево, Горна Оряховица, Лясковец. Телефон: +359 988 926 120.',
     keywords: 'масажно студио локации, масаж Велико Търново адрес, масаж Павликени адрес, NP Масажно студио карта, масаж Габрово, масаж Горна Оряховица, масаж Севлиево',
@@ -65,7 +69,7 @@ export default function LocationsPage() {
       buildMapSchema(),
       buildFaqSchema(FAQ_LOCATIONS),
     ],
-  }), [isEn]));
+  }, '/lokacii', isEn), [isEn, FAQ_LOCATIONS]));
 
   return (
     <div className="min-h-screen bg-background-50">
@@ -92,7 +96,7 @@ export default function LocationsPage() {
                 desc={t('locationVtDesc')}
                 features={t('locationVtFeatures')}
                 mapSrc="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2913.0!2d25.612733413492446!3d43.08103687090604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a927b124cc50df:0x527bf18671441e41!2sNP+Massage+Studio!5e0!3m2!1sen!2sbg!4v1700000000000"
-                mapTitle="NP Massage Studio — бул. България 72, Велико Търново 5000"
+                mapTitle={isEn ? "NP Massage Studio \u2014 72 Bulgaria Boulevard, Veliko Tarnovo 5000" : "NP Massage Studio — бул. България 72, Велико Търново 5000"}
                 directionsUrl="https://www.google.com/maps/place/NP+Massage+Studio+%7C+%D0%9C%D0%B0%D1%81%D0%B0%D0%B6%D0%BD%D0%BE+%D1%81%D1%82%D1%83%D0%B4%D0%B8%D0%BE+%D0%92%D0%B5%D0%BB%D0%B8%D0%BA%D0%BE+%D0%A2%D1%8A%D1%80%D0%BD%D0%BE%D0%B2%D0%BE/@43.080935,25.6127656,17z"
               />
               <LocationCard
@@ -101,7 +105,7 @@ export default function LocationsPage() {
                 desc={t('locationPvDesc')}
                 features={t('locationPvFeatures')}
                 mapSrc="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2913.0!2d25.30764655569994!3d43.23929045147203!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87012a3b8474bd79:0x63759dc2c2e5a392!2sNP+Massage+Studio+Pavlikeni!5e0!3m2!1sen!2sbg!4v1700000000000"
-                mapTitle="NP Massage Studio — ул. Атанас Дончев 10, Павликени 5200"
+                mapTitle={isEn ? "NP Massage Studio \u2014 10 Atanas Donchev Street, Pavlikeni" : "NP Massage Studio — ул. Атанас Дончев 10, Павликени 5200"}
                 directionsUrl="https://www.google.com/maps/dir/NP+Massage+Studio+Pavlikeni,+%D0%A6%D0%B5%D0%BD%D1%82%D1%8A%D1%80,+%D1%83%D0%BB.+%D0%90%D1%82%D0%B0%D0%BD%D0%B0%D1%81+%D0%94%D0%BE%D0%BD%D1%87%D0%B5%D0%B2+10,+5200+%D0%9F%D0%B0%D0%B2%D0%BB%D0%B8%D0%BA%D0%B5%D0%BD%D0%B8/@43.2363828,25.2975614,15z"
               />
             </div>
@@ -111,53 +115,53 @@ export default function LocationsPage() {
             {/* Service Area Section */}
             <div className="bg-background-100 rounded-2xl p-6 md:p-8 border border-background-200/70 mb-16 md:mb-20">
               <h3 className="font-heading text-xl md:text-2xl font-semibold text-foreground-950 mb-2">
-                Градове, които обслужваме
+                {isEn ? "Visitors from the region" : "Градове, които обслужваме"}
               </h3>
               <p className="text-sm text-foreground-600 mb-6 leading-relaxed">
-                NP Massage Studio разполага с два физически салона — във Велико Търново и Павликени. От тези две локации обслужваме клиенти от целия регион. Ето пълния списък с градовете, от които приемаме клиенти:
+                {isEn ? "Our studios are in Veliko Tarnovo and Pavlikeni. We also welcome visitors from the surrounding towns. Choose a studio and book before travelling." : "NP Massage Studio разполага с два физически салона — във Велико Търново и Павликени. От тези две локации обслужваме клиенти от целия регион. Ето пълния списък с градовете, от които приемаме клиенти:"}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="bg-background-50 rounded-xl p-4 border border-primary-200/60">
                   <div className="flex items-center gap-2 mb-1">
                     <i className="ri-building-2-line text-primary-500" />
-                    <span className="text-sm font-semibold text-foreground-900">Велико Търново</span>
+                    <span className="text-sm font-semibold text-foreground-900">{isEn ? "Veliko Tarnovo" : "Велико Търново"}</span>
                   </div>
-                  <span className="text-xs text-primary-600 font-medium">Наш салон — бул. България 72</span>
+                  <span className="text-xs text-primary-600 font-medium">{isEn ? "Our studio \u2014 72 Bulgaria Boulevard" : "Наш салон — бул. България 72"}</span>
                 </div>
                 <div className="bg-background-50 rounded-xl p-4 border border-primary-200/60">
                   <div className="flex items-center gap-2 mb-1">
                     <i className="ri-building-2-line text-primary-500" />
-                    <span className="text-sm font-semibold text-foreground-900">Павликени</span>
+                    <span className="text-sm font-semibold text-foreground-900">{isEn ? "Pavlikeni" : "Павликени"}</span>
                   </div>
-                  <span className="text-xs text-primary-600 font-medium">Наш салон — ул. Атанас Дончев 10</span>
+                  <span className="text-xs text-primary-600 font-medium">{isEn ? "Our studio \u2014 10 Atanas Donchev Street" : "Наш салон — ул. Атанас Дончев 10"}</span>
                 </div>
                 <div className="bg-background-50 rounded-xl p-4 border border-secondary-200/60">
                   <div className="flex items-center gap-2 mb-1">
                     <i className="ri-car-line text-secondary-500" />
-                    <span className="text-sm font-semibold text-foreground-900">Габрово</span>
+                    <span className="text-sm font-semibold text-foreground-900">{isEn ? "Gabrovo" : "Габрово"}</span>
                   </div>
-                  <span className="text-xs text-secondary-600 font-medium">Обслужван град — 45 мин до В. Търново</span>
+                  <span className="text-xs text-secondary-600 font-medium">{isEn ? "Visit our studio in Veliko Tarnovo" : "Обслужван град — 45 мин до В. Търново"}</span>
                 </div>
                 <div className="bg-background-50 rounded-xl p-4 border border-secondary-200/60">
                   <div className="flex items-center gap-2 mb-1">
                     <i className="ri-car-line text-secondary-500" />
-                    <span className="text-sm font-semibold text-foreground-900">Горна Оряховица</span>
+                    <span className="text-sm font-semibold text-foreground-900">{isEn ? "Gorna Oryahovitsa" : "Горна Оряховица"}</span>
                   </div>
-                  <span className="text-xs text-secondary-600 font-medium">Обслужван град — 15 мин до В. Търново</span>
+                  <span className="text-xs text-secondary-600 font-medium">{isEn ? "Visit our studio in Veliko Tarnovo" : "Обслужван град — 15 мин до В. Търново"}</span>
                 </div>
                 <div className="bg-background-50 rounded-xl p-4 border border-secondary-200/60">
                   <div className="flex items-center gap-2 mb-1">
                     <i className="ri-car-line text-secondary-500" />
-                    <span className="text-sm font-semibold text-foreground-900">Лясковец</span>
+                    <span className="text-sm font-semibold text-foreground-900">{isEn ? "Lyaskovets" : "Лясковец"}</span>
                   </div>
-                  <span className="text-xs text-secondary-600 font-medium">Обслужван град — 15 мин до В. Търново</span>
+                  <span className="text-xs text-secondary-600 font-medium">{isEn ? "Visit our studio in Veliko Tarnovo" : "Обслужван град — 15 мин до В. Търново"}</span>
                 </div>
                 <div className="bg-background-50 rounded-xl p-4 border border-secondary-200/60">
                   <div className="flex items-center gap-2 mb-1">
                     <i className="ri-car-line text-secondary-500" />
-                    <span className="text-sm font-semibold text-foreground-900">Севлиево</span>
+                    <span className="text-sm font-semibold text-foreground-900">{isEn ? "Sevlievo" : "Севлиево"}</span>
                   </div>
-                  <span className="text-xs text-secondary-600 font-medium">Обслужван град — 30 мин до Павликени</span>
+                  <span className="text-xs text-secondary-600 font-medium">{isEn ? "Visit our studio in Pavlikeni" : "Обслужван град — 30 мин до Павликени"}</span>
                 </div>
               </div>
             </div>
@@ -185,6 +189,7 @@ function LocationCard({ title, address, desc, features, mapSrc, mapTitle, direct
   title: string; address: string; desc: string; features: string;
   mapSrc: string; mapTitle: string; directionsUrl?: string;
 }) {
+  const { isEn } = useLocalizedNav();
   const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
 
   return (
@@ -224,7 +229,7 @@ function LocationCard({ title, address, desc, features, mapSrc, mapTitle, direct
             <div className="w-3 h-3 flex items-center justify-center">
               <i className="ri-external-link-line" />
             </div>
-            Отвори в Google Maps
+            {isEn ? "Open in Google Maps" : "Отвори в Google Maps"}
           </a>
         )}
       </div>

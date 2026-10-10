@@ -19,7 +19,7 @@ export default function CtaSection() {
           <div className="relative rounded-3xl overflow-hidden mb-8 md:mb-10">
             <img
               src="https://storage.readdy-site.link/project_files/ac01bae9-5287-435a-8690-39522f5115fa/855eca03-8242-41e5-b14f-effa409cade3_-.webp?v=ded22a5fca673de0a426e7d6e56844dd"
-              alt="NP Massage Studio - студио"
+              alt={isEn ? "NP Massage Studio" : "NP Massage Studio - студио"}
               className="w-full h-48 md:h-64 lg:h-80 object-cover object-top"
               width="800"
               height="500"

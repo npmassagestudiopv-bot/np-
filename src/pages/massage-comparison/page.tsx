@@ -1,3 +1,6 @@
+import { massageComparisonEn, comparisonStepsEn, comparisonScenariosEn } from '@/mocks/englishComparison';
+import { servicesFaqEn } from '@/mocks/englishFaqs';
+import { localizePageSeo } from '@/lib/localizedSeo';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
@@ -74,7 +77,7 @@ const MASSAGE_TYPES = [
   },
 ];
 
-const COMPARISON_FAQ = [
+const COMPARISON_FAQ_BG = [
   { q: 'Кой масаж е най-подходящ за мен?', a: 'Ако търсите релаксация и облекчаване на стреса — изберете класически масаж или ароматерапия. Ако сте спортист или имате мускулни болки — спортен масаж. Ако искате да подобрите вида на кожата — антицелулитен масаж. Ако имате ограничено време или болки само в гърба — частичен масаж на гръб. При съмнение, обадете ни се на +359 988 926 120 за безплатна консултация.' },
   { q: 'Колко често трябва да ходя на масаж?', a: 'За релаксация и поддръжка — веднъж седмично или на две седмици. За спортно възстановяване — 1-2 пъти седмично. За антицелулитна терапия — 2 пъти седмично в продължение на 5 седмици. За хронични болки — според препоръката на терапевта.' },
   { q: 'Може ли да комбинирам различни видове масаж?', a: 'Да, много клиенти комбинират различни масажи. Например класически масаж за релакс и спортен за възстановяване, или ароматерапия веднъж месечно като специално изживяване. Нашите терапевти ще ви помогнат да създадете персонализиран план.' },
@@ -99,13 +102,16 @@ export default function MassageComparisonPage() {
   const { t } = useTranslation();
   const { getPath, handleNav, isEn } = useLocalizedNav();
 
-  useSeo(useMemo(() => ({
+  const COMPARISON_FAQ = isEn ? servicesFaqEn : COMPARISON_FAQ_BG;
+
+  useSeo(useMemo(() => localizePageSeo({
     title: 'Видове масажи — сравнение, цени и препоръки | NP Massage Studio',
     description: 'Пълно сравнение на всички видове масажи в NP Massage Studio. Класически, спортен, антицелулитен масаж, ароматерапия и масаж на гръб — цени, продължителност и за кого са подходящи.',
     canonical: isEn ? '/en/videos-masazhi' : '/videos-masazhi',
     lastModified: '2026-06-08',
     hreflangs: [
       { lang: 'bg', url: '/videos-masazhi' },
+      { lang: 'en', url: '/en/videos-masazhi' },
       { lang: 'x-default', url: '/videos-masazhi' },
     ],
     og: {
@@ -115,7 +121,7 @@ export default function MassageComparisonPage() {
       locale: 'bg_BG',
     },
     schemas: [
-      buildWebPageSchema('Видове масажи — сравнение и цени | NP Massage Studio', 'Пълно сравнение на всички видове масажи с цени, продължителност и препоръки.', '/videos-masazhi', 'Article'),
+      buildWebPageSchema('Видове масажи — сравнение и цени | NP Massage Studio', 'Пълно сравнение на всички видове масажи с цени, продължителност и препоръки.', '/videos-masazhi', 'WebPage'),
       buildBreadcrumbSchema([
         { name: 'Начало', url: '/' },
         { name: 'Видове масажи', url: '/videos-masazhi' },
@@ -124,7 +130,7 @@ export default function MassageComparisonPage() {
       buildFaqSchema(COMPARISON_FAQ),
       HOWTO_CHOOSE,
     ],
-  }), [isEn]));
+  }, '/videos-masazhi', isEn), [isEn, COMPARISON_FAQ]));
 
   return (
     <div className="min-h-screen bg-background-50">
@@ -134,16 +140,13 @@ export default function MassageComparisonPage() {
           <div className="max-w-5xl mx-auto">
             <div className="mb-12 md:mb-16">
               <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground-950 mb-4">
-                Видове масажи — пълно сравнение
+                {isEn ? "Compare our massage services" : "Видове масажи — пълно сравнение"}
               </h1>
               <p className="text-base text-foreground-600 max-w-3xl leading-relaxed mb-3">
-                Изборът на правилния масаж може да бъде объркващ. В NP Massage Studio предлагаме пет различни вида масажи —
-                всеки със своите уникални ползи, техники и предназначение. Това ръководство ще ви помогне да изберете
-                най-подходящия масаж според вашите нужди, бюджет и начин на живот.
+                {isEn ? 'Compare our five massage services and choose according to your preferences, budget and available time. You can check each session’s price, duration and focus below.' : <>Изборът на правилния масаж може да бъде объркващ. В NP Massage Studio предлагаме пет различни вида масажи — всеки със своите уникални ползи, техники и предназначение. Това ръководство ще ви помогне да изберете най-подходящия масаж според вашите нужди, бюджет и начин на живот.</>}
               </p>
               <p className="text-sm text-foreground-500 max-w-3xl leading-relaxed">
-                Всички процедури се изпълняват от сертифицирани терапевти в нашите две локации — Велико Търново и Павликени.
-                Работим всеки ден от седмицата, включително събота и неделя.
+                {isEn ? 'Visit us in Veliko Tarnovo or Pavlikeni. Both studios are open every day, including weekends. Call us if you would like help choosing a service.' : <>Всички процедури се изпълняват от сертифицирани терапевти в нашите две локации — Велико Търново и Павликени. Работим всеки ден от седмицата, включително събота и неделя.</>}
               </p>
             </div>
 
@@ -155,9 +158,9 @@ export default function MassageComparisonPage() {
             <div className="mb-14 md:mb-18">
               <div className="text-center mb-8 md:mb-10">
                 <h2 className="font-heading text-2xl md:text-3xl font-semibold text-foreground-950 mb-3">
-                  Често задавани въпроси
+                  {isEn ? "Frequently asked questions" : "Често задавани въпроси"}
                 </h2>
-                <p className="text-sm text-foreground-600">Всичко, което трябва да знаете преди да запазите час</p>
+                <p className="text-sm text-foreground-600">{isEn ? "Practical information before you book" : "Всичко, което трябва да знаете преди да запазите час"}</p>
               </div>
               <FaqAccordion items={COMPARISON_FAQ.map((item) => ({ q: item.q, a: item.a }))} />
             </div>
@@ -172,34 +175,37 @@ export default function MassageComparisonPage() {
 }
 
 function ComparisonTable() {
+  const { isEn } = useLocalizedNav();
   const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
 
   return (
     <div ref={ref} className={`mb-14 md:mb-18 overflow-x-auto transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
       <h2 className="font-heading text-xl md:text-2xl font-semibold text-foreground-950 mb-5">
-        Сравнителна таблица на услугите
+        {isEn ? "Compare services at a glance" : "Сравнителна таблица на услугите"}
       </h2>
       <div className="bg-background-100 rounded-2xl border border-background-200/70 overflow-hidden min-w-[700px]">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-background-200/70 bg-background-100">
-              <th className="text-left p-4 font-semibold text-foreground-900">Услуга</th>
-              <th className="text-left p-4 font-semibold text-foreground-900">Цена</th>
-              <th className="text-left p-4 font-semibold text-foreground-900">Време</th>
-              <th className="text-left p-4 font-semibold text-foreground-900">Интензивност</th>
-              <th className="text-left p-4 font-semibold text-foreground-900">Най-подходящ за</th>
+              <th className="text-left p-4 font-semibold text-foreground-900">{isEn ? "Service" : "Услуга"}</th>
+              <th className="text-left p-4 font-semibold text-foreground-900">{isEn ? "Price" : "Цена"}</th>
+              <th className="text-left p-4 font-semibold text-foreground-900">{isEn ? "Duration" : "Време"}</th>
+              <th className="text-left p-4 font-semibold text-foreground-900">{isEn ? "Pressure" : "Интензивност"}</th>
+              <th className="text-left p-4 font-semibold text-foreground-900">{isEn ? "Suitable for" : "Най-подходящ за"}</th>
             </tr>
           </thead>
           <tbody>
-            {MASSAGE_TYPES.map((type, i) => (
-              <tr key={type.id} className={`border-b border-background-200/70 last:border-b-0 ${i % 2 === 0 ? 'bg-background-50' : 'bg-background-100'}`}>
+            {MASSAGE_TYPES.map((source, i) => {
+              const type = isEn ? { ...source, ...massageComparisonEn[i] } : source;
+              return (
+              <tr key={source.id} className={`border-b border-background-200/70 last:border-b-0 ${i % 2 === 0 ? 'bg-background-50' : 'bg-background-100'}`}>
                 <td className="p-4 font-medium text-foreground-900">{type.name}</td>
                 <td className="p-4 text-primary-600 font-semibold">{type.price}</td>
                 <td className="p-4 text-foreground-700">{type.duration}</td>
                 <td className="p-4">
                   <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${
-                    type.intensity.includes('Висока') ? 'bg-accent-100 text-accent-800' :
-                    type.intensity.includes('Ниска') ? 'bg-secondary-100 text-secondary-800' :
+                    source.intensity.includes('Висока') ? 'bg-accent-100 text-accent-800' :
+                    source.intensity.includes('Ниска') ? 'bg-secondary-100 text-secondary-800' :
                     'bg-primary-100 text-primary-800'
                   }`}>
                     {type.intensity}
@@ -207,7 +213,7 @@ function ComparisonTable() {
                 </td>
                 <td className="p-4 text-foreground-600 text-xs leading-relaxed">{type.bestFor}</td>
               </tr>
-            ))}
+            );})}
           </tbody>
         </table>
       </div>
@@ -221,11 +227,11 @@ function DetailCards() {
   return (
     <div className="mb-14 md:mb-18">
       <h2 className="font-heading text-xl md:text-2xl font-semibold text-foreground-950 mb-5">
-        Детайлно описание на всеки масаж
+        {isEn ? "What to expect from each massage" : "Детайлно описание на всеки масаж"}
       </h2>
       <div className="space-y-5">
-        {MASSAGE_TYPES.map((type, i) => (
-          <MassageDetailCard key={type.id} type={type} index={i} onNavigate={handleNav} />
+        {MASSAGE_TYPES.map((source, i) => (
+          <MassageDetailCard key={source.id} type={isEn ? { ...source, ...massageComparisonEn[i] } : source} index={i} onNavigate={handleNav} />
         ))}
       </div>
     </div>
@@ -233,6 +239,7 @@ function DetailCards() {
 }
 
 function MassageDetailCard({ type, index, onNavigate }: { type: typeof MASSAGE_TYPES[0]; index: number; onNavigate: (path: string) => void }) {
+  const { getPath, isEn } = useLocalizedNav();
   const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
 
   return (
@@ -265,10 +272,10 @@ function MassageDetailCard({ type, index, onNavigate }: { type: typeof MASSAGE_T
           </div>
           <p className="text-sm text-foreground-600 leading-relaxed mb-4">{type.description}</p>
           <button
-            onClick={() => onNavigate(`/uslugi/${type.slug}`)}
+            onClick={() => onNavigate(getPath(`/uslugi/${type.slug}`))}
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-500 text-background-50 text-sm font-medium rounded-full hover:bg-primary-600 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer min-h-[48px]"
           >
-            Научи повече
+            {isEn ? "View service details" : "Научи повече"}
             <i className="ri-arrow-right-line" />
           </button>
         </div>
@@ -278,21 +285,22 @@ function MassageDetailCard({ type, index, onNavigate }: { type: typeof MASSAGE_T
 }
 
 function HowToChoose() {
+  const { isEn } = useLocalizedNav();
   const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
 
   return (
     <div ref={ref} className={`bg-background-100 rounded-2xl p-6 md:p-8 border border-background-200/70 mb-14 md:mb-18 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
       <h2 className="font-heading text-xl md:text-2xl font-semibold text-foreground-950 mb-5">
-        Как да изберете правилния масаж — 5 стъпки
+        {isEn ? "Choose a massage in five steps" : "Как да изберете правилния масаж — 5 стъпки"}
       </h2>
       <div className="space-y-4">
-        {[
+        {(isEn ? comparisonStepsEn : [
           { step: '1', title: 'Определете целта си', desc: 'Релаксация и облекчаване на стреса → класически масаж или ароматерапия. Мускулни болки и спортно възстановяване → спортен масаж. Подобряване на кожата → антицелулитен масаж. Конкретни болки в гърба → частичен масаж на гръб.' },
           { step: '2', title: 'Определете бюджета си', desc: '15€ за масаж на гръб (40 мин) — най-достъпен вариант. 20€ за антицелулитен масаж. 25€ за класически или спортен — отлично съотношение цена-качество. 30€ за ароматерапия — премиум изживяване с етерични масла.' },
           { step: '3', title: 'Помислете за времето', desc: 'Разполагате с 40 минути → изберете антицелулитен масаж или масаж на гръб. Имате цял час → класически, спортен или ароматерапия са вашият избор.' },
           { step: '4', title: 'Консултирайте се с терапевт', desc: 'Не сте сигурни? Обадете ни се на +359 988 926 120. Нашите сертифицирани терапевти ще ви зададат няколко целенасочени въпроса и ще ви препоръчат най-подходящия масаж — безплатно и без ангажимент.' },
           { step: '5', title: 'Запазете час и се насладете', desc: 'След като сте избрали, резервирайте онлайн или по телефона. Пристигнете 5 минути по-рано в избраната локация, отпуснете се и се насладете на професионален масаж от сертифициран терапевт.' },
-        ].map((item, i) => (
+        ]).map((item, i) => (
           <div key={i} className="flex items-start gap-4">
             <div className="w-8 h-8 flex items-center justify-center bg-primary-500 text-background-50 rounded-full flex-shrink-0 text-sm font-bold">
               {item.step}
@@ -323,10 +331,12 @@ function WhichMassageForYou() {
   return (
     <div ref={ref} className={`mb-14 md:mb-18 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
       <h2 className="font-heading text-xl md:text-2xl font-semibold text-foreground-950 mb-5">
-        Кой масаж е за вас?
+        {isEn ? "Which massage suits you?" : "Кой масаж е за вас?"}
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {scenarios.map((s, i) => (
+        {scenarios.map((source, i) => {
+          const s = isEn ? { ...source, ...comparisonScenariosEn[i] } : source;
+          return (
           <div key={i} className="bg-background-100 rounded-2xl p-5 border border-background-200/70 hover:border-primary-300/60 transition-all duration-300 group">
             <div className="w-10 h-10 flex items-center justify-center bg-accent-100 rounded-xl mb-3">
               <i className={`${s.icon} text-accent-600 text-lg`} />
@@ -335,13 +345,13 @@ function WhichMassageForYou() {
             <p className="text-xs text-primary-600 font-medium mb-2">{s.recommendation}</p>
             <p className="text-xs text-foreground-600 leading-relaxed mb-3">{s.reason}</p>
             <button
-              onClick={() => handleNav(`/uslugi/${s.slug}`)}
+              onClick={() => handleNav(getPath(`/uslugi/${s.slug}`))}
               className="text-xs text-accent-600 font-medium hover:text-accent-700 transition-colors cursor-pointer flex items-center gap-1 group-hover:gap-2 transition-all"
             >
-              Към услугата <i className="ri-arrow-right-line text-[10px]" />
+              {isEn ? "View service" : "Към услугата"} <i className="ri-arrow-right-line text-[10px]" />
             </button>
           </div>
-        ))}
+        );})}
       </div>
     </div>
   );

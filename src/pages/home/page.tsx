@@ -1,3 +1,5 @@
+import { englishBookingHowTo } from '@/lib/localizedSeo';
+import { serviceSeoItems, serviceProductSchemas } from '@/lib/serviceSeo';
 import { Suspense, lazy, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import Navbar from '@/components/feature/Navbar';
@@ -107,13 +109,7 @@ export default function Home() {
   const { isEn } = useLocalizedNav();
   const seoSchemas = useMemo<SeoSchema[]>(() => {
     const mod = schemaBuilders;
-    const PRODUCT_SCHEMAS = [
-      mod.buildProductSchema('Класически масаж', 'Традиционна техника за релаксиране на мускулите в NP Massage Studio.', '25', 'EUR', undefined, 'klasicheski-masazh'),
-      mod.buildProductSchema('Спортен масаж', 'Целенасочена терапия за спортисти в NP Massage Studio.', '25', 'EUR', undefined, 'sporten-masazh'),
-      mod.buildProductSchema('Антицелулитен масаж', 'Ефективна процедура за гладка кожа в NP Massage Studio.', '20', 'EUR', undefined, 'anticeluliten-masazh'),
-      mod.buildProductSchema('Ароматерапия', 'Съчетание на масаж и етерични масла в NP Massage Studio.', '30', 'EUR', undefined, 'aromaterapiya'),
-      mod.buildProductSchema('Масаж на гръб', 'Целенасочена терапия за гръб в NP Massage Studio.', '15', 'EUR', undefined, 'masazh-na-grab'),
-    ];
+    const PRODUCT_SCHEMAS = serviceProductSchemas(isEn);
 
     const HOWTO_BOOKING = mod.buildHowToSchema(
       'Как да си запазите час за масаж в NP Massage Studio',
@@ -134,25 +130,25 @@ export default function Home() {
       mod.buildLocalBusinessPvSchema(),
       mod.buildPersonSchema(),
       mod.buildWebPageSchema(
-        'Масаж Велико Търново | NP Масажно студио — от 15 €',
-        'NP Масажно студио — професионални масажи Велико Търново и Павликени. Класически, спортен, антицелулитен масаж & ароматерапия от 15 €.',
+        isEn ? 'Massage in Veliko Tarnovo | NP Massage Studio — from 15 €' : 'Масаж Велико Търново | NP Масажно студио — от 15 €',
+        isEn ? 'Five massage services in Veliko Tarnovo and Pavlikeni. Sessions last 40–60 minutes and cost 15–30 €.' : 'NP Масажно студио — професионални масажи Велико Търново и Павликени. Класически, спортен, антицелулитен масаж & ароматерапия от 15 €.',
         '/',
         'WebPage',
         { cssSelector: ['h1', 'h2', '.hero-subtitle'] }
       ),
       mod.buildBreadcrumbSchema([
-        { name: 'Начало', url: '/' },
+        { name: isEn ? 'Home' : 'Начало', url: isEn ? '/en' : '/' },
       ]),
       mod.buildFaqSchema(isEn ? FAQ_ITEMS_EN : FAQ_ITEMS),
-      mod.buildOfferCatalogSchema(SERVICES_SCHEMA),
-      mod.buildSiteNavigationSchema(),
+      mod.buildOfferCatalogSchema(serviceSeoItems(isEn), isEn),
+      mod.buildSiteNavigationSchema(isEn),
       mod.buildImageObjectSchema(
         'https://storage.readdy-site.link/project_files/ac01bae9-5287-435a-8690-39522f5115fa/797959de-34c7-40ec-bb97-d471b3bf9060_--.webp?v=d5680a101df04e2df0a7f29dc2cd1d37',
         'NP Massage Studio — интериор на масажния салон във Велико Търново',
         1920,
         1080
       ),
-      HOWTO_BOOKING,
+      isEn ? englishBookingHowTo : HOWTO_BOOKING,
       ...PRODUCT_SCHEMAS,
       mod.buildReviewSchema(HOME_REVIEWS),
     ];
@@ -231,7 +227,7 @@ export default function Home() {
           <div className="max-w-5xl mx-auto">
             <div className="bg-red-50/40 rounded-xl p-4 md:p-5 border border-red-200/50 text-center">
               <p className="text-xs text-red-700/70 leading-relaxed">
-                <strong>NP Massage Studio предлага САМО професионални терапевтични и релаксиращи масажи.</strong> Не предлагаме услуги от интимен или еротичен характер.
+                <strong>{isEn ? "NP Massage Studio offers professional therapeutic and relaxing massages." : "NP Massage Studio предлага САМО професионални терапевтични и релаксиращи масажи."}</strong> {isEn ? "Intimate or erotic services are not available." : "Не предлагаме услуги от интимен или еротичен характер."}
               </p>
             </div>
           </div>

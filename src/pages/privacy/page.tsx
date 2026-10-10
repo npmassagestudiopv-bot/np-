@@ -33,7 +33,7 @@ export default function PrivacyPolicyPage() {
         '/politika-poveritelnost'
       ),
       buildBreadcrumbSchema([
-        { name: 'Начало', url: '/' },
+        { name: isEn ? 'Home' : 'Начало', url: isEn ? '/en' : '/' },
         { name: isEn ? 'Privacy Policy' : 'Политика за поверителност' },
       ]),
       buildLocalBusinessSchema(),
@@ -68,7 +68,7 @@ export default function PrivacyPolicyPage() {
       </section>
       <section>
         <h2 className="font-heading text-lg font-semibold text-foreground-950 mb-2">7. Cookies</h2>
-        <p>We use cookies only for essential website functionality. Analytics and marketing cookies are optional and require your consent. See our <a href="/politika-biskvitki" className="text-primary-600 underline">Cookie Policy</a>.</p>
+        <p>We use cookies only for essential website functionality. Analytics and marketing cookies are optional and require your consent. See our <a href="/en/cookies" className="text-primary-600 underline">Cookie Policy</a>.</p>
       </section>
       <section>
         <h2 className="font-heading text-lg font-semibold text-foreground-950 mb-2">8. Third Parties</h2>

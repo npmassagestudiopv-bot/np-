@@ -1,3 +1,4 @@
+import { useLocalizedNav } from '@/hooks/useLocalizedNav';
 import { useNavigate } from 'react-router-dom';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
@@ -18,6 +19,7 @@ interface RelatedArticlesProps {
 
 export default function RelatedArticles({ articles, currentSlug, isEn }: RelatedArticlesProps) {
   const navigate = useNavigate();
+  const { getPath } = useLocalizedNav();
   const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
   const filtered = articles.filter((a) => a.slug !== currentSlug).slice(0, 3);
 
@@ -38,7 +40,7 @@ export default function RelatedArticles({ articles, currentSlug, isEn }: Related
           <article
             key={article.slug}
             className="group bg-background-100 rounded-xl overflow-hidden border border-background-200/70 hover:border-primary-300/60 transition-all duration-300 cursor-pointer"
-            onClick={() => navigate(`/blog/${article.slug}`)}
+            onClick={() => navigate(getPath(`/blog/${article.slug}`))}
             style={{ transitionDelay: `${index * 100}ms` }}
           >
             {article.image_url && (

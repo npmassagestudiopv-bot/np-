@@ -33,7 +33,7 @@ export default function CookiePolicyPage() {
         '/politika-biskvitki'
       ),
       buildBreadcrumbSchema([
-        { name: 'Начало', url: '/' },
+        { name: isEn ? 'Home' : 'Начало', url: isEn ? '/en' : '/' },
         { name: isEn ? 'Cookie Policy' : 'Политика за бисквитки' },
       ]),
       buildLocalBusinessSchema(),

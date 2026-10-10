@@ -8,22 +8,22 @@ import { useSeo } from '@/hooks/useSeo';
 
 export default function NotFound() {
   const { t } = useTranslation();
-  const { handleNav } = useLocalizedNav();
+  const { getPath, handleNav, isEn } = useLocalizedNav();
 
   useSeo(useMemo(() => ({
-    title: '404 Страницата не е намерена | NP Massage Studio',
-    description: 'Страницата не съществува. Върнете се към началото на NP Massage Studio и разгледайте нашите масажни услуги във Велико Търново и Павликени.',
+    title: isEn ? '404 Page not found | NP Massage Studio' : '404 Страницата не е намерена | NP Massage Studio',
+    description: isEn ? 'This page does not exist. Explore our massage services or return to the NP Massage Studio homepage.' : 'Страницата не съществува. Върнете се към началото на NP Massage Studio и разгледайте нашите масажни услуги във Велико Търново и Павликени.',
     noIndex: true,
     robots: 'noindex, nofollow',
     og: {
-      title: '404 Страницата не е намерена | NP Massage Studio',
-      description: 'Страницата не съществува. Върнете се към началото на NP Massage Studio и разгледайте нашите масажни услуги във Велико Търново и Павликени.',
+      title: isEn ? '404 Page not found | NP Massage Studio' : '404 Страницата не е намерена | NP Massage Studio',
+      description: isEn ? 'This page does not exist. Explore our massage services or return to the NP Massage Studio homepage.' : 'Страницата не съществува. Върнете се към началото на NP Massage Studio и разгледайте нашите масажни услуги във Велико Търново и Павликени.',
     },
     twitter: {
-      title: '404 Страницата не е намерена | NP Massage Studio',
-      description: 'Страницата не съществува. Върнете се към началото на NP Massage Studio и разгледайте нашите масажни услуги във Велико Търново и Павликени.',
+      title: isEn ? '404 Page not found | NP Massage Studio' : '404 Страницата не е намерена | NP Massage Studio',
+      description: isEn ? 'This page does not exist. Explore our massage services or return to the NP Massage Studio homepage.' : 'Страницата не съществува. Върнете се към началото на NP Massage Studio и разгледайте нашите масажни услуги във Велико Търново и Павликени.',
     },
-  }), []));
+  }), [isEn]));
 
   const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
 
@@ -47,16 +47,16 @@ export default function NotFound() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <a
-                href="/"
-                onClick={(e) => { e.preventDefault(); handleNav('/'); }}
+                href={getPath('/')}
+                onClick={(e) => { e.preventDefault(); handleNav(getPath('/')); }}
                 className="inline-flex items-center gap-2 px-6 py-3 bg-primary-500 text-background-50 text-sm font-medium rounded-full hover:bg-primary-600 active:scale-[0.98] transition-all duration-300 cursor-pointer btn-premium"
               >
                 <i className="ri-arrow-left-line" />
                 {t('notFoundBack')}
               </a>
               <a
-                href="/uslugi"
-                onClick={(e) => { e.preventDefault(); handleNav('/uslugi'); }}
+                href={getPath('/uslugi')}
+                onClick={(e) => { e.preventDefault(); handleNav(getPath('/uslugi')); }}
                 className="inline-flex items-center gap-2 px-6 py-3 border border-primary-500 text-primary-700 text-sm font-medium rounded-full hover:bg-primary-500 hover:text-background-50 active:scale-[0.98] transition-all duration-300 cursor-pointer"
               >
                 {t('notFoundServices')}

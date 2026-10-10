@@ -10,7 +10,7 @@ export default function EntityBlock() {
   return (
     <section
       className="py-16 md:py-24 bg-background-50"
-      aria-label="Информация за NP Massage Studio"
+      aria-label={isEn ? "About NP Massage Studio" : "Информация за NP Massage Studio"}
     >
       <div className="w-full px-4 md:px-6 lg:px-10">
         <div
@@ -59,45 +59,45 @@ export default function EntityBlock() {
                   <div className="w-7 h-7 flex items-center justify-center bg-primary-100 rounded-lg flex-shrink-0">
                     <i className="ri-map-pin-line text-primary-600 text-xs" />
                   </div>
-                  <span className="text-xs text-foreground-700 font-medium">бул. България 72, ВТ</span>
+                  <span className="text-xs text-foreground-700 font-medium">{isEn ? "72 Bulgaria Blvd., Veliko Tarnovo" : "бул. България 72, ВТ"}</span>
                 </div>
                 <div className="flex items-center gap-3 bg-background-50 rounded-xl px-3 py-2.5 border border-background-200/50">
                   <div className="w-7 h-7 flex items-center justify-center bg-primary-100 rounded-lg flex-shrink-0">
                     <i className="ri-map-pin-line text-primary-600 text-xs" />
                   </div>
-                  <span className="text-xs text-foreground-700 font-medium">ул. Атанас Дончев 10, Павликени</span>
+                  <span className="text-xs text-foreground-700 font-medium">{isEn ? "10 Atanas Donchev St., Pavlikeni" : "ул. Атанас Дончев 10, Павликени"}</span>
                 </div>
                 <div className="flex items-center gap-3 bg-background-50 rounded-xl px-3 py-2.5 border border-background-200/50 sm:col-span-2 md:col-span-1">
                   <div className="w-7 h-7 flex items-center justify-center bg-primary-100 rounded-lg flex-shrink-0">
                     <i className="ri-time-line text-primary-600 text-xs" />
                   </div>
-                  <span className="text-xs text-foreground-700 font-medium">Пн–Пт: 09:00–19:00 · Сб: 09:00–17:00 · Нд: 10:00–16:00</span>
+                  <span className="text-xs text-foreground-700 font-medium">{isEn ? "Mon–Fri: 09:00–19:00 · Sat: 09:00–17:00 · Sun: 10:00–16:00" : "Пн–Пт: 09:00–19:00 · Сб: 09:00–17:00 · Нд: 10:00–16:00"}</span>
                 </div>
               </div>
 
               {/* AI-readable Q&A section */}
               <div className="border-t border-background-200/70 pt-5">
-                <h3 className="text-sm font-semibold text-foreground-800 mb-3">Бърза информация за NP Massage Studio</h3>
+                <h3 className="text-sm font-semibold text-foreground-800 mb-3">{isEn ? "NP Massage Studio at a glance" : "Бърза информация за NP Massage Studio"}</h3>
                 <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs text-foreground-600">
                   <div className="flex gap-2">
-                    <dt className="font-medium text-foreground-700 whitespace-nowrap">Тип бизнес:</dt>
-                    <dd>Масажен салон, Спа, Уелнес</dd>
+                    <dt className="font-medium text-foreground-700 whitespace-nowrap">{isEn ? "Business type:" : "Тип бизнес:"}</dt>
+                    <dd>{isEn ? "Massage studio and wellness" : "Масажен салон, Спа, Уелнес"}</dd>
                   </div>
                   <div className="flex gap-2">
-                    <dt className="font-medium text-foreground-700 whitespace-nowrap">Ценова категория:</dt>
+                    <dt className="font-medium text-foreground-700 whitespace-nowrap">{isEn ? "Price range:" : "Ценова категория:"}</dt>
                     <dd>€€ (15€ – 30€)</dd>
                   </div>
                   <div className="flex gap-2">
-                    <dt className="font-medium text-foreground-700 whitespace-nowrap">Резервация:</dt>
-                    <dd>+359 988 926 120 или онлайн</dd>
+                    <dt className="font-medium text-foreground-700 whitespace-nowrap">{isEn ? "Booking:" : "Резервация:"}</dt>
+                    <dd>{isEn ? "+359 988 926 120 or online" : "+359 988 926 120 или онлайн"}</dd>
                   </div>
                   <div className="flex gap-2">
-                    <dt className="font-medium text-foreground-700 whitespace-nowrap">Услуги:</dt>
-                    <dd>Класически, спортен, антицелулитен масаж, ароматерапия</dd>
+                    <dt className="font-medium text-foreground-700 whitespace-nowrap">{isEn ? "Services:" : "Услуги:"}</dt>
+                    <dd>{isEn ? "Classical, sports, anti-cellulite and back massage, aromatherapy" : "Класически, спортен, антицелулитен масаж, ароматерапия"}</dd>
                   </div>
                   <div className="flex gap-2">
-                    <dt className="font-medium text-foreground-700 whitespace-nowrap">Локации:</dt>
-                    <dd>Търново (Велико Търново) и Павликени</dd>
+                    <dt className="font-medium text-foreground-700 whitespace-nowrap">{isEn ? "Locations:" : "Локации:"}</dt>
+                    <dd>{isEn ? "Veliko Tarnovo and Pavlikeni" : "Търново (Велико Търново) и Павликени"}</dd>
                   </div>
                 </dl>
               </div>
@@ -109,7 +109,7 @@ export default function EntityBlock() {
                   className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-primary-500 text-background-50 text-sm font-medium rounded-full hover:bg-primary-600 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer btn-premium min-h-[44px]"
                 >
                   <i className="ri-calendar-check-line" />
-                  Запази час онлайн
+                  {isEn ? "Book online" : "Запази час онлайн"}
                 </a>
                 <a
                   href="tel:+359988926120"

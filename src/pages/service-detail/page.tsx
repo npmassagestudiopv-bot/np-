@@ -1,3 +1,4 @@
+import { englishBookingHowTo } from '@/lib/localizedSeo';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
@@ -93,9 +94,8 @@ function getRelatedServiceNameEn(slug: string): string {
 export default function ServiceDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const { t } = useTranslation();
-  const { getPath, handleNav } = useLocalizedNav();
+  const { getPath, handleNav, isEn } = useLocalizedNav();
 
-  const isEn = getPath('').startsWith('/en');
   const detail = slug ? serviceDetailMap[slug] : undefined;
 
   const content = detail ? (isEn ? detail.en : detail.bg) : null;
@@ -113,6 +113,7 @@ export default function ServiceDetailPage() {
 
   const howToBook = useMemo(() => {
     if (!slug) return null;
+    if (isEn) return englishBookingHowTo;
     const name = getServiceNameBg(slug);
     return buildHowToSchema(
       `Как да си запазите час за ${name} в NP Massage Studio`,
@@ -124,11 +125,11 @@ export default function ServiceDetailPage() {
         { name: 'Потвърдете резервацията', text: 'Ще получите потвърждение по телефон в рамките на 2 часа. Пристигнете навреме и се насладете на процедурата!' },
       ]
     );
-  }, [slug]);
+  }, [slug, isEn]);
 
   const productSchema = useMemo(() => {
     if (!content || !slug) return null;
-    const pathSlug = getSlugForPath(slug);
+    const pathSlug = slug;
     const priceMap: Record<string, string> = {
       'klasicheski-masazh': '25',
       'sporten-masazh': '25',
@@ -137,12 +138,13 @@ export default function ServiceDetailPage() {
       'masazh-na-grab': '15',
     };
     const price = priceMap[slug] || '25';
-    return buildProductSchema(content.title, content.subtitle, price, 'EUR', undefined, pathSlug);
-  }, [content, slug]);
+    return buildProductSchema(content.title, content.subtitle, price, 'EUR', undefined, pathSlug, isEn);
+  }, [content, slug, isEn]);
 
   useSeo(useMemo(() => ({
-    title: isEn ? enSeoTitle : seoTitle,
-    description: isEn ? enSeoDesc : seoDesc,
+    title: content ? (isEn ? enSeoTitle : seoTitle) : (isEn ? 'Service not found | NP Massage Studio' : 'Услугата не е намерена | NP Massage Studio'),
+    description: content ? (isEn ? enSeoDesc : seoDesc) : (isEn ? 'The requested service does not exist. Explore our available massages.' : 'Търсената услуга не съществува. Разгледайте предлаганите масажи.'),
+    noIndex: !content,
     canonical: isEn ? enPath : bgPath,
     lastModified: '2026-08-06',
     hreflangs: [
@@ -158,7 +160,7 @@ export default function ServiceDetailPage() {
       localeAlternate: [isEn ? 'bg_BG' : 'en_US'],
     },
     schemas: [
-      buildWebPageSchema(isEn ? enSeoTitle : seoTitle, seoDesc, isEn ? enPath : bgPath),
+      buildWebPageSchema(isEn ? enSeoTitle : seoTitle, isEn ? enSeoDesc : seoDesc, isEn ? enPath : bgPath),
       buildBreadcrumbSchema([
         { name: isEn ? 'Home' : 'Начало', url: isEn ? '/en' : '/' },
         { name: isEn ? 'Services' : 'Услуги', url: isEn ? '/en/services' : '/uslugi' },

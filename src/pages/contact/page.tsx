@@ -1,3 +1,5 @@
+import { contactFaqEn } from '@/mocks/englishFaqs';
+import { localizePageSeo } from '@/lib/localizedSeo';
 import { useTranslation } from 'react-i18next';
 import { useState, useMemo } from 'react';
 import Navbar from '@/components/feature/Navbar';
@@ -15,7 +17,7 @@ import {
   buildWebPageSchema,
 } from '@/lib/seoSchemas';
 
-const FAQ_CONTACT = [
+const FAQ_CONTACT_BG = [
   { q: 'Как да се свържа с NP Massage Studio?', a: 'Можете да се обадите на +359 988 926 120, да пишете на npmassagestudiopv@gmail.com или да попълните формата за контакт на тази страница.' },
   { q: 'Какви са работните часове на NP Massage Studio?', a: 'Работим всеки ден: Понеделник–Петък 09:00–19:00, Събота 09:00–17:00, Неделя 10:00–16:00.' },
   { q: 'Трябва ли предварително записване за масаж?', a: 'Да, препоръчваме предварително записване за по-добра организация и персонализирано обслужване. Можете да запазите час по телефон или онлайн.' },
@@ -44,7 +46,9 @@ export default function ContactPage() {
   const { ref: formRef, isVisible: formVisible } = useScrollReveal({ threshold: 0.1 });
   const { ref: infoRef, isVisible: infoVisible } = useScrollReveal({ threshold: 0.1 });
 
-  useSeo(useMemo(() => ({
+  const FAQ_CONTACT = isEn ? contactFaqEn : FAQ_CONTACT_BG;
+
+  useSeo(useMemo(() => localizePageSeo({
     title: 'Контакти и резервации | NP Масажно студио — Велико Търново и Павликени',
     description: 'Свържете се с NP Масажно студио за професионален масаж във Велико Търново и Павликени. Телефон: +359 988 926 120. Email: npmassagestudiopv@gmail.com. Локации: бул. България 72 (Велико Търново) и ул. Атанас Дончев 10 (Павликени). Онлайн резервация 24/7.',
     keywords: 'контакти масажно студио, резервация масаж Велико Търново, запази час масаж Търново, телефон масажист Павликени, NP Масажно студио контакти',
@@ -69,7 +73,7 @@ export default function ContactPage() {
       buildContactPointSchema(),
       buildFaqSchema(FAQ_CONTACT),
     ],
-  }), [isEn]));
+  }, '/kontakti', isEn), [isEn, FAQ_CONTACT]));
 
   const validate = (field?: string) => {
     const newErrors: Record<string, string> = {};
@@ -176,7 +180,7 @@ export default function ContactPage() {
                         onChange={(e) => handleChange('name', e.target.value)}
                         onBlur={() => validate('name')}
                         className={inputClasses('name')}
-                        placeholder="Вашето име"
+                        placeholder={isEn ? "Your name" : "Вашето име"}
                         aria-invalid={!!errors.name}
                         aria-describedby={errors.name ? 'name-error' : undefined}
                         autoComplete="name"
@@ -272,7 +276,7 @@ export default function ContactPage() {
                       rows={4}
                       maxLength={500}
                       className="w-full px-4 py-2.5 rounded-lg border text-sm bg-background-50 border-background-200 hover:border-background-300 focus:outline-none focus:ring-2 focus:ring-primary-400/50 transition-colors duration-300 resize-none"
-                      placeholder="Допълнителна информация..."
+                      placeholder={isEn ? "Additional information..." : "Допълнителна информация..."}
                     />
                     <div className="flex justify-between mt-1">
                       {errors.message && <p className="text-xs text-red-500">{errors.message}</p>}
@@ -398,7 +402,7 @@ export default function ContactPage() {
               <h2 className="font-heading text-2xl md:text-3xl font-semibold text-foreground-950 mb-3">
                 {t('faqTitle')}
               </h2>
-              <p className="text-sm text-foreground-600">Отговори на най-популярните въпроси за контакт с NP Massage Studio</p>
+              <p className="text-sm text-foreground-600">{isEn ? "Practical answers about contacting NP Massage Studio" : "Отговори на най-популярните въпроси за контакт с NP Massage Studio"}</p>
             </div>
             <FaqAccordion items={FAQ_CONTACT.map((item) => ({ q: item.q, a: item.a }))} />
           </div>

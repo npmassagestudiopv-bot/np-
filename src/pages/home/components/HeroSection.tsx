@@ -10,8 +10,8 @@ export default function HeroSection() {
       <div className="hero-bg absolute inset-0 bg-foreground-950">
         <img
           src="https://storage.helloreaddy.io/project_files/ac01bae9-5287-435a-8690-39522f5115fa/2edf90d3-c2ae-4788-bc2f-512c8dbbffb0_compressed_---.webp"
-          alt="NP Massage Studio — уютен масажен салон Велико Търново, ароматни свещи и премиум хавлии"
-          title="NP Massage Studio — уютен салон за масажи във Велико Търново и Павликени"
+          alt={isEn ? "NP Massage Studio \u2014 massage studio in Veliko Tarnovo" : "NP Massage Studio — уютен масажен салон Велико Търново, ароматни свещи и премиум хавлии"}
+          title={isEn ? "NP Massage Studio in Veliko Tarnovo and Pavlikeni" : "NP Massage Studio — уютен салон за масажи във Велико Търново и Павликени"}
           className="w-full h-full object-cover object-top"
           loading="eager"
           decoding="async"

@@ -1,6 +1,7 @@
+import { isEnglishPath } from '@/lib/localizedPaths';
 import { lazy, Suspense } from "react";
 import type { RouteObject } from "react-router-dom";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import AuthGuard from "@/components/base/AuthGuard";
 import { landingPages } from "@/mocks/landingPages";
 
@@ -32,11 +33,12 @@ const MassageComparisonPage = lazy(() => import("@/pages/massage-comparison/page
 const NotFound = lazy(() => import("@/pages/NotFound"));
 
 function PageFallback() {
+  const { pathname } = useLocation();
   return (
     <div className="min-h-screen bg-background-50 flex items-center justify-center">
       <div className="flex flex-col items-center gap-3">
         <div className="w-8 h-8 border-2 border-primary-500 border-t-transparent rounded-full animate-spin"></div>
-        <p className="text-sm text-foreground-500">Зареждане...</p>
+        <p className="text-sm text-foreground-500">{isEnglishPath(pathname) ? 'Loading...' : 'Зареждане...'}</p>
       </div>
     </div>
   );

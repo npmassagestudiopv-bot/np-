@@ -1,3 +1,4 @@
+import { useLocalizedNav } from '@/hooks/useLocalizedNav';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 interface TrustSectionProps {
@@ -5,6 +6,7 @@ interface TrustSectionProps {
 }
 
 export default function TrustSection({ isEn }: TrustSectionProps) {
+  const { getPath } = useLocalizedNav();
   const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
 
   return (
@@ -41,7 +43,7 @@ export default function TrustSection({ isEn }: TrustSectionProps) {
             </div>
             <div>
               <p className="text-sm font-medium text-foreground-900">{isEn ? 'Visit us' : 'Посетете ни'}</p>
-              <a href="/lokacii" className="text-sm text-primary-600 hover:text-primary-700 transition-colors">
+              <a href={getPath('/lokacii')} className="text-sm text-primary-600 hover:text-primary-700 transition-colors">
                 {isEn ? 'Two real locations' : 'Две реални локации'}
               </a>
               <p className="text-xs text-foreground-500 mt-0.5">{isEn ? 'Veliko Tarnovo & Pavlikeni' : 'Велико Търново и Павликени'}</p>
@@ -67,7 +69,7 @@ export default function TrustSection({ isEn }: TrustSectionProps) {
             </div>
             <div>
               <p className="text-sm font-medium text-foreground-900">{isEn ? 'Prices' : 'Цени'}</p>
-              <a href="/uslugi" className="text-sm text-primary-600 hover:text-primary-700 transition-colors">
+              <a href={getPath('/uslugi')} className="text-sm text-primary-600 hover:text-primary-700 transition-colors">
                 {isEn ? 'Transparent pricing' : 'Прозрачни цени'}
               </a>
               <p className="text-xs text-foreground-500 mt-0.5">{isEn ? 'No hidden fees' : 'Без скрити такси'}</p>

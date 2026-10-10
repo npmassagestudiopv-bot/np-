@@ -9,7 +9,22 @@ export const navContact = "Contact";
 export const navBook = "Book an Appointment";
 export const navMenu = "Menu";
 
-export const heroTitle1 = "Massage Veliko Tarnovo";
+export const notOfferedTitle = "Services we do not offer";
+export const notOfferedSubtitle = "To help you choose, please note that the following treatments are not available at NP Massage Studio:";
+export const notOfferedList = "Lymphatic drainage, Shiatsu massage, Thai massage, Reflexology, Honey massage, Hot stone massage, Pressotherapy, Vacuum therapy, Chinese massage, Balinese massage, Lomi Lomi massage, Deep tissue massage, Bamboo massage, Chocolate therapy, Erotic massage";
+export const notOfferedFooter = "Our current services are listed on this page. If you are looking for a different treatment, contact us to discuss your needs.";
+export const errorGeneral = "Something went wrong. Please try again.";
+export const loadingText = "Loading...";
+export const closeButton = "Close";
+export const openMap = "Open in Google Maps";
+export const directions = "Directions";
+export const bookNow = "Book now";
+export const callNow = "Call us";
+export const sendMessage = "Send message";
+export const copyAddress = "Copy address";
+export const addressCopied = "Address copied";
+
+export const heroTitle1 = "Massage in Veliko Tarnovo";
 export const heroTitle2 = "with care";
 export const heroTitle3 = "and attention to you";
 export const heroSubtitle = "Massage tailored to your needs, with attention to every movement. Veliko Tarnovo and Pavlikeni · 5 services · 40–60 minutes · 15–30 €.";

@@ -1,10 +1,11 @@
+import { useLocalizedNav } from '@/hooks/useLocalizedNav';
 import { useTranslation } from 'react-i18next';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { googleReviews, GOOGLE_REVIEWS_URL, GOOGLE_RATING, GOOGLE_REVIEW_COUNT } from '@/mocks/googleReviews';
 
 export default function TestimonialsSection() {
-  const { t, i18n } = useTranslation();
-  const isEn = i18n.language === 'en';
+  const { t } = useTranslation();
+  const { isEn } = useLocalizedNav();
   const { ref, isVisible } = useScrollReveal({ threshold: 0.15 });
 
   return (

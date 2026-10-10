@@ -1,7 +1,9 @@
+import { useLocalizedNav } from '@/hooks/useLocalizedNav';
 import { useTranslation } from 'react-i18next';
 
 export default function BookingInfo() {
   const { t } = useTranslation();
+  const { isEn } = useLocalizedNav();
 
   const steps = [
     {
@@ -70,10 +72,10 @@ export default function BookingInfo() {
           </div>
           <div>
             <h4 className="font-medium text-foreground-900 text-sm mb-1">
-              Безплатна резервация
+              {isEn ? "Free booking" : "Безплатна резервация"}
             </h4>
             <p className="text-xs text-foreground-600 leading-relaxed">
-              Запазването на час е безплатно. Плащането става на място след процедурата.
+              {isEn ? "Booking is free. Pay at the studio after your massage." : "Запазването на час е безплатно. Плащането става на място след процедурата."}
             </p>
           </div>
         </div>

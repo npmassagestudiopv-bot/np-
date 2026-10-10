@@ -14,7 +14,7 @@ export function normalizeSeo(options: SeoOptions, baseUrl: string): SeoOptions {
       locale: options.og?.locale || (isEn ? 'en_US' : 'bg_BG'),
     },
     schemas: options.schemas?.map((schema) => canonical && pageTypes.has(schema.type)
-      ? { ...schema, data: { ...schema.data, '@id': canonical, url: canonical } }
+      ? { ...schema, data: { ...schema.data, '@id': canonical, url: canonical, inLanguage: isEn ? 'en' : 'bg' } }
       : schema),
   };
 }

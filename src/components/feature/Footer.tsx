@@ -200,13 +200,13 @@ export default function Footer() {
             <span>{t('footerRights')}</span>
           </div>
           <div className="flex items-center gap-3 text-sm text-background-200">
-            <a href="/politika-poveritelnost" onClick={(e) => { e.preventDefault(); handleNav('/politika-poveritelnost'); }} className="hover:text-background-50 transition-colors duration-300 cursor-pointer">
+            <a href={getPath('/politika-poveritelnost')} onClick={(e) => { e.preventDefault(); handleNav(getPath('/politika-poveritelnost')); }} className="hover:text-background-50 transition-colors duration-300 cursor-pointer">
               {t('footerPrivacy')}
             </a>
-            <a href="/obshti-usloviya" onClick={(e) => { e.preventDefault(); handleNav('/obshti-usloviya'); }} className="hover:text-background-50 transition-colors duration-300 cursor-pointer">
+            <a href={getPath('/obshti-usloviya')} onClick={(e) => { e.preventDefault(); handleNav(getPath('/obshti-usloviya')); }} className="hover:text-background-50 transition-colors duration-300 cursor-pointer">
               {t('footerTerms')}
             </a>
-            <a href="/politika-biskvitki" onClick={(e) => { e.preventDefault(); handleNav('/politika-biskvitki'); }} className="hover:text-background-50 transition-colors duration-300 cursor-pointer">
+            <a href={getPath('/politika-biskvitki')} onClick={(e) => { e.preventDefault(); handleNav(getPath('/politika-biskvitki')); }} className="hover:text-background-50 transition-colors duration-300 cursor-pointer">
               {t('footerCookies')}
             </a>
           </div>

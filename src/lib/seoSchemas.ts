@@ -1,3 +1,4 @@
+import { localizedPath } from './localizedPaths';
 export const baseUrl = (import.meta as unknown as { env: Record<string, string> }).env.VITE_SITE_URL || 'https://npmassagestudio.com';
 
 const PHONE = '+359988926120';
@@ -282,12 +283,13 @@ export function buildOfferCatalogSchema(services: Array<{
   description: string;
   price: string;
   duration: string;
-}>) {
+}>, isEn = false) {
   return {
     type: 'OfferCatalog',
     data: {
-      name: 'NP Massage Studio Услуги',
-      url: `${baseUrl}/uslugi`,
+      name: isEn ? 'NP Massage Studio Services' : 'NP Massage Studio Услуги',
+      url: `${baseUrl}${isEn ? '/en/services' : '/uslugi'}`,
+      inLanguage: isEn ? 'en' : 'bg',
       itemListElement: services.map((service, index) => ({
         '@type': 'ListItem',
         position: index + 1,
@@ -320,13 +322,14 @@ export function buildBlogSchema(posts: Array<{
   description: string;
   publishedAt: string;
   slug?: string;
-}>) {
+}>, isEn = false) {
   return {
     type: 'Blog',
     data: {
-      name: 'Блог на NP Massage Studio',
-      url: `${baseUrl}/blog`,
-      description: 'Статии и съвети за масажната терапия, здраве и благосъстояние',
+      name: isEn ? 'NP Massage Studio Blog' : 'Блог на NP Massage Studio',
+      url: `${baseUrl}${isEn ? '/en/blog' : '/blog'}`,
+      inLanguage: isEn ? 'en' : 'bg',
+      description: isEn ? 'Articles and practical guides about massage and visiting NP Massage Studio' : 'Статии и съвети за масажната терапия, здраве и благосъстояние',
       publisher: {
         '@id': `${baseUrl}/#organization`,
       },
@@ -343,7 +346,7 @@ export function buildBlogSchema(posts: Array<{
         },
         mainEntityOfPage: {
           '@type': 'WebPage',
-          '@id': post.slug ? `${baseUrl}/blog/${post.slug}` : `${baseUrl}/blog`,
+          '@id': `${baseUrl}${isEn ? '/en' : ''}/blog${post.slug ? `/${post.slug}` : ''}`,
         },
       })),
     },
@@ -381,7 +384,7 @@ export function buildWebPageSchema(
   };
 }
 
-export function buildSiteNavigationSchema() {
+export function buildSiteNavigationSchema(isEn = false) {
   const navItems = [
     { name: 'Начало', url: '/' },
     { name: 'Услуги', url: '/uslugi' },
@@ -399,8 +402,8 @@ export function buildSiteNavigationSchema() {
       hasPart: navItems.map((item, index) => ({
         '@type': 'SiteNavigationElement',
         position: index + 1,
-        name: item.name,
-        url: `${baseUrl}${item.url}`,
+        name: isEn ? ['Home', 'Services', 'Gift vouchers', 'About', 'Locations', 'Blog', 'Contact', 'Book a massage'][index] : item.name,
+        url: `${baseUrl}${localizedPath(item.url, isEn ? 'en' : 'bg')}`,
       })),
     },
   };
@@ -558,7 +561,8 @@ export function buildProductSchema(
   price: string,
   currency = 'EUR',
   image?: string,
-  slug?: string
+  slug?: string,
+  isEn = false
 ) {
   return {
     type: 'Product',
@@ -575,7 +579,7 @@ export function buildProductSchema(
         price,
         priceCurrency: currency,
         availability: 'https://schema.org/InStock',
-        url: slug ? `${baseUrl}/uslugi/${slug}` : `${baseUrl}/uslugi`,
+        url: `${baseUrl}${isEn ? '/en/services' : '/uslugi'}${slug ? `/${slug}` : ''}`,
         seller: {
           '@id': `${baseUrl}/#business-veliko-tarnovo`,
         },
