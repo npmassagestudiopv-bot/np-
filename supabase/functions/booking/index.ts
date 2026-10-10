@@ -34,6 +34,23 @@ function sanitize(str: string): string {
   return str.replace(/<[^>]*>/g, '').replace(/[\x00-\x1F\x7F]/g, '').trim().substring(0, 500);
 }
 
+function getSofiaNow(): { date: string; minutes: number } {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/Sofia',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  }).formatToParts(new Date());
+  const get = (type: string) => parts.find((p) => p.type === type)?.value ?? '00';
+  return {
+    date: `${get('year')}-${get('month')}-${get('day')}`,
+    minutes: Number(get('hour')) * 60 + Number(get('minute')),
+  };
+}
+
 const ipMap = new Map<string, { count: number; reset: number }>();
 
 function checkRateLimit(ip: string): boolean {
@@ -320,6 +337,30 @@ Deno.serve(async (req) => {
         status: 400,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
+    }
+
+    // Reject appointments whose slot has already passed in local (Europe/Sofia) time.
+    const sofiaNow = getSofiaNow();
+    if (body.appointment_date < sofiaNow.date) {
+      return new Response(JSON.stringify({
+        error: 'Appointment in the past',
+        message: 'Не можете да запазите час за минала дата. Моля, изберете предстоящ ден.',
+      }), {
+        status: 400,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+    if (body.appointment_date === sofiaNow.date) {
+      const [rh, rm] = body.appointment_time.split(':').map(Number);
+      if (rh * 60 + rm <= sofiaNow.minutes) {
+        return new Response(JSON.stringify({
+          error: 'Slot already passed',
+          message: 'Този час вече е минал. Моля, изберете по-късен час или друг ден.',
+        }), {
+          status: 400,
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
     }
 
     const supabaseUrl = Deno.env.get('SUPABASE_URL') ?? '';

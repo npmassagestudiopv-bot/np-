@@ -124,6 +124,8 @@ export default function BookingForm() {
     if (!formData.appointment_time) newErrors.appointment_time = t('contactRequired');
     if (formData.appointment_time && takenSlots.includes(formData.appointment_time)) {
       newErrors.appointment_time = 'Този час вече е зает. Моля, изберете друг.';
+    } else if (formData.appointment_time && isPastSlot(formData.appointment_time)) {
+      newErrors.appointment_time = 'Този час вече е минал. Моля, изберете по-късен час или друг ден.';
     }
     if (formData.message.length > 500) newErrors.message = 'Max 500 characters';
     if (field) {
@@ -207,8 +209,23 @@ export default function BookingForm() {
 
   const minDate = useMemo(() => {
     const today = new Date();
-    return today.toISOString().split('T')[0];
+    const y = today.getFullYear();
+    const m = String(today.getMonth() + 1).padStart(2, '0');
+    const d = String(today.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
   }, []);
+
+  // A slot is "past" when it is on today's date and the time has already gone by.
+  const isPastSlot = (slot: string) => {
+    if (!formData.appointment_date) return false;
+    const now = new Date();
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const d = String(now.getDate()).padStart(2, '0');
+    if (formData.appointment_date !== `${y}-${m}-${d}`) return false;
+    const [h, min] = slot.split(':').map(Number);
+    return h * 60 + min <= now.getHours() * 60 + now.getMinutes();
+  };
 
   const inputBase = 'w-full px-4 py-3 rounded-lg border text-base md:text-sm bg-background-50 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-400/50';
 
@@ -513,15 +530,17 @@ export default function BookingForm() {
               <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
                 {timeSlots.map((slot) => {
                   const isTaken = takenSlots.includes(slot);
+                  const isPast = isPastSlot(slot);
+                  const isDisabled = isTaken || isPast;
                   const isSelected = formData.appointment_time === slot;
                   return (
                     <button
                       key={slot}
                       type="button"
-                      disabled={isTaken}
+                      disabled={isDisabled}
                       onClick={() => handleChange('appointment_time', slot)}
                       className={`relative py-2.5 px-2 rounded-lg text-sm font-medium transition-all duration-200 border cursor-pointer whitespace-nowrap ${
-                        isTaken
+                        isDisabled
                           ? 'bg-background-200/50 border-background-200 text-foreground-400 cursor-not-allowed line-through'
                           : isSelected
                             ? 'bg-primary-500 border-primary-500 text-background-50 shadow-md shadow-primary-500/20'
@@ -529,8 +548,8 @@ export default function BookingForm() {
                       }`}
                     >
                       {slot}
-                      {isTaken && (
-                        <span className="sr-only">зает</span>
+                      {isDisabled && (
+                        <span className="sr-only">{isPast ? 'минал' : 'зает'}</span>
                       )}
                     </button>
                   );
@@ -538,11 +557,18 @@ export default function BookingForm() {
               </div>
             )}
 
-            {formData.appointment_date && formData.location && takenSlots.length === 0 && !loadingSlots && !dayBlocked && (
-              <p className="text-xs text-green-600 mt-2">
-                <i className="ri-check-line mr-1" />
-                Всички часове са свободни за този ден
-              </p>
+            {formData.appointment_date && formData.location && !loadingSlots && !dayBlocked && (
+              timeSlots.some((s) => !takenSlots.includes(s) && !isPastSlot(s)) ? (
+                <p className="text-xs text-green-600 mt-2">
+                  <i className="ri-check-line mr-1" />
+                  Има свободни часове за този ден
+                </p>
+              ) : (
+                <p className="text-xs text-accent-600 mt-2">
+                  <i className="ri-information-line mr-1" />
+                  Няма свободни часове за този ден{formData.appointment_date === minDate ? ' — моля, изберете следващ ден.' : '.'}
+                </p>
+              )
             )}
             {touched.appointment_time && errors.appointment_time && (
               <p className="text-xs text-red-500 mt-2">{errors.appointment_time}</p>
