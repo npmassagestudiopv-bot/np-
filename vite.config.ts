@@ -1,6 +1,7 @@
 import { defineConfig, type Plugin, type ResolvedConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { resolve } from "node:path";
+import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { join, resolve } from "node:path";
 import { execFileSync } from "node:child_process";
 import AutoImport from "unplugin-auto-import/vite";
 // import { readdyJsxRuntimeProxyPlugin } from "./vite.jsx-runtime-proxy";
@@ -14,10 +15,38 @@ function staticSeoPages(): Plugin {
     configResolved(resolvedConfig) {
       config = resolvedConfig;
     },
-    closeBundle() {
-      const scriptPath = resolve(import.meta.dirname, "scripts/generate-static-pages.cjs");
-      const outDir = resolve(config.root, config.build.outDir);
-      execFileSync(process.execPath, [scriptPath, "--out-dir", outDir], { stdio: "inherit" });
+    generateBundle: {
+      order: "post",
+      handler(_options, bundle) {
+        const index = bundle["index.html"];
+        if (!index || index.type !== "asset") throw new Error("The client build has no HTML template for SEO pages.");
+
+        // Include the rendered pages in Vite's output, including builds that
+        // return the bundle to a publisher instead of writing it to disk.
+        mkdirSync(config.cacheDir, { recursive: true });
+        const staging = mkdtempSync(join(config.cacheDir, "seo-"));
+        try {
+          writeFileSync(join(staging, "index.html"), index.source);
+          copyFileSync(join(config.publicDir, "sitemap.xml"), join(staging, "sitemap.xml"));
+          execFileSync(process.execPath, [resolve(import.meta.dirname, "scripts/generate-static-pages.cjs"), "--out-dir", staging], { stdio: "inherit" });
+
+          const pages = JSON.parse(readFileSync(join(staging, "prerender-manifest.json"), "utf8")) as Array<{ path: string }>;
+          const documents = ["index.html", "404.html", "sitemap.xml", "prerender-manifest.json", ...pages.map(({ path }) => path === "/" ? "index.html" : `${path.slice(1)}/index.html`)];
+          for (const fileName of new Set(documents)) {
+            const source = readFileSync(join(staging, fileName));
+            const existing = bundle[fileName];
+            if (existing) {
+              if (existing.type !== "asset") throw new Error(`A build chunk conflicts with SEO page: ${fileName}`);
+              existing.source = source;
+            } else {
+              this.emitFile({ type: "asset", fileName, source });
+            }
+          }
+          config.logger.info(`[SEO] Registered ${pages.length} routes in the build output.`);
+        } finally {
+          rmSync(staging, { recursive: true, force: true });
+        }
+      },
     },
   };
 }
@@ -86,7 +115,7 @@ export default defineConfig({
       ],
       dts: true,
     }),
-    // Write route-specific HTML into Vite's final build output directory.
+    // Register route-specific HTML with Vite's output for publication.
     staticSeoPages(),
   ],
   base,
