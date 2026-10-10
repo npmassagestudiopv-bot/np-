@@ -1,9 +1,26 @@
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin, type ResolvedConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "node:path";
 import { execFileSync } from "node:child_process";
 import AutoImport from "unplugin-auto-import/vite";
 // import { readdyJsxRuntimeProxyPlugin } from "./vite.jsx-runtime-proxy";
+
+function staticSeoPages(): Plugin {
+  let config: ResolvedConfig;
+
+  return {
+    name: "generate-static-seo-pages",
+    apply: "build",
+    configResolved(resolvedConfig) {
+      config = resolvedConfig;
+    },
+    closeBundle() {
+      const scriptPath = resolve(import.meta.dirname, "scripts/generate-static-pages.cjs");
+      const outDir = resolve(config.root, config.build.outDir);
+      execFileSync(process.execPath, [scriptPath, "--out-dir", outDir], { stdio: "inherit" });
+    },
+  };
+}
 
 const base = process.env.BASE_PATH || "/";
 const isPreview = process.env.IS_PREVIEW ? true : false;
@@ -69,16 +86,8 @@ export default defineConfig({
       ],
       dts: true,
     }),
-    // Generate static HTML pages for SEO (fixes "Discovered - not indexed" SPA issue)
-    {
-      name: "generate-static-seo-pages",
-      apply: "build",
-      closeBundle() {
-        const scriptPath = resolve(import.meta.dirname, "scripts/generate-static-pages.cjs");
-        const outDir = resolve(import.meta.dirname, "out");
-        execFileSync(process.execPath, [scriptPath, "--out-dir", outDir], { stdio: "inherit" });
-      },
-    },
+    // Write route-specific HTML into Vite's final build output directory.
+    staticSeoPages(),
   ],
   base,
   build: {
