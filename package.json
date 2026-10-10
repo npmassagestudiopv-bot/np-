@@ -35,6 +35,7 @@
   "name": "react",
   "private": true,
   "scripts": {
+    "audit:seo": "node scripts/audit-live-seo.mjs",
     "build": "vite build",
     "dev": "vite",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
