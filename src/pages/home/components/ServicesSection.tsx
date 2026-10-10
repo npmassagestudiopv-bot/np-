@@ -8,7 +8,7 @@ const serviceSlugs = ['klasicheski-masazh', 'sporten-masazh', 'anticeluliten-mas
 
 export default function ServicesSection() {
   const { t } = useTranslation();
-  const { getPath } = useLocalizedNav();
+  const { getPath, isEn } = useLocalizedNav();
   const { ref: titleRef, isVisible: titleVisible } = useScrollReveal({ threshold: 0.2 });
 
   return (
@@ -47,14 +47,10 @@ export default function ServicesSection() {
           </Link>
         </div>
 
-        <div className="max-w-3xl mx-auto mt-8 bg-red-50/50 rounded-xl p-4 border border-red-200/50">
-          <div className="flex items-center gap-2 text-xs text-red-700/80">
-            <i className="ri-information-line text-red-500 flex-shrink-0" />
-            <span>
-              <strong className="text-red-800">ВАЖНО:</strong> NP Massage Studio предлага САМО изброените по-горе 5 вида масаж. Ние НЕ предлагаме: лимфен дренаж, шиацу, тайландски масаж, рефлексотерапия, меден масаж, масаж с горещи камъни и други.
-            </span>
-          </div>
-        </div>
+        <p className="max-w-3xl mx-auto mt-8 text-sm text-foreground-600 text-center leading-relaxed">
+          {isEn ? 'Not sure which massage to choose? Call us on ' : 'Не сте сигурни кой масаж да изберете? Обадете ни се на '}
+          <a href="tel:+359988926120" className="font-medium text-primary-700 underline underline-offset-4">+359 988 926 120</a>.
+        </p>
       </div>
     </section>
   );
@@ -62,7 +58,7 @@ export default function ServicesSection() {
 
 function ServiceCard({ service, index, slug }: { service: (typeof services)[0]; index: number; slug: string }) {
   const { t } = useTranslation();
-  const { getPath } = useLocalizedNav();
+  const { getPath, isEn } = useLocalizedNav();
   const { ref, isVisible } = useScrollReveal({ threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
 
   return (
@@ -97,9 +93,9 @@ function ServiceCard({ service, index, slug }: { service: (typeof services)[0]; 
           </span>
           <Link
             to={getPath(`/uslugi/${slug}`)}
-            className="px-4 py-2 bg-primary-500 text-background-50 text-sm font-medium rounded-full hover:bg-primary-600 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer min-h-[36px]"
+            className="px-4 py-2 bg-primary-500 text-background-50 text-sm font-medium rounded-full hover:bg-primary-600 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer min-h-[44px]"
           >
-            {t('serviceBook')}
+            {isEn ? 'View details' : 'Виж услугата'}
           </Link>
         </div>
       </div>

@@ -24,32 +24,31 @@ export default function AdminBlogEditPage() {
 
   useEffect(() => {
     if (!id) return;
+    async function loadPost() {
+      setPageLoading(true);
+      try {
+        const { data, error: err } = await supabase.from('blog_posts').select('*').eq('id', id).single();
+        if (err) throw err;
+        if (data) {
+          setSlug(data.slug);
+          setTitleBg(data.title_bg);
+          setTitleEn(data.title_en);
+          setExcerptBg(data.excerpt_bg || '');
+          setExcerptEn(data.excerpt_en || '');
+          setContentBg(data.content_bg);
+          setContentEn(data.content_en);
+          setImageUrl(data.image_url || '');
+          setCategory(data.category || '');
+          setReadTime(data.read_time || 5);
+          setPublishedAt(data.published_at || '');
+        }
+      } catch {
+        setError('Грешка при зареждане на статията.');
+      }
+      setPageLoading(false);
+    }
     loadPost();
   }, [id]);
-
-  async function loadPost() {
-    setPageLoading(true);
-    try {
-      const { data, error: err } = await supabase.from('blog_posts').select('*').eq('id', id).single();
-      if (err) throw err;
-      if (data) {
-        setSlug(data.slug);
-        setTitleBg(data.title_bg);
-        setTitleEn(data.title_en);
-        setExcerptBg(data.excerpt_bg || '');
-        setExcerptEn(data.excerpt_en || '');
-        setContentBg(data.content_bg);
-        setContentEn(data.content_en);
-        setImageUrl(data.image_url || '');
-        setCategory(data.category || '');
-        setReadTime(data.read_time || 5);
-        setPublishedAt(data.published_at || '');
-      }
-    } catch {
-      setError('Грешка при зареждане на статията.');
-    }
-    setPageLoading(false);
-  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

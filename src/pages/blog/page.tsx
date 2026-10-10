@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useContext } from 'react';
+import { PrerenderDataContext } from '@/lib/prerenderContext';
 import Navbar from '@/components/feature/Navbar';
 import Footer from '@/components/feature/Footer';
 import CategoryFilter from '@/components/feature/CategoryFilter';
@@ -48,8 +49,9 @@ const FAQ_BLOG = [
 export default function BlogPage() {
   const { t } = useTranslation();
   const { isEn } = useLocalizedNav();
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
+  const staticData = useContext(PrerenderDataContext);
+  const [posts, setPosts] = useState<BlogPost[]>(staticData?.posts || []);
+  const [loading, setLoading] = useState(!staticData);
   const [error, setError] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
@@ -118,7 +120,7 @@ export default function BlogPage() {
   return (
     <div className="min-h-screen bg-background-50">
       <Navbar />
-      <main className="pt-20 md:pt-24" id="main-content">
+      <main id="main-content" className="pt-20 md:pt-24">
         <section className="w-full px-4 md:px-6 lg:px-10 py-12 md:py-16">
           <div className="max-w-5xl mx-auto">
             <div className="mb-10">

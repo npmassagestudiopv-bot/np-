@@ -10,15 +10,15 @@ export const navBook = "Book an Appointment";
 export const navMenu = "Menu";
 
 export const heroTitle1 = "Massage Veliko Tarnovo";
-export const heroTitle2 = "quality";
-export const heroTitle3 = "and balance";
-export const heroSubtitle = "Professional massage studio in Veliko Tarnovo and Pavlikeni. Classical, sports, anti-cellulite massage and aromatherapy in a calm, professional environment.";
-export const heroCta = "Book an Appointment";
+export const heroTitle2 = "with care";
+export const heroTitle3 = "and attention to you";
+export const heroSubtitle = "Massage tailored to your needs, with attention to every movement. Veliko Tarnovo and Pavlikeni · 5 services · 40–60 minutes · 15–30 €.";
+export const heroCta = "Book a massage";
 export const heroServices = "View All Services";
 export const heroPhone = "+359 988 926 120";
 
 export const servicesTitle = "Our Services";
-export const servicesSubtitle = "Precise techniques for your well-being and complete relaxation";
+export const servicesSubtitle = "Choose what suits your needs. See what to expect, how long it takes and what it costs.";
 export const servicesIntro = "NP Massage Studio offers a wide range of professional massage procedures performed by experienced therapists. Each massage is personalized according to the individual needs of the client, combining traditional techniques with modern approaches to achieve optimal results.";
 
 export const serviceClassical = "Classical & Relaxing Massage";
@@ -79,8 +79,8 @@ export const testimonialsSubtitle = "Real reviews from satisfied NP Massage Stud
 export const testimonialsPlaceholder = "Waiting for the first reviews. If you have visited NP Massage Studio, we would love to hear your feedback.";
 export const testimonialsCallToAction = "Share your feedback";
 
-export const ctaTitle = "Ready to take care of yourself?";
-export const ctaSubtitle = "Book your appointment now and feel the difference. Professional massages in Veliko Tarnovo and Pavlikeni.";
+export const ctaTitle = "Make time for yourself";
+export const ctaSubtitle = "Choose a massage, location and convenient time. We will contact you to confirm your booking.";
 export const ctaButton = "Book an Appointment Now";
 export const ctaPhone = "Or call us at";
 export const ctaPhoneNumber = "+359 988 926 120";

@@ -183,13 +183,13 @@ export default function ServiceDetailPage() {
         },
       },
     ],
-  }), [isEn, seoTitle, seoDesc, enSeoTitle, bgPath, enPath, serviceName, content, howToBook, productSchema]));
+  }), [isEn, seoTitle, seoDesc, enSeoTitle, enSeoDesc, bgPath, enPath, serviceName, content, howToBook, productSchema]));
 
   if (!detail || !content) {
     return (
       <div className="min-h-screen bg-background-50">
         <Navbar />
-        <main className="pt-20 md:pt-24 flex items-center justify-center min-h-[60vh]">
+        <main id="main-content" className="pt-20 md:pt-24 flex items-center justify-center min-h-[60vh]">
           <div className="text-center">
             <h1 className="font-heading text-2xl font-semibold text-foreground-950 mb-4">
               {isEn ? 'Service Not Found' : 'Услугата не е намерена'}
@@ -213,14 +213,14 @@ export default function ServiceDetailPage() {
   return (
     <div className="min-h-screen bg-background-50">
       <Navbar />
-      <main className="pt-20 md:pt-24">
+      <main id="main-content" className="pt-20 md:pt-24">
         <section className="w-full px-4 md:px-6 lg:px-10 py-12 md:py-16">
           <div className="max-w-5xl mx-auto">
             <HeroSection content={content} isEn={isEn} />
             <FullDescription content={content} />
-            <BenefitsSection content={content} />
-            <TechniquesSection content={content} />
-            <WhoForSection content={content} />
+            <BenefitsSection content={content} isEn={isEn} />
+            <TechniquesSection content={content} isEn={isEn} />
+            <WhoForSection content={content} isEn={isEn} />
 
             <div className="mb-14 md:mb-18">
               <div className="text-center mb-8 md:mb-10">

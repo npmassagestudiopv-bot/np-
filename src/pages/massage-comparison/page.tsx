@@ -97,12 +97,12 @@ const HOWTO_CHOOSE = buildHowToSchema(
 
 export default function MassageComparisonPage() {
   const { t } = useTranslation();
-  const { handleNav } = useLocalizedNav();
+  const { getPath, handleNav, isEn } = useLocalizedNav();
 
   useSeo(useMemo(() => ({
     title: 'Видове масажи — сравнение, цени и препоръки | NP Massage Studio',
     description: 'Пълно сравнение на всички видове масажи в NP Massage Studio. Класически, спортен, антицелулитен масаж, ароматерапия и масаж на гръб — цени, продължителност и за кого са подходящи.',
-    canonical: '/videos-masazhi',
+    canonical: isEn ? '/en/videos-masazhi' : '/videos-masazhi',
     lastModified: '2026-06-08',
     hreflangs: [
       { lang: 'bg', url: '/videos-masazhi' },
@@ -124,12 +124,12 @@ export default function MassageComparisonPage() {
       buildFaqSchema(COMPARISON_FAQ),
       HOWTO_CHOOSE,
     ],
-  }), []));
+  }), [isEn]));
 
   return (
     <div className="min-h-screen bg-background-50">
       <Navbar />
-      <main className="pt-20 md:pt-24">
+      <main id="main-content" className="pt-20 md:pt-24">
         <section className="w-full px-4 md:px-6 lg:px-10 py-12 md:py-16">
           <div className="max-w-5xl mx-auto">
             <div className="mb-12 md:mb-16">
@@ -216,7 +216,7 @@ function ComparisonTable() {
 }
 
 function DetailCards() {
-  const { handleNav } = useLocalizedNav();
+  const { getPath, handleNav, isEn } = useLocalizedNav();
 
   return (
     <div className="mb-14 md:mb-18">
@@ -310,7 +310,7 @@ function HowToChoose() {
 
 function WhichMassageForYou() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
-  const { handleNav } = useLocalizedNav();
+  const { getPath, handleNav, isEn } = useLocalizedNav();
 
   const scenarios = [
     { who: 'Седяща работа и болки в гърба', icon: 'ri-computer-line', recommendation: 'Частичен масаж на гръб', reason: 'Фокусира се точно върху зоните, които страдат от продължително седене — гръб, рамене, врат. Само 40 минути за бързо облекчение.', slug: 'masazh-na-grab' },

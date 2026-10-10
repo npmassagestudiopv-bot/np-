@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useEffect, useState, useMemo, useCallback, useContext } from 'react';
+import { PrerenderDataContext } from '@/lib/prerenderContext';
 import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '@/components/feature/Navbar';
 import Footer from '@/components/feature/Footer';
@@ -10,6 +11,7 @@ import SeoTextBlock from '@/components/feature/SeoTextBlock';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { useLocalizedNav } from '@/hooks/useLocalizedNav';
 import { supabase } from '@/lib/supabase';
+import { articleContentToHtml, headingId } from '@/lib/articleContent';
 import { blogPosts } from '@/mocks/blogPosts';
 import FaqAccordion from '@/components/feature/FaqAccordion';
 import { useSeo, baseUrl } from '@/hooks/useSeo';
@@ -88,7 +90,7 @@ function buildBlogPostingSchema(post: BlogPost, isEn: boolean) {
       },
       mainEntityOfPage: {
         '@type': 'WebPage',
-        '@id': `${baseUrl}/blog/${post.slug}`,
+        '@id': `${baseUrl}${isEn ? '/en' : ''}/blog/${post.slug}`,
       },
       image: post.image_url || 'https://storage.helloreaddy.io/project_files/ac01bae9-5287-435a-8690-39522f5115fa/a44364ff-b9d6-4117-8394-dcd7f0becbd6_compressed_--.webp',
       inLanguage: isEn ? 'en' : 'bg',
@@ -104,44 +106,11 @@ function extractHeadings(content: string): Array<{ id: string; text: string; lev
     if (match) {
       const level = match[1].length;
       const text = match[2].trim();
-      const id = text.toLowerCase().replace(/[^\w\s]/g, '').replace(/\s+/g, '-');
+      const id = headingId(text);
       headings.push({ id, text, level });
     }
   });
   return headings;
-}
-
-function convertContentToHtml(content: string): string {
-  const lines = content.split('\n');
-  const htmlParts: string[] = [];
-  let inParagraph = false;
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-    const h3Match = line.match(/^### (.+)$/);
-    const h2Match = line.match(/^## (.+)$/);
-
-    if (h2Match) {
-      if (inParagraph) { htmlParts.push('</p>'); inParagraph = false; }
-      const text = h2Match[1].trim();
-      const id = text.toLowerCase().replace(/[^\w\s]/g, '').replace(/\s+/g, '-');
-      htmlParts.push(`<h2 id="${id}" class="font-heading text-xl md:text-2xl font-semibold text-foreground-950 mt-10 mb-4 scroll-mt-24">${text}</h2>`);
-    } else if (h3Match) {
-      if (inParagraph) { htmlParts.push('</p>'); inParagraph = false; }
-      const text = h3Match[1].trim();
-      const id = text.toLowerCase().replace(/[^\w\s]/g, '').replace(/\s+/g, '-');
-      htmlParts.push(`<h3 id="${id}" class="font-heading text-lg md:text-xl font-semibold text-foreground-900 mt-8 mb-3 scroll-mt-24">${text}</h3>`);
-    } else if (line.trim() === '') {
-      if (inParagraph) { htmlParts.push('</p>'); inParagraph = false; }
-    } else {
-      if (!inParagraph) { htmlParts.push('<p class="mb-4 leading-relaxed">'); inParagraph = true; }
-      else { htmlParts.push('<br/>'); }
-      htmlParts.push(line);
-    }
-  }
-
-  if (inParagraph) { htmlParts.push('</p>'); }
-  return htmlParts.join('');
 }
 
 export default function BlogDetailPage() {
@@ -149,9 +118,10 @@ export default function BlogDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const { isEn } = useLocalizedNav();
-  const [post, setPost] = useState<BlogPost | null>(null);
-  const [allPosts, setAllPosts] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
+  const staticData = useContext(PrerenderDataContext);
+  const [post, setPost] = useState<BlogPost | null>(staticData?.posts.find((item) => item.slug === slug) || null);
+  const [allPosts, setAllPosts] = useState<BlogPost[]>(staticData?.posts || []);
+  const [loading, setLoading] = useState(!staticData);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -210,7 +180,7 @@ export default function BlogDetailPage() {
         return {
           title: 'Статията не е намерена | NP Massage Studio',
           description: 'Търсената статия не съществува. Разгледайте други полезни статии за масажи в NP Massage Studio.',
-          noIndex: true,
+          noIndex: !loading,
         };
       }
       const title = isEn ? post.title_en : post.title_bg;
@@ -233,7 +203,7 @@ export default function BlogDetailPage() {
       return {
         title: `${title} | NP Massage Studio Блог`,
         description,
-        canonical: `/blog/${post.slug}`,
+        canonical: isEn ? `/en/blog/${post.slug}` : `/blog/${post.slug}`,
         lastModified: post.published_at,
         noIndex: OFF_TOPIC_SLUGS.has(post.slug),
         hreflangs: [
@@ -244,13 +214,13 @@ export default function BlogDetailPage() {
         og: {
           title,
           description,
-          url: `${baseUrl}/blog/${post.slug}`,
+          url: `${baseUrl}${isEn ? '/en' : ''}/blog/${post.slug}`,
           image: post.image_url || 'https://storage.helloreaddy.io/project_files/ac01bae9-5287-435a-8690-39522f5115fa/a44364ff-b9d6-4117-8394-dcd7f0becbd6_compressed_--.webp',
           type: 'article',
         },
         schemas,
       };
-    }, [post, isEn])
+    }, [post, isEn, loading])
   );
 
   useEffect(() => {
@@ -286,7 +256,7 @@ export default function BlogDetailPage() {
     return (
       <div className="min-h-screen bg-background-50">
         <Navbar />
-        <main className="pt-20 md:pt-24">
+        <main id="main-content" className="pt-20 md:pt-24">
           <div className="flex items-center justify-center py-32">
             <i className="ri-loader-4-line animate-spin text-4xl text-primary-500" />
           </div>
@@ -300,7 +270,7 @@ export default function BlogDetailPage() {
     return (
       <div className="min-h-screen bg-background-50">
         <Navbar />
-        <main className="pt-20 md:pt-24">
+        <main id="main-content" className="pt-20 md:pt-24">
           <section className="w-full px-4 md:px-6 lg:px-10 py-12 md:py-16">
             <div className="max-w-3xl mx-auto text-center">
               <div className="mt-10">
@@ -345,7 +315,7 @@ export default function BlogDetailPage() {
   return (
     <div className="min-h-screen bg-background-50">
       <Navbar />
-      <main className="pt-20 md:pt-24">
+      <main id="main-content" className="pt-20 md:pt-24">
         <article className="w-full px-4 md:px-6 lg:px-10 py-12 md:py-16">
           <div className="max-w-3xl mx-auto">
           <div className="mt-8 mb-10">
@@ -385,7 +355,7 @@ export default function BlogDetailPage() {
 
             <div
               className="prose prose-lg max-w-none text-foreground-700 text-base md:text-lg blog-content"
-              dangerouslySetInnerHTML={{ __html: convertContentToHtml(content) }}
+              dangerouslySetInnerHTML={{ __html: articleContentToHtml(content) }}
             />
 
             <RelatedArticles

@@ -74,7 +74,7 @@ export default [
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': [
         'warn',
-        { allowConstantExport: true },
+        { allowConstantExport: true, allowExportNames: ['useAuth'] },
       ],
       '@typescript-eslint/no-namespace': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
@@ -100,6 +100,8 @@ export default [
     },
     rules: {
       'local-route/route-element-jsx': 'error',
+      // A route object collection is intentionally exported instead of a component.
+      'react-refresh/only-export-components': 'off',
     },
   },
 ]

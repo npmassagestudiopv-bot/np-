@@ -1,12 +1,14 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
+import type { Database } from '@/types/database';
+import { parseAvailability } from '@/lib/bookingAvailability';
 
 const supabaseUrl = import.meta.env.VITE_PUBLIC_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_PUBLIC_SUPABASE_ANON_KEY;
 
-let _supabase: ReturnType<typeof createClient> | null = null;
+let _supabase: SupabaseClient<Database> | null = null;
 function getClient() {
   if (!_supabase) {
-    _supabase = createClient(supabaseUrl, supabaseKey);
+    _supabase = createClient<Database>(supabaseUrl, supabaseKey);
   }
   return _supabase;
 }
@@ -83,10 +85,7 @@ export async function fetchAvailableSlots(date: string, location: string): Promi
   }
 
   const result = await response.json();
-  return {
-    takenSlots: (result?.takenSlots ?? []) as string[],
-    blocked: result?.blocked === true,
-  };
+  return parseAvailability(result);
 }
 
 export const fetchBlogPosts = async () => {

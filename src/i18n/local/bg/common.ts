@@ -10,15 +10,15 @@ export const navBook = "Запази час";
 export const navMenu = "Меню";
 
 export const heroTitle1 = "Масаж Велико Търново";
-export const heroTitle2 = "качество";
-export const heroTitle3 = "и баланс";
-export const heroSubtitle = "Професионален масаж във Велико Търново и Павликени. Класически, спортен, антицелулитен масаж и ароматерапия 15–30 € в спокойна и професионална среда.";
-export const heroCta = "Запази час сега";
+export const heroTitle2 = "с грижа";
+export const heroTitle3 = "и внимание към вас";
+export const heroSubtitle = "Масаж според вашите нужди, с внимание към всяко движение. Велико Търново и Павликени · 5 услуги · 40–60 минути · 15–30 €.";
+export const heroCta = "Запази час";
 export const heroServices = "Виж всички услуги";
 export const heroPhone = "+359 988 926 120";
 
 export const servicesTitle = "Нашите услуги";
-export const servicesSubtitle = "Точни техники за вашето благосъстояние и пълна релаксация";
+export const servicesSubtitle = "Изберете според вашите нужди. Вижте как протича масажът, колко трае и каква е цената.";
 export const servicesIntro = "NP Massage Studio предлага широка гама от професионални масажни процедури, изпълнявани от опитни терапевти. Всеки масаж е персонализиран според индивидуалните нужди на клиента, съчетавайки традиционни техники с модерни подходи за постигане на оптимални резултати.";
 
 export const serviceClassical = "Класически и релаксиращ масаж";
@@ -79,8 +79,8 @@ export const testimonialsSubtitle = "Реални отзиви от доволн
 export const testimonialsPlaceholder = "Очакваме първите отзиви. Ако сте посещавали NP Massage Studio, ще се радваме да споделите вашето мнение.";
 export const testimonialsCallToAction = "Споделете вашето мнение";
 
-export const ctaTitle = "Готови ли сте да се погрижите за себе си?";
-export const ctaSubtitle = "Резервирайте вашия час сега и почувствайте разликата. Професионални масажи във Велико Търново и Павликени.";
+export const ctaTitle = "Отделете време за себе си";
+export const ctaSubtitle = "Изберете масаж, локация и удобен час. Ще се свържем с вас, за да потвърдим резервацията.";
 export const ctaButton = "Резервирай час сега";
 export const ctaPhone = "Или се обадете на";
 export const ctaPhoneNumber = "+359 988 926 120";

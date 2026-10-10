@@ -1,0 +1,7 @@
+node_modules/
+out/
+auto-imports.d.ts
+*.tsbuildinfo
+*.local
+.env.local
+.env.*.local

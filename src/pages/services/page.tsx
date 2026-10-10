@@ -92,7 +92,7 @@ export default function ServicesPage() {
   return (
     <div className="min-h-screen bg-background-50">
       <Navbar />
-      <main className="pt-20 md:pt-24" id="main-content">
+      <main id="main-content" className="pt-20 md:pt-24">
         <section className="w-full px-4 md:px-6 lg:px-10 py-12 md:py-16">
           <div className="max-w-5xl mx-auto">
             <div className="mb-12 md:mb-16">

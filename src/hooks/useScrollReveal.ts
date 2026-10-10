@@ -10,7 +10,7 @@ interface ScrollRevealOptions {
 let _skipAnimations: boolean | null = null;
 function shouldSkipAnimations(): boolean {
   if (_skipAnimations !== null) return _skipAnimations;
-  if (typeof window === 'undefined') return false;
+  if (typeof window === 'undefined') return true;
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isMobile = window.innerWidth < 768;
   _skipAnimations = prefersReduced || isMobile;

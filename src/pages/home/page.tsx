@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect, useMemo, useState } from 'react';
+import { Suspense, lazy, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import Navbar from '@/components/feature/Navbar';
 import Footer from '@/components/feature/Footer';
@@ -8,21 +8,9 @@ import EntityBlock from './components/EntityBlock';
 import FaqAccordion from '@/components/feature/FaqAccordion';
 import SeoTextBlock from '@/components/feature/SeoTextBlock';
 import { useSeo, baseUrl } from '@/hooks/useSeo';
-import type {
-  buildWebSiteSchema as BuildWebSiteSchema,
-  buildOrganizationSchema as BuildOrganizationSchema,
-  buildLocalBusinessSchema as BuildLocalBusinessSchema,
-  buildPersonSchema as BuildPersonSchema,
-  buildWebPageSchema as BuildWebPageSchema,
-  buildBreadcrumbSchema as BuildBreadcrumbSchema,
-  buildFaqSchema as BuildFaqSchema,
-  buildOfferCatalogSchema as BuildOfferCatalogSchema,
-  buildSiteNavigationSchema as BuildSiteNavigationSchema,
-  buildImageObjectSchema as BuildImageObjectSchema,
-  buildHowToSchema as BuildHowToSchema,
-  buildProductSchema as BuildProductSchema,
-  buildReviewSchema as BuildReviewSchema,
-} from '@/lib/seoSchemas';
+import * as schemaBuilders from '@/lib/seoSchemas';
+import type { SeoSchema } from '@/hooks/useSeo';
+import { useLocalizedNav } from '@/hooks/useLocalizedNav';
 
 const ServicesSection = lazy(() => import('./components/ServicesSection'));
 const AboutSection = lazy(() => import('./components/AboutSection'));
@@ -61,6 +49,16 @@ const FAQ_ITEMS = [
     q: 'Предлагате ли подаръчни ваучери за масаж?',
     a: 'Да! Предлагаме подаръчни ваучери за всички наши услуги в NP Massage Studio. Идеален подарък за рожден ден, аниверсария или специален повод. Важат 6 месеца от датата на издаване. Вижте повече на https://npmassagestudio.com/vaucheri',
   },
+];
+
+const FAQ_ITEMS_EN = [
+  { q: 'Which massages do you offer?', a: 'Classical and relaxing massage (60 min, 25 €), sports and therapeutic massage (60 min, 25 €), anti-cellulite massage (40 min, 20 €), aromatherapy (60 min, 30 €), and back massage (40 min, 15 €). A package of 10 anti-cellulite sessions costs 175 €.' },
+  { q: 'Where are your studios?', a: '72 Bulgaria Blvd., Veliko Tarnovo, and 10 Atanas Donchev St., Pavlikeni.' },
+  { q: 'How do I book?', a: 'Use the online booking form or call +359 988 926 120. We will contact you to confirm your request.' },
+  { q: 'How much does a massage cost?', a: 'Prices range from 15 € for a 40-minute back massage to 30 € for a 60-minute aromatherapy session. Classical and sports massage cost 25 € for 60 minutes.' },
+  { q: 'What are your opening hours?', a: 'Monday–Friday: 09:00–19:00. Saturday: 09:00–17:00. Sunday: 10:00–16:00.' },
+  { q: 'Should I book in advance?', a: 'Yes. Please book online or call +359 988 926 120 to arrange a convenient time.' },
+  { q: 'Do you offer gift vouchers?', a: 'Yes, for all five massage services. Vouchers are valid for six months from issue. See the vouchers page for details.' },
 ];
 
 const SERVICES_SCHEMA = [
@@ -106,71 +104,65 @@ const SectionLoader = () => (
 
 export default function Home() {
   const { t } = useTranslation();
-  const [seoSchemas, setSeoSchemas] = useState<ReturnType<typeof BuildWebSiteSchema>[]>([]);
+  const { isEn } = useLocalizedNav();
+  const seoSchemas = useMemo<SeoSchema[]>(() => {
+    const mod = schemaBuilders;
+    const PRODUCT_SCHEMAS = [
+      mod.buildProductSchema('Класически масаж', 'Традиционна техника за релаксиране на мускулите в NP Massage Studio.', '25', 'EUR', undefined, 'klasicheski-masazh'),
+      mod.buildProductSchema('Спортен масаж', 'Целенасочена терапия за спортисти в NP Massage Studio.', '25', 'EUR', undefined, 'sporten-masazh'),
+      mod.buildProductSchema('Антицелулитен масаж', 'Ефективна процедура за гладка кожа в NP Massage Studio.', '20', 'EUR', undefined, 'anticeluliten-masazh'),
+      mod.buildProductSchema('Ароматерапия', 'Съчетание на масаж и етерични масла в NP Massage Studio.', '30', 'EUR', undefined, 'aromaterapiya'),
+      mod.buildProductSchema('Масаж на гръб', 'Целенасочена терапия за гръб в NP Massage Studio.', '15', 'EUR', undefined, 'masazh-na-grab'),
+    ];
 
-  // Lazy load schema builders so they don't block initial bundle
-  useEffect(() => {
-    let cancelled = false;
-    import('@/lib/seoSchemas').then((mod) => {
-      if (cancelled) return;
-      const PRODUCT_SCHEMAS = [
-        mod.buildProductSchema('Класически масаж', 'Традиционна техника за релаксиране на мускулите в NP Massage Studio.', '25', 'EUR', undefined, 'klassicheski-masazh'),
-        mod.buildProductSchema('Спортен масаж', 'Целенасочена терапия за спортисти в NP Massage Studio.', '25', 'EUR', undefined, 'sporten-masazh'),
-        mod.buildProductSchema('Антицелулитен масаж', 'Ефективна процедура за гладка кожа в NP Massage Studio.', '20', 'EUR', undefined, 'anticeluliten-masazh'),
-        mod.buildProductSchema('Ароматерапия', 'Съчетание на масаж и етерични масла в NP Massage Studio.', '30', 'EUR', undefined, 'aromaterapiya'),
-        mod.buildProductSchema('Масаж на гръб', 'Целенасочена терапия за гръб в NP Massage Studio.', '15', 'EUR', undefined, 'masazh-grab'),
-      ];
+    const HOWTO_BOOKING = mod.buildHowToSchema(
+      'Как да си запазите час за масаж в NP Massage Studio',
+      'Стъпка-по-стъпка инструкции за онлайн и телефонна резервация на масаж в NP Massage Studio — Велико Търново и Павликени.',
+      [
+        { name: 'Изберете услуга', text: 'Разгледайте услугите на NP Massage Studio и изберете подходящия масаж — класически, спортен, антицелулитен, ароматерапия или масаж на гръб.' },
+        { name: 'Изберете локация', text: 'NP Massage Studio има два салона — във Велико Търново (бул. България 72) и в Павликени (ул. Атанас Дончев 10). Изберете удобната за вас локация.' },
+        { name: 'Изберете дата и час', text: 'Проверете наличните часове и изберете дата и час, удобни за вас. Работим всеки ден с удължено работно време.' },
+        { name: 'Попълнете данните си', text: 'Въведете вашето име, телефон и предпочитания. Ако имате специални изисквания, споменете ги в бележките.' },
+        { name: 'Потвърдете резервацията', text: 'Изпратете заявката с „Запази час“. Ще се свържем с вас за потвърждение на резервацията.' },
+      ]
+    );
 
-      const HOWTO_BOOKING = mod.buildHowToSchema(
-        'Как да си запазите час за масаж в NP Massage Studio',
-        'Стъпка-по-стъпка инструкции за онлайн и телефонна резервация на масаж в NP Massage Studio — Велико Търново и Павликени.',
-        [
-          { name: 'Изберете услуга', text: 'Разгледайте услугите на NP Massage Studio и изберете подходящия масаж — класически, спортен, антицелулитен, ароматерапия или масаж на гръб.' },
-          { name: 'Изберете локация', text: 'NP Massage Studio има два салона — във Велико Търново (бул. България 72) и в Павликени (ул. Атанас Дончев 10). Изберете удобната за вас локация.' },
-          { name: 'Изберете дата и час', text: 'Проверете наличните часове и изберете дата и час, удобни за вас. Работим всеки ден с удължено работно време.' },
-          { name: 'Попълнете данните си', text: 'Въведете вашето име, телефон и предпочитания. Ако имате специални изисквания, споменете ги в бележките.' },
-          { name: 'Потвърдете резервацията', text: 'Натиснете "Запази час" и получете потвърждение по SMS или имейл. Очакваме ви в NP Massage Studio!' },
-        ]
-      );
-
-      setSeoSchemas([
-        mod.buildWebSiteSchema(),
-        mod.buildOrganizationSchema(),
-        mod.buildLocalBusinessVtSchema(),
-        mod.buildLocalBusinessPvSchema(),
-        mod.buildPersonSchema(),
-        mod.buildWebPageSchema(
-          'Масаж Велико Търново | NP Масажно студио — от 15 €',
-          'NP Масажно студио — професионални масажи Велико Търново и Павликени. Класически, спортен, антицелулитен масаж & ароматерапия от 15 €.',
-          '/',
-          'WebPage',
-          { cssSelector: ['h1', 'h2', '.hero-subtitle'] }
-        ),
-        mod.buildBreadcrumbSchema([
-          { name: 'Начало', url: '/' },
-        ]),
-        mod.buildFaqSchema(FAQ_ITEMS),
-        mod.buildOfferCatalogSchema(SERVICES_SCHEMA),
-        mod.buildSiteNavigationSchema(),
-        mod.buildImageObjectSchema(
-          'https://storage.readdy-site.link/project_files/ac01bae9-5287-435a-8690-39522f5115fa/797959de-34c7-40ec-bb97-d471b3bf9060_--.webp?v=d5680a101df04e2df0a7f29dc2cd1d37',
-          'NP Massage Studio — интериор на масажния салон във Велико Търново',
-          1920,
-          1080
-        ),
-        HOWTO_BOOKING,
-        ...PRODUCT_SCHEMAS,
-        mod.buildReviewSchema(HOME_REVIEWS),
-      ]);
-    });
-    return () => { cancelled = true; };
-  }, []);
+    return [
+      mod.buildWebSiteSchema(),
+      mod.buildOrganizationSchema(),
+      mod.buildLocalBusinessVtSchema(),
+      mod.buildLocalBusinessPvSchema(),
+      mod.buildPersonSchema(),
+      mod.buildWebPageSchema(
+        'Масаж Велико Търново | NP Масажно студио — от 15 €',
+        'NP Масажно студио — професионални масажи Велико Търново и Павликени. Класически, спортен, антицелулитен масаж & ароматерапия от 15 €.',
+        '/',
+        'WebPage',
+        { cssSelector: ['h1', 'h2', '.hero-subtitle'] }
+      ),
+      mod.buildBreadcrumbSchema([
+        { name: 'Начало', url: '/' },
+      ]),
+      mod.buildFaqSchema(isEn ? FAQ_ITEMS_EN : FAQ_ITEMS),
+      mod.buildOfferCatalogSchema(SERVICES_SCHEMA),
+      mod.buildSiteNavigationSchema(),
+      mod.buildImageObjectSchema(
+        'https://storage.readdy-site.link/project_files/ac01bae9-5287-435a-8690-39522f5115fa/797959de-34c7-40ec-bb97-d471b3bf9060_--.webp?v=d5680a101df04e2df0a7f29dc2cd1d37',
+        'NP Massage Studio — интериор на масажния салон във Велико Търново',
+        1920,
+        1080
+      ),
+      HOWTO_BOOKING,
+      ...PRODUCT_SCHEMAS,
+      mod.buildReviewSchema(HOME_REVIEWS),
+    ];
+  }, [isEn]);
 
   const seoOptions = useMemo(() => ({
-    title: 'Масаж Велико Търново | NP Масажно студио — от 15 €',
-    description: 'NP Масажно студио — професионални масажи Велико Търново и Павликени. Класически, спортен, антицелулитен масаж & ароматерапия от 15 €. Запази час: +359 988 926 120.',
+    title: isEn ? 'Massage in Veliko Tarnovo | NP Massage Studio — from 15 €' : 'Масаж Велико Търново | NP Масажно студио — от 15 €',
+    description: isEn ? 'Massage in Veliko Tarnovo and Pavlikeni. Five services, 40–60 minutes, 15–30 €. Care and attention to your comfort. Book online or call +359 988 926 120.' : 'Масаж и масажи във Велико Търново и Павликени. Пет услуги, 40–60 минути, 15–30 €. Грижа и внимание към вашия комфорт. Запази час: +359 988 926 120.',
     keywords: 'масаж Велико Търново, масажи Търново, масажно студио, класически масаж, спортен масаж, терапевтичен масаж, антицелулитен масаж, ароматерапия, масаж на гръб, NP Massage Studio, масажи Павликени, масаж Търново',
-    canonical: '/',
+    canonical: isEn ? '/en' : '/',
     lastModified: '2026-08-06',
     hreflangs: [
       { lang: 'bg', url: '/' },
@@ -184,14 +176,13 @@ export default function Home() {
       icbm: '43.081037, 25.612733',
     },
     og: {
-      title: 'Масаж Велико Търново | NP Масажно студио — от 15 €',
-      description: 'NP Масажно студио — професионални масажи Велико Търново и Павликени. Класически, спортен, антицелулитен масаж & ароматерапия от 15 €.',
+      title: isEn ? 'Massage in Veliko Tarnovo | NP Massage Studio — from 15 €' : 'Масаж Велико Търново | NP Масажно студио — от 15 €',
       type: 'website',
-      locale: 'bg_BG',
-      localeAlternate: ['en_US'],
+      locale: isEn ? 'en_US' : 'bg_BG',
+      localeAlternate: [isEn ? 'bg_BG' : 'en_US'],
     },
     schemas: seoSchemas,
-  }), [seoSchemas]);
+  }), [seoSchemas, isEn]);
 
   useSeo(seoOptions);
 
@@ -213,10 +204,10 @@ export default function Home() {
           <TestimonialsSection />
         </Suspense>
         <Suspense fallback={<SectionLoader />}>
-          <ClientReviews isEn={false} limit={3} />
+          <ClientReviews isEn={isEn} limit={3} />
         </Suspense>
         <Suspense fallback={<SectionLoader />}>
-          <HonestBar isEn={false} />
+          <HonestBar isEn={isEn} />
         </Suspense>
         <Suspense fallback={<SectionLoader />}>
           <CtaSection />
@@ -225,13 +216,13 @@ export default function Home() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-10 md:mb-12">
               <h2 className="font-heading text-2xl md:text-3xl font-semibold text-foreground-950 mb-3">
-                Често задавани въпроси
+                {isEn ? 'Frequently asked questions' : 'Често задавани въпроси'}
               </h2>
-              <p className="text-sm text-foreground-600">Отговори на най-популярните въпроси за масажи Търново и Павликени</p>
+              <p className="text-sm text-foreground-600">{isEn ? 'Practical information for your visit in Veliko Tarnovo or Pavlikeni' : 'Практична информация за посещението ви във Велико Търново или Павликени'}</p>
             </div>
-            <FaqAccordion items={FAQ_ITEMS.map((item) => ({ q: item.q, a: item.a }))} />
+            <FaqAccordion items={(isEn ? FAQ_ITEMS_EN : FAQ_ITEMS).map((item) => ({ q: item.q, a: item.a }))} />
             <div className="mt-8">
-              <SeoTextBlock isEn={false} />
+              <SeoTextBlock isEn={isEn} />
             </div>
           </div>
         </section>

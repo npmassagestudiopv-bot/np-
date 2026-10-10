@@ -3,7 +3,7 @@ import { useLocalizedNav } from '@/hooks/useLocalizedNav';
 
 export default function HeroSection() {
   const { t } = useTranslation();
-  const { handleNav } = useLocalizedNav();
+  const { getPath, handleNav, isEn } = useLocalizedNav();
 
   return (
     <section className="hero-section relative min-h-[420px] sm:min-h-[520px] md:min-h-[600px] lg:min-h-[720px] flex items-start sm:items-center justify-center overflow-hidden">
@@ -25,7 +25,7 @@ export default function HeroSection() {
 
       <div className="hero-content relative z-10 w-full px-4 md:px-6 lg:px-10 pt-24 sm:pt-20 md:pt-24 pb-12 md:pb-20 flex flex-col items-center text-center">
         <div className="max-w-3xl">
-          <h1 className="font-heading text-xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-background-50 leading-[1.15] mb-3 md:mb-6 text-shadow-hero">
+          <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-background-50 leading-[1.15] mb-3 md:mb-6 text-shadow-hero">
             {t('heroTitle1')}
             <br />
             {t('heroTitle2')}
@@ -37,20 +37,20 @@ export default function HeroSection() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
-              href="/rezervaciya"
+              href={getPath('/rezervaciya')}
               onClick={(e) => {
                 e.preventDefault();
-                handleNav('/rezervaciya');
+                handleNav(getPath('/rezervaciya'));
               }}
               className="hero-cta inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-8 py-3 bg-background-50 text-primary-700 font-medium text-sm rounded-full hover:bg-background-100 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer btn-premium min-h-[48px]"
             >
               {t('heroCta')}
             </a>
             <a
-              href="/uslugi"
+              href={getPath('/uslugi')}
               onClick={(e) => {
                 e.preventDefault();
-                handleNav('/uslugi');
+                handleNav(getPath('/uslugi'));
               }}
               className="hero-cta-outline inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-8 py-3 border-2 border-background-50/60 text-background-50 font-medium text-sm rounded-full hover:bg-background-50/15 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer min-h-[48px]"
             >
@@ -60,7 +60,7 @@ export default function HeroSection() {
           <div className="mt-4 sm:hidden">
             <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-background-50/20 backdrop-blur-sm rounded-full text-background-50 text-xs font-medium border border-background-50/25">
               <i className="ri-price-tag-3-line" />
-              Цени от 15 €
+              {isEn ? 'Prices from 15 €' : 'Цени от 15 €'}
             </span>
           </div>
         </div>
@@ -69,7 +69,7 @@ export default function HeroSection() {
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-background-200/90">
             <div className="flex items-center gap-2">
               <i className="ri-map-pin-line" />
-              <span>Търново (В. Търново) & Павликени</span>
+              <span>{isEn ? 'Veliko Tarnovo & Pavlikeni' : 'Велико Търново и Павликени'}</span>
             </div>
             <div className="hidden sm:block w-px h-4 bg-background-200/40" />
             <div className="flex items-center gap-2">
@@ -81,7 +81,7 @@ export default function HeroSection() {
             <div className="hidden sm:block w-px h-4 bg-background-200/40" />
             <div className="flex items-center gap-2">
               <i className="ri-time-line" />
-              <span>Пн–Пт 09–19ч &middot; Сб 09–17ч &middot; Нд 10–16ч</span>
+              <span>{isEn ? 'Mon–Fri 09–19 · Sat 09–17 · Sun 10–16' : 'Пн–Пт 09–19ч · Сб 09–17ч · Нд 10–16ч'}</span>
             </div>
           </div>
         </div>

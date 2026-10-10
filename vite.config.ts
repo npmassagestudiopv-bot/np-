@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "node:path";
-import { execSync } from "node:child_process";
+import { execFileSync } from "node:child_process";
 import AutoImport from "unplugin-auto-import/vite";
 // import { readdyJsxRuntimeProxyPlugin } from "./vite.jsx-runtime-proxy";
 
@@ -74,14 +74,9 @@ export default defineConfig({
       name: "generate-static-seo-pages",
       apply: "build",
       closeBundle() {
-        try {
-          const scriptPath = resolve(__dirname, "scripts/generate-static-pages.cjs");
-          const outDir = resolve(__dirname, "out");
-          execSync(`node "${scriptPath}" --out-dir "${outDir}"`, { stdio: "inherit" });
-          console.log("[generate-static-seo-pages] Static SEO pages generated successfully.");
-        } catch (err) {
-          console.warn("[generate-static-seo-pages] Warning:", err.message);
-        }
+        const scriptPath = resolve(import.meta.dirname, "scripts/generate-static-pages.cjs");
+        const outDir = resolve(import.meta.dirname, "out");
+        execFileSync(process.execPath, [scriptPath, "--out-dir", outDir], { stdio: "inherit" });
       },
     },
   ],
@@ -92,7 +87,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@": resolve(__dirname, "./src"),
+      "@": resolve(import.meta.dirname, "./src"),
     },
   },
   server: {
