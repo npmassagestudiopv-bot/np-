@@ -32,9 +32,9 @@ export const heroCta = "Book a massage";
 export const heroServices = "View All Services";
 export const heroPhone = "+359 988 926 120";
 
-export const servicesTitle = "Our Services";
+export const servicesTitle = "Massages & prices";
 export const servicesSubtitle = "Choose what suits your needs. See what to expect, how long it takes and what it costs.";
-export const servicesIntro = "NP Massage Studio offers a wide range of professional massage procedures performed by experienced therapists. Each massage is personalized according to the individual needs of the client, combining traditional techniques with modern approaches to achieve optimal results.";
+export const servicesIntro = "Five services, 40–60 minutes, 15–30 €. Visit us in Veliko Tarnovo or Pavlikeni. If you are unsure which massage to choose, we will help you find the right session.";
 
 export const serviceClassical = "Classical & Relaxing Massage";
 export const serviceClassicalDesc = "Traditional technique for muscle relaxation, stress reduction and improved overall well-being.";
@@ -69,8 +69,8 @@ export const serviceBook = "Book Now";
 
 export const aboutLabel = "About Us";
 export const aboutTitle = "NP Massage Studio — Professionalism and Care";
-export const aboutText1 = "NP Massage Studio is a professional massage salon with two locations in Veliko Tarnovo and Pavlikeni. Our mission is to provide quality massage services that restore balance to body and mind, and help our clients achieve better physical and mental health.";
-export const aboutText2 = "Every massage we provide is a ritual of attention, trust, and precision. Our therapists approach each client's needs individually.";
+export const aboutText1 = "We welcome you at our two NP Massage Studio locations in Veliko Tarnovo and Pavlikeni. We take time to understand what you need and choose a suitable session together.";
+export const aboutText2 = "Share your preferences before the massage. We adjust the pressure and pace to your comfort.";
 export const aboutQuote = "\"Massage in Veliko Tarnovo — quality and balance. Every massage is a ritual of attention, trust, and precision.\"";
 export const aboutCta = "Learn More About Us";
 export const aboutFullTitle = "Our Story and Philosophy";

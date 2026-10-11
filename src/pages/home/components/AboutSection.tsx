@@ -9,7 +9,7 @@ export default function AboutSection() {
 
   return (
     <section className="py-16 md:py-24 bg-background-100">
-      <div className="w-full px-4 md:px-6 lg:px-10">
+      <div className="site-container">
         <div
           ref={ref}
           className={`flex flex-col lg:flex-row items-center gap-10 lg:gap-16 transition-all duration-700 ${
@@ -34,13 +34,13 @@ export default function AboutSection() {
             <span className="inline-block px-4 py-1.5 bg-accent-100 text-accent-800 text-xs font-medium rounded-full mb-5">
               {t('aboutLabel')}
             </span>
-            <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground-950 mb-5 leading-tight">
+            <h2 className="section-title text-foreground-950 mb-5">
               {t('aboutTitle')}
             </h2>
-            <p className="text-sm md:text-base text-foreground-600 mb-4 leading-relaxed">
+            <p className="section-copy text-foreground-600 mb-4">
               {t('aboutText1')}
             </p>
-            <p className="text-sm md:text-base text-foreground-700 italic mb-6 leading-relaxed border-l-[3px] border-accent-400 pl-4 py-1">
+            <p className="section-copy text-foreground-700 italic mb-6 border-l-[3px] border-accent-400 pl-4 py-1">
               {t('aboutText2')}
             </p>
 
@@ -52,7 +52,7 @@ export default function AboutSection() {
                 </div>
                 <div>
                   <div className="text-sm font-bold text-foreground-900">5.0</div>
-                  <div className="text-[10px] text-foreground-500">{isEn ? "Google reviews" : "отзиви в Google"}</div>
+                  <div className="text-xs text-foreground-500">{isEn ? "Google reviews" : "отзиви в Google"}</div>
                 </div>
               </div>
               <div className="flex items-center gap-2 bg-background-50 rounded-xl px-3 py-2 border border-background-200/50">
@@ -61,7 +61,7 @@ export default function AboutSection() {
                 </div>
                 <div>
                   <div className="text-sm font-bold text-foreground-900">2</div>
-                  <div className="text-[10px] text-foreground-500">{isEn ? "studios" : "локации"}</div>
+                  <div className="text-xs text-foreground-500">{isEn ? "studios" : "локации"}</div>
                 </div>
               </div>
               <div className="flex items-center gap-2 bg-background-50 rounded-xl px-3 py-2 border border-background-200/50">
@@ -70,7 +70,7 @@ export default function AboutSection() {
                 </div>
                 <div>
                   <div className="text-sm font-bold text-foreground-900">7/7</div>
-                  <div className="text-[10px] text-foreground-500">{isEn ? "days a week" : "дни в седмицата"}</div>
+                  <div className="text-xs text-foreground-500">{isEn ? "days a week" : "дни в седмицата"}</div>
                 </div>
               </div>
             </div>

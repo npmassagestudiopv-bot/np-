@@ -24,15 +24,13 @@ export default function HeroSection() {
       </div>
 
       <div className="hero-content relative z-10 w-full px-4 md:px-6 lg:px-10 pt-24 sm:pt-20 md:pt-24 pb-12 md:pb-20 flex flex-col items-center text-center">
-        <div className="max-w-3xl">
-          <h1 className="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-background-50 leading-[1.15] mb-3 md:mb-6 text-shadow-hero">
-            {t('heroTitle1')}
-            <br />
-            {t('heroTitle2')}
-            <br />
+        <div className="max-w-4xl">
+          <h1 className="hero-heading font-heading text-background-50 mb-5 md:mb-6 text-shadow-hero">
+            <span className="block">{t('heroTitle1')}</span>
+            {t('heroTitle2')}{' '}
             <span className="text-accent-300">{t('heroTitle3')}</span>
           </h1>
-          <p className="text-sm sm:text-base md:text-lg text-background-100/95 max-w-xl mx-auto mb-5 md:mb-8 leading-relaxed">
+          <p className="hero-subtitle text-base md:text-lg text-background-100/95 max-w-xl mx-auto mb-6 md:mb-8 leading-relaxed">
             {t('heroSubtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">

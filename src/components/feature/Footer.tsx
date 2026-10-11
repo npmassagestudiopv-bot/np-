@@ -24,7 +24,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-foreground-900 text-background-200" role="contentinfo">
-      <div className="w-full px-4 md:px-6 lg:px-10 py-6 md:py-8">
+      <div className="site-container py-6 md:py-8">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6 md:mb-8">
           <a
             href={getPath('/')}

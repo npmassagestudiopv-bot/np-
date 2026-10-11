@@ -40,7 +40,7 @@ export default function FaqAccordion({ items, defaultOpen = 0 }: FaqAccordionPro
             aria-expanded={openIndex === index}
             aria-controls={`faq-content-${index}`}
           >
-            <span className="text-sm md:text-base font-medium text-foreground-900 pr-4 group-hover:text-primary-600 transition-colors">
+            <span className="text-base font-medium text-foreground-900 pr-4 group-hover:text-primary-600 transition-colors">
               {getQuestion(faq)}
             </span>
             <span
@@ -55,14 +55,16 @@ export default function FaqAccordion({ items, defaultOpen = 0 }: FaqAccordionPro
           </button>
           <div
             id={`faq-content-${index}`}
-            className={`overflow-hidden transition-all duration-500 ease-in-out ${
-              openIndex === index ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
+            className={`grid transition-[grid-template-rows,opacity] duration-300 ease-in-out ${
+              openIndex === index ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
             }`}
             aria-hidden={openIndex !== index}
             {...(openIndex !== index ? { inert: true } : {})}
           >
-            <div className="px-4 md:px-5 pb-4 md:pb-5">
-              <p className="text-sm text-foreground-600 leading-relaxed">{getAnswer(faq)}</p>
+            <div className="overflow-hidden">
+              <div className="px-4 md:px-5 pb-4 md:pb-5">
+                <p className="text-base text-foreground-600 leading-relaxed">{getAnswer(faq)}</p>
+              </div>
             </div>
           </div>
         </div>

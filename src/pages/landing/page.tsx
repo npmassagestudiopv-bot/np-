@@ -3,6 +3,8 @@ import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/feature/Navbar';
 import Footer from '@/components/feature/Footer';
+import MobileBottomCta from '@/components/feature/MobileBottomCta';
+import { serviceSeoItems } from '@/lib/serviceSeo';
 import FaqAccordion from '@/components/feature/FaqAccordion';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { useLocalizedNav } from '@/hooks/useLocalizedNav';
@@ -13,6 +15,7 @@ import {
   buildFaqSchema,
   buildWebPageSchema,
   buildPlaceSchema,
+  buildOfferCatalogSchema,
 } from '@/lib/seoSchemas';
 import { LOCATION_INTROS, SERVICE_BENEFITS, VALUE_PROPOSITIONS, OUTREACH_TRAVEL_INFO } from '@/mocks/landingSeoContent';
 
@@ -105,6 +108,7 @@ export default function LandingPage({ title, description, location, service, can
   const { handleNav, location: locationObj } = useLocalizedNav();
 
   const isStudioCity = STUDIO_CITIES.has(location);
+  const isStudioOverview = isStudioCity && service === 'Масажи';
   const areaMeta = isStudioCity ? null : (SERVICE_AREA_META[location] || null);
   const nearestStudio = areaMeta?.nearestStudio || 'Велико Търново';
 
@@ -113,6 +117,13 @@ export default function LandingPage({ title, description, location, service, can
     : { lat: areaMeta!.lat, lng: areaMeta!.lng, address: areaMeta!.nearestAddress }, [isStudioCity, location, areaMeta]);
 
   const faqItems = useMemo(() => {
+    if (isStudioOverview) return [
+      { q: `Колко струват масажите в ${location}?`, a: 'Цените са 15–30 € за сесия от 40–60 минути. Класическият и спортният масаж са по 25 € за 60 минути, антицелулитният — 20 € за 40 минути, ароматерапията — 30 € за 60 минути, а масажът на гръб — 15 € за 40 минути.' },
+      { q: `Къде се намира студиото в ${location}?`, a: `Адресът на NP Massage Studio е ${STUDIO_ADDRESSES[location].address}, ${location}. Разгледайте страницата „Локации“ за карта и упътване.` },
+      { q: 'Кой масаж да избера?', a: 'За отпускане разгледайте класическия масаж или ароматерапията. След физическо натоварване можете да изберете спортен масаж, а за гърба и раменете — частичен масаж на гръб. Ако се колебаете, обадете ни се и ще обсъдим предпочитанията ви.' },
+      { q: 'Как да запазя час?', a: 'Изберете услуга, локация, дата и свободен час в онлайн формата или се обадете на +359 988 926 120. След изпращане на заявката ще се свържем с вас за потвърждение.' },
+      { q: 'Какво е работното време?', a: 'Понеделник–Петък: 09:00–19:00. Събота: 09:00–17:00. Неделя: 10:00–16:00. Препоръчваме предварително записване.' },
+    ];
     if (isStudioCity) return FAQ_STUDIO.map((item) => ({ q: item.q, a: item.a }));
     return [
       { q: `Къде точно се намира NP Massage Studio спрямо ${location}?`, a: `Ние нямаме физически салон в ${location}, но обслужваме клиенти от ${location} в най-близкото ни студио — в ${nearestStudio} (само на ${areaMeta!.timeMin} минути с кола). Адрес ${nearestStudio}: ${areaMeta!.nearestAddress}. Това е напълно оборудван професионален масажен салон с уютна атмосфера.` },
@@ -122,7 +133,7 @@ export default function LandingPage({ title, description, location, service, can
       { q: 'Как мога да запазя час?', a: `Обадете се на +359 988 926 120 или попълнете онлайн формата за резервация на ${baseUrl}/rezervaciya. Кажете ни от кой град идвате и ще ви помогнем да изберете удобен час. Потвърждаваме резервацията по телефон в рамките на 2 часа.` },
       { q: 'Какви са работните ви часове?', a: 'Работим всеки ден: Понеделник–Петък 09:00–19:00, Събота 09:00–17:00, Неделя 10:00–16:00. Двете локации (Велико Търново и Павликени) спазват еднакво работно време.' },
     ];
-  }, [isStudioCity, location, nearestStudio, areaMeta]);
+  }, [isStudioOverview, isStudioCity, location, nearestStudio, areaMeta]);
 
   const whyItems = useMemo(() => {
     if (!isStudioCity && areaMeta) {
@@ -148,7 +159,7 @@ export default function LandingPage({ title, description, location, service, can
     description,
     keywords: `${service.toLowerCase()} ${location.toLowerCase()}, ${service.toLowerCase()} Велико Търново, масаж ${location.toLowerCase()}, NP Масажно студио ${location}, професионален масаж, запази час масаж`,
     canonical: canonicalPath,
-    lastModified: '2026-06-20',
+    lastModified: isStudioOverview ? '2026-10-11' : '2026-06-20',
     hreflangs: locationObj.pathname === canonicalPath ? [
       { lang: 'bg', url: canonicalPath },
       { lang: 'x-default', url: canonicalPath },
@@ -172,6 +183,7 @@ export default function LandingPage({ title, description, location, service, can
         ? buildPlaceSchema(`NP Massage Studio — ${location}`, studioAddr.address, studioAddr.lat, studioAddr.lng)
         : null,
       buildFaqSchema(faqItems),
+      isStudioOverview && location === 'Велико Търново' ? buildOfferCatalogSchema(serviceSeoItems(false)) : null,
       {
         type: 'Service',
         data: {
@@ -225,7 +237,7 @@ export default function LandingPage({ title, description, location, service, can
         },
       },
     ].filter(Boolean),
-  }), [title, description, location, service, canonicalPath, isStudioCity, nearestStudio, areaMeta, studioAddr, faqItems, locationObj.pathname]));
+  }), [title, description, location, service, canonicalPath, isStudioOverview, isStudioCity, nearestStudio, areaMeta, studioAddr, faqItems, locationObj.pathname]));
 
   return (
     <div className="min-h-screen bg-background-50">
@@ -238,8 +250,8 @@ export default function LandingPage({ title, description, location, service, can
             )}
 
             <div className="mb-8 md:mb-12">
-              <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground-950 mb-4">
-                {isStudioCity ? `${service} — ${location}` : `${service} за клиенти от ${location}`}
+              <h1 className="page-title text-foreground-950 mb-4">
+                {isStudioCity ? `${service} ${location === 'Велико Търново' ? 'във' : 'в'} ${location}` : `${service} за клиенти от ${location}`}
               </h1>
               <p className="text-base text-foreground-600 max-w-2xl leading-relaxed">
                 {description}
@@ -251,6 +263,7 @@ export default function LandingPage({ title, description, location, service, can
               )}
             </div>
 
+            {isStudioOverview && <StudioPriceList location={location} />}
             <LandingWhy whyItems={whyItems} isStudioCity={isStudioCity} service={service} location={location} nearestStudio={nearestStudio} />
             <LandingCta service={service} location={location} isStudioCity={isStudioCity} />
             <LandingSeoContent service={service} location={location} isStudioCity={isStudioCity} nearestStudio={nearestStudio} areaMeta={areaMeta} />
@@ -273,8 +286,37 @@ export default function LandingPage({ title, description, location, service, can
           </div>
         </section>
       </main>
+      <MobileBottomCta />
       <Footer />
     </div>
+  );
+}
+
+function StudioPriceList({ location }: { location: string }) {
+  const items = serviceSeoItems(false);
+  return (
+    <section className="bg-background-100 rounded-2xl p-5 md:p-8 border border-background-200/70 mb-10 md:mb-14" aria-labelledby="studio-prices-title">
+      <h2 id="studio-prices-title" className="font-heading text-2xl md:text-3xl font-medium text-foreground-950 mb-3">Масажи и цени</h2>
+      <p className="text-base text-foreground-600 mb-5">Изберете според вашите предпочитания. Всяка услуга има ясна цена и продължителност.</p>
+      <table className="w-full text-left text-sm md:text-base">
+        <caption className="sr-only">Масажни услуги, продължителност и цени в NP Massage Studio — {location}</caption>
+        <thead className="text-foreground-600">
+          <tr><th scope="col" className="pb-3 pr-3 font-medium">Услуга</th><th scope="col" className="pb-3 pr-3 font-medium">Време</th><th scope="col" className="pb-3 font-medium text-right">Цена</th></tr>
+        </thead>
+        <tbody>
+          {items.map(item => (
+            <tr key={item.slug} className="border-t border-background-200/70">
+              <th scope="row" className="pr-3 py-2 font-medium">
+                <Link to={`/uslugi/${item.slug}`} className="inline-flex items-center min-h-[44px] text-primary-700 underline underline-offset-4">{item.name}</Link>
+              </th>
+              <td className="pr-3 py-2 whitespace-nowrap tabular-nums text-foreground-700">{item.duration.replace(/^PT(\d+)M$/, '$1')} мин</td>
+              <td className="py-2 text-right whitespace-nowrap tabular-nums font-semibold text-foreground-900">{item.price} €</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p className="text-sm text-foreground-600 mt-5">{STUDIO_ADDRESSES[location].address}, {location}. <Link to="/lokacii" className="inline-flex items-center min-h-[44px] font-medium text-primary-700 underline underline-offset-4">Адрес и упътване</Link></p>
+    </section>
   );
 }
 

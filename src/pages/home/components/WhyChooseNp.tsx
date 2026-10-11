@@ -86,8 +86,8 @@ export default function WhyChooseNp() {
   const { ref: pointsRef, isVisible: pointsVisible } = useScrollReveal({ threshold: 0.05 });
 
   return (
-    <section className="py-20 md:py-28 bg-background-50">
-      <div className="w-full px-4 md:px-6 lg:px-10">
+    <section className="py-16 md:py-24 bg-background-50">
+      <div className="site-container">
         <div
           ref={whyRef}
           className={`max-w-6xl mx-auto text-center mb-14 md:mb-18 transition-all duration-700 ${
@@ -97,10 +97,10 @@ export default function WhyChooseNp() {
           <span className="inline-block px-4 py-1.5 bg-accent-100 text-accent-800 text-xs font-medium rounded-full mb-4">
             {isEn ? 'WHY NP MASSAGE STUDIO' : 'ЗАЩО NP MASSAGE STUDIO'}
           </span>
-          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground-950 mb-4">
+          <h2 className="section-title text-foreground-950 mb-4">
             {isEn ? 'Care you can feel' : 'Грижа, която усещате'}
           </h2>
-          <p className="text-sm md:text-base text-foreground-600 max-w-xl mx-auto leading-relaxed">
+          <p className="section-copy text-foreground-600 max-w-xl mx-auto">
             {isEn ? 'Clear information, attentive care and time for you.' : 'Ясна информация, внимание към детайла и време за вас.'}
           </p>
         </div>
@@ -151,10 +151,10 @@ export default function WhyChooseNp() {
                   {isEn ? point.statEn : point.stat}
                 </span>
               </div>
-              <h3 className="font-heading text-base md:text-lg font-semibold text-foreground-950 mb-2">
+              <h3 className="font-heading text-xl font-medium text-foreground-950 mb-3">
                 {isEn ? point.titleEn : point.title}
               </h3>
-              <p className="text-sm text-foreground-600 leading-relaxed">
+              <p className="text-base text-foreground-600 leading-relaxed">
                 {isEn ? point.descEn : point.desc}
               </p>
             </div>
@@ -172,7 +172,7 @@ export default function WhyChooseNp() {
               <Link
                 key={city.path}
                 to={isEn ? '/en/locations' : city.path}
-                className="px-4 py-2 bg-background-50 text-foreground-700 text-sm font-medium rounded-full border border-background-200/70 hover:border-primary-300/60 hover:text-primary-600 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer"
+                className="inline-flex items-center min-h-[44px] px-4 py-2 bg-background-50 text-foreground-700 text-sm font-medium rounded-full border border-background-200/70 hover:border-primary-300/60 hover:text-primary-600 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer"
               >
                 {isEn ? city.nameEn : city.name}
               </Link>

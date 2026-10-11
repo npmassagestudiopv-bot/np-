@@ -45,10 +45,10 @@ export default function BookingPage() {
   const FAQ_BOOKING = isEn ? bookingFaqEn : FAQ_BOOKING_BG;
 
   useSeo(useMemo(() => localizePageSeo({
-    title: 'Запази час за масаж | NP Massage Studio — 15–30 €',
-    description: 'Онлайн резервация за масаж безплатно и без регистрация. Изберете услуга 15–30 €, дата и час — получавате потвърждение веднага. Класически, спортен, антицелулитен масаж, ароматерапия и масаж на гръб. Тел: +359 988 926 120.',
+    title: 'Запази час за масаж във Велико Търново | NP Massage Studio',
+    description: 'Заявете час за масаж във Велико Търново или Павликени. Изберете услуга, локация, дата и свободен час. Цени 15–30 €. Ще се свържем с вас за потвърждение.',
     canonical: isEn ? '/en/booking' : '/rezervaciya',
-    lastModified: '2026-08-06',
+    lastModified: '2026-10-11',
     keywords: 'запази час масаж, резервация масаж Велико Търново, онлайн резервация масаж Павликени, масажен салон записване, час за масаж',
     hreflangs: [
       { lang: 'bg', url: '/rezervaciya' },
@@ -56,14 +56,14 @@ export default function BookingPage() {
       { lang: 'x-default', url: '/rezervaciya' },
     ],
     og: {
-      title: 'Запази час за масаж | NP Massage Studio — 15–30 €',
-      description: 'Онлайн резервация за масаж 15–30 € — Велико Търново и Павликени. Тел: +359 988 926 120.',
+      title: 'Запази час за масаж във Велико Търново | NP Massage Studio',
+      description: 'Заявете час във Велико Търново или Павликени. Пет услуги, 15–30 €. Ще се свържем с вас за потвърждение на резервацията.',
       type: 'website',
       locale: 'bg_BG',
       localeAlternate: ['en_US'],
     },
     schemas: [
-      buildWebPageSchema('Запази час | NP Massage Studio', 'Онлайн форма за резервация на масаж във Велико Търново и Павликени. 5+ вида масажи 15–30 €. Безплатна резервация с потвърждение по телефон.', '/rezervaciya', 'WebPage'),
+      buildWebPageSchema('Запази час за масаж във Велико Търново | NP Massage Studio', 'Онлайн форма за резервация във Велико Търново и Павликени. Пет масажни услуги, 15–30 €. Ще се свържем с вас за потвърждение.', '/rezervaciya', 'WebPage'),
       buildBreadcrumbSchema([{ name: 'Начало', url: '/' }, { name: 'Запази час', url: '/rezervaciya' }]),
       buildLocalBusinessSchema(),
       buildServiceChannelSchema(),
@@ -107,7 +107,7 @@ export default function BookingPage() {
         <section className="w-full px-4 md:px-6 lg:px-10 pb-16 md:pb-24">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-10 md:mb-12">
-              <h2 className="font-heading text-2xl md:text-3xl font-semibold text-foreground-950 mb-3">
+              <h2 className="section-title text-foreground-950 mb-3">
                 {t('faqTitle') || 'Често задавани въпроси'}
               </h2>
               <p className="text-sm text-foreground-600">{isEn ? "Practical answers about booking your massage" : "Отговори на най-популярните въпроси за резервации и масажи"}</p>

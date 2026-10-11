@@ -3,7 +3,7 @@ import type { SeoOptions } from './seoContext';
 import { buildHowToSchema } from './seoSchemas';
 
 const englishPages: Record<string, { title: string; description: string; label: string }> = {
-  '/uslugi': { title: 'Massage Services & Prices | NP Massage Studio — 15–30 €', description: 'Compare five massages in Veliko Tarnovo and Pavlikeni. Sessions last 40–60 minutes and cost 15–30 €. Choose a service and request an appointment online.', label: 'Services' },
+  '/uslugi': { title: 'Massage Services & Prices in Veliko Tarnovo | NP Massage Studio', description: 'Compare five massages: 40–60 minutes, 15–30 €. Classical, sports, anti-cellulite and back massage, and aromatherapy in Veliko Tarnovo and Pavlikeni.', label: 'Services' },
   '/za-nas': { title: 'About NP Massage Studio | Veliko Tarnovo & Pavlikeni', description: 'Get to know NP Massage Studio, managed by Nathan Petkov. Individual care and five massage services at our studios in Veliko Tarnovo and Pavlikeni.', label: 'About' },
   '/lokacii': { title: 'Massage Studio Locations | Veliko Tarnovo & Pavlikeni', description: 'Find NP Massage Studio at 72 Bulgaria Boulevard, Veliko Tarnovo, and 10 Atanas Donchev Street, Pavlikeni. View maps, directions and opening hours.', label: 'Locations' },
   '/kontakti': { title: 'Contact & Massage Appointments | NP Massage Studio', description: 'Contact NP Massage Studio in Veliko Tarnovo and Pavlikeni. Call +359 988 926 120, send a message or request your massage appointment online.', label: 'Contact' },

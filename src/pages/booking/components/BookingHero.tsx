@@ -49,7 +49,7 @@ export default function BookingHero() {
             </span>
           </div>
 
-          <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-background-50 mb-4 leading-tight">
+          <h1 className="page-title text-background-50 mb-4">
             {t('bookingTitle') || 'Запази час'}
           </h1>
 
@@ -60,7 +60,7 @@ export default function BookingHero() {
           <div className="flex flex-wrap items-center gap-4">
             <a
               href="tel:+359988926120"
-              className="inline-flex items-center gap-2 text-sm text-background-50 hover:text-accent-300 transition-colors"
+              className="inline-flex items-center gap-2 min-h-[44px] text-sm text-background-50 hover:text-accent-300 transition-colors"
             >
               <div className="w-8 h-8 flex items-center justify-center bg-background-50/10 rounded-full">
                 <i className="ri-phone-line text-sm" />

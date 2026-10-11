@@ -87,3 +87,33 @@ test('English page schemas describe English content and use real service URLs', 
     }
   }
 });
+
+test('Local studio price comparisons publish real services, matching prices and working destinations', () => {
+  const expected = [
+    ['klasicheski-masazh', '60 мин', '25 €'],
+    ['sporten-masazh', '60 мин', '25 €'],
+    ['anticeluliten-masazh', '40 мин', '20 €'],
+    ['aromaterapiya', '60 мин', '30 €'],
+    ['masazh-na-grab', '40 мин', '15 €'],
+  ];
+  for (const path of ['/masazhi-veliko-tarnovo', '/masazhi-pavlikeni']) {
+    const d = pages.get(path).document;
+    const table = d.querySelector('table');
+    assert.ok(table, path);
+    const rows = [...table.querySelectorAll('tbody tr')];
+    assert.equal(rows.length, expected.length, path);
+    rows.forEach((row, index) => {
+      const [slug, duration, price] = expected[index];
+      const link = row.querySelector('a');
+      const target = `/uslugi/${slug}`;
+      assert.equal(link.getAttribute('href'), target, path);
+      assert.ok(pages.has(target), target);
+      assert.ok(link.textContent.trim(), path);
+      assert.deepEqual([...row.querySelectorAll('td')].map(cell => cell.textContent.trim()), [duration, price], path);
+    });
+  }
+  const catalog = [...pages.get('/masazhi-veliko-tarnovo').document.querySelectorAll('script[type="application/ld+json"]')]
+    .map(script => JSON.parse(script.textContent)).find(schema => schema['@type'] === 'OfferCatalog');
+  assert.ok(catalog);
+  assert.deepEqual(catalog.itemListElement.map(entry => entry.item.price + ' €'), expected.map(row => row[2]));
+});

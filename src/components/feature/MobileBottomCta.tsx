@@ -4,7 +4,7 @@ export default function MobileBottomCta() {
   const { getPath, handleNav, isEn } = useLocalizedNav();
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 md:hidden bg-background-50/95 backdrop-blur-md border-t border-background-200/60 px-4 py-3 safe-area-bottom">
+    <nav aria-label={isEn ? 'Call or book a massage' : 'Обаждане и резервация'} className="mobile-actions fixed bottom-0 left-0 right-0 z-40 md:hidden bg-background-50/95 backdrop-blur-md border-t border-background-200/60 px-4 py-3 safe-area-bottom">
       <div className="flex items-center gap-3 max-w-lg mx-auto">
         <a
           href="tel:+359988926120"
@@ -25,6 +25,6 @@ export default function MobileBottomCta() {
           {isEn ? 'Book a massage' : 'Запази час'}
         </a>
       </div>
-    </div>
+    </nav>
   );
 }

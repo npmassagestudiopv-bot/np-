@@ -86,7 +86,7 @@ export default function Navbar() {
         aria-label={isEn ? 'Main navigation' : 'Основна навигация'}
         className={`fixed top-0 left-0 right-0 z-50 bg-background-50 border-b border-background-200 transition-shadow duration-300 ${scrolled ? 'shadow-sm' : ''}`}
       >
-        <div className="w-full px-5 md:px-6 lg:px-10">
+        <div className="site-container">
           <div className="flex items-center justify-between h-[68px] md:h-20">
             <a
               href={getPath('/')}
@@ -112,14 +112,14 @@ export default function Navbar() {
                       e.preventDefault();
                       handleNavClick(path);
                     }}
-                    className={`relative text-sm font-medium whitespace-nowrap cursor-pointer transition-colors duration-300 hover:text-primary-600 ${
+                    className={`relative inline-flex items-center min-h-[44px] text-sm font-medium whitespace-nowrap cursor-pointer transition-colors duration-300 hover:text-primary-600 ${
                       isActive ? 'text-primary-600' : 'text-foreground-700'
                     }`}
                     aria-current={isActive ? 'page' : undefined}
                   >
                     {t(link.key)}
                     {isActive && (
-                      <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary-500 rounded-full" />
+                      <span className="absolute bottom-1 left-0 right-0 h-0.5 bg-primary-500 rounded-full" />
                     )}
                   </a>
                 );
@@ -130,7 +130,7 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center gap-3">
               <button
                 onClick={toggleLang}
-                className="flex items-center gap-1 text-sm font-medium text-foreground-700 hover:text-primary-600 transition-colors duration-300 cursor-pointer"
+                className="flex items-center justify-center gap-1 min-h-[44px] min-w-[64px] text-sm font-medium text-foreground-700 hover:text-primary-600 transition-colors duration-300 cursor-pointer"
                 aria-label={isEn ? 'Switch to Bulgarian' : 'Switch to English'}
               >
                 <span className={isEn ? 'text-foreground-400' : 'text-primary-600 font-semibold'}>

@@ -9,8 +9,8 @@ export default function TestimonialsSection() {
   const { ref, isVisible } = useScrollReveal({ threshold: 0.15 });
 
   return (
-    <section className="py-20 md:py-28 bg-background-50">
-      <div className="w-full px-4 md:px-6 lg:px-10">
+    <section className="py-16 md:py-24 bg-background-50">
+      <div className="site-container">
         <div
           ref={ref}
           className={`text-center mb-12 md:mb-16 transition-all duration-700 ${
@@ -20,10 +20,10 @@ export default function TestimonialsSection() {
           <span className="inline-block text-xs font-semibold uppercase tracking-[0.2em] text-accent-600 mb-3">
             {t('testimonialsLabel')}
           </span>
-          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground-950">
+          <h2 className="section-title text-foreground-950">
             {t('testimonialsTitle')}
           </h2>
-          <p className="text-sm text-foreground-600 mt-3 max-w-lg mx-auto">
+          <p className="section-copy text-foreground-600 mt-3 max-w-xl mx-auto">
             {t('testimonialsSubtitle')}
           </p>
 

@@ -130,7 +130,7 @@ export default function Home() {
       mod.buildLocalBusinessPvSchema(),
       mod.buildPersonSchema(),
       mod.buildWebPageSchema(
-        isEn ? 'Massage in Veliko Tarnovo | NP Massage Studio — from 15 €' : 'Масаж Велико Търново | NP Масажно студио — от 15 €',
+        isEn ? 'Massage in Veliko Tarnovo — from 15 € | NP Massage Studio' : 'Масаж Велико Търново — от 15 € | NP Massage Studio',
         isEn ? 'Five massage services in Veliko Tarnovo and Pavlikeni. Sessions last 40–60 minutes and cost 15–30 €.' : 'NP Масажно студио — професионални масажи Велико Търново и Павликени. Класически, спортен, антицелулитен масаж & ароматерапия от 15 €.',
         '/',
         'WebPage',
@@ -155,11 +155,11 @@ export default function Home() {
   }, [isEn]);
 
   const seoOptions = useMemo(() => ({
-    title: isEn ? 'Massage in Veliko Tarnovo | NP Massage Studio — from 15 €' : 'Масаж Велико Търново | NP Масажно студио — от 15 €',
-    description: isEn ? 'Massage in Veliko Tarnovo and Pavlikeni. Five services, 40–60 minutes, 15–30 €. Care and attention to your comfort. Book online or call +359 988 926 120.' : 'Масаж и масажи във Велико Търново и Павликени. Пет услуги, 40–60 минути, 15–30 €. Грижа и внимание към вашия комфорт. Запази час: +359 988 926 120.',
+    title: isEn ? 'Massage in Veliko Tarnovo — from 15 € | NP Massage Studio' : 'Масаж Велико Търново — от 15 € | NP Massage Studio',
+    description: isEn ? 'Massage in Veliko Tarnovo: five services, 40–60 minutes, 15–30 €. NP Massage Studio, 72 Bulgaria Blvd. Choose a massage and request your appointment online.' : 'Масажи във Велико Търново: 5 услуги, 40–60 минути, цени 15–30 €. NP Massage Studio, бул. България 72. Изберете масаж и заявете удобен час онлайн.',
     keywords: 'масаж Велико Търново, масажи Търново, масажно студио, класически масаж, спортен масаж, терапевтичен масаж, антицелулитен масаж, ароматерапия, масаж на гръб, NP Massage Studio, масажи Павликени, масаж Търново',
     canonical: isEn ? '/en' : '/',
-    lastModified: '2026-08-06',
+    lastModified: '2026-10-11',
     hreflangs: [
       { lang: 'bg', url: '/' },
       { lang: 'en', url: '/en' },
@@ -172,7 +172,7 @@ export default function Home() {
       icbm: '43.081037, 25.612733',
     },
     og: {
-      title: isEn ? 'Massage in Veliko Tarnovo | NP Massage Studio — from 15 €' : 'Масаж Велико Търново | NP Масажно студио — от 15 €',
+      title: isEn ? 'Massage in Veliko Tarnovo — from 15 € | NP Massage Studio' : 'Масаж Велико Търново — от 15 € | NP Massage Studio',
       type: 'website',
       locale: isEn ? 'en_US' : 'bg_BG',
       localeAlternate: [isEn ? 'bg_BG' : 'en_US'],
@@ -211,7 +211,7 @@ export default function Home() {
         <section className="w-full px-4 md:px-6 lg:px-10 py-14 md:py-20">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-10 md:mb-12">
-              <h2 className="font-heading text-2xl md:text-3xl font-semibold text-foreground-950 mb-3">
+              <h2 className="section-title text-foreground-950 mb-3">
                 {isEn ? 'Frequently asked questions' : 'Често задавани въпроси'}
               </h2>
               <p className="text-sm text-foreground-600">{isEn ? 'Practical information for your visit in Veliko Tarnovo or Pavlikeni' : 'Практична информация за посещението ви във Велико Търново или Павликени'}</p>

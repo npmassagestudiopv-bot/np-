@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import { useEffect, useMemo, useState } from 'react';
 import Navbar from '@/components/feature/Navbar';
 import Footer from '@/components/feature/Footer';
+import MobileBottomCta from '@/components/feature/MobileBottomCta';
+import { Link } from 'react-router-dom';
 import FaqAccordion from '@/components/feature/FaqAccordion';
 import CtaBanner from '@/components/feature/CtaBanner';
 
@@ -62,28 +64,28 @@ const PRODUCT_SCHEMAS = [
 
 export default function ServicesPage() {
   const { t } = useTranslation();
-  const { handleNav, isEn } = useLocalizedNav();
+  const { handleNav, getPath, isEn } = useLocalizedNav();
   const [hoveredService, setHoveredService] = useState<string | null>(null);
 
   const FAQ_ITEMS = isEn ? servicesFaqEn : FAQ_ITEMS_BG;
 
   useSeo(useMemo(() => localizePageSeo({
-    title: 'Услуги и цени | NP Масажно студио — 15–30 €',
-    description: 'Пълен списък с масажни услуги и цени в NP Масажно студио. Класически масаж 25 €, спортен масаж 25 €, антицелулитен 20 €, ароматерапия 30 €, масаж на гръб 15 €. Две локации: Велико Търново и Павликени. Запази час: +359 988 926 120.',
+    title: 'Масажи и цени във Велико Търново | NP Massage Studio',
+    description: 'Сравнете 5 масажни услуги: 40–60 минути, 15–30 €. Класически, спортен, антицелулитен масаж, ароматерапия и масаж на гръб. Велико Търново и Павликени.',
     keywords: 'масажни услуги Велико Търново, цени масаж Търново, класически масаж цена, спортен масаж цена, антицелулитен масаж, ароматерапия Велико Търново, масаж на гръб цена, NP Масажно студио',
     canonical: isEn ? '/en/services' : '/uslugi',
-    lastModified: '2026-08-06',
+    lastModified: '2026-10-11',
     hreflangs: [
       { lang: 'bg', url: '/uslugi' },
       { lang: 'en', url: '/en/services' },
       { lang: 'x-default', url: '/uslugi' },
     ],
     og: {
-      title: 'Услуги и цени | NP Масажно студио',
-      description: 'Всички масажни услуги с цени. Класически, спортен, антицелулитен масаж, ароматерапия в Велико Търново и Павликени. Цени 15–30 €. Запази час: +359 988 926 120.',
+      title: 'Масажи и цени във Велико Търново | NP Massage Studio',
+      description: 'Изберете от 5 масажни услуги, 40–60 минути, 15–30 €. Студиа във Велико Търново и Павликени. Заявете удобен час онлайн.',
     },
     schemas: [
-      buildWebPageSchema('Услуги и цени | NP Massage Studio', 'Масажни услуги и цени в NP Massage Studio — Велико Търново и Павликени.', '/uslugi', 'CollectionPage'),
+      buildWebPageSchema('Масажи и цени във Велико Търново | NP Massage Studio', 'Сравнете петте масажни услуги, цените и продължителността във Велико Търново и Павликени.', '/uslugi', 'CollectionPage'),
       buildBreadcrumbSchema([{ name: 'Начало', url: '/' }, { name: 'Услуги', url: '/uslugi' }]),
       buildOfferCatalogSchema(serviceSeoItems(isEn), isEn),
       buildFaqSchema(FAQ_ITEMS),
@@ -101,15 +103,18 @@ export default function ServicesPage() {
         <section className="w-full px-4 md:px-6 lg:px-10 py-12 md:py-16">
           <div className="max-w-5xl mx-auto">
             <div className="mb-12 md:mb-16">
-              <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground-950 mb-4">
+              <h1 className="page-title text-foreground-950 mb-4">
                 {t('servicesTitle')}
               </h1>
               <p className="text-base text-foreground-600 mb-4 max-w-2xl leading-relaxed">
                 {t('servicesSubtitle')}
               </p>
-              <p className="text-sm text-foreground-500 max-w-2xl leading-relaxed">
+              <p className="text-base text-foreground-500 max-w-2xl leading-relaxed">
                 {t('servicesIntro')}
               </p>
+              <Link to={getPath('/rezervaciya')} className="inline-flex items-center justify-center min-h-[48px] mt-6 px-6 py-3 bg-primary-500 text-background-50 text-sm font-medium rounded-full hover:bg-primary-600 transition-colors">
+                {t('heroCta')}
+              </Link>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-16">
@@ -178,6 +183,7 @@ export default function ServicesPage() {
           </div>
         </section>
       </main>
+      <MobileBottomCta />
       <Footer />
     </div>
   );
@@ -193,7 +199,7 @@ function ServiceCard({
   onHover: (id: string | null) => void;
 }) {
   const { t } = useTranslation();
-  const { handleNav } = useLocalizedNav();
+  const { getPath, isEn } = useLocalizedNav();
   const { ref, isVisible } = useScrollReveal({ threshold: 0.1 });
   const slugs: Record<string, string> = {
     classical: 'klasicheski-masazh',
@@ -213,24 +219,23 @@ function ServiceCard({
       onMouseEnter={() => onHover(service.id)}
       onMouseLeave={() => onHover(null)}
     >
-      <div className="p-5 md:p-6">
-        <div className="flex items-center justify-between mb-2">
-          <h3 className="font-heading text-lg md:text-xl font-semibold text-foreground-950">{t(service.nameKey)}</h3>
-          <span className="text-sm font-semibold text-primary-600 bg-primary-50 px-2.5 py-1 rounded-full">{t(service.priceKey)}</span>
+      <div className="flex flex-col h-full p-5 md:p-7">
+        <div className="mb-4">
+          <h2 className="service-card-title text-foreground-950">{t(service.nameKey)}</h2>
         </div>
-        <p className="text-sm text-foreground-600 mb-3 leading-relaxed">{t(service.descKey)}</p>
-        <p className="text-sm text-foreground-700 leading-relaxed mb-4">{t(service.fullKey)}</p>
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-foreground-500 flex items-center gap-1">
-            <i className="ri-time-line" />
-            {service.duration} {t('serviceDuration')}
+        <p className="text-base text-foreground-600 mb-3 leading-relaxed">{t(service.descKey)}</p>
+        <p className="text-base text-foreground-700 leading-relaxed mb-6">{t(service.fullKey)}</p>
+        <div className="flex flex-wrap items-center justify-between gap-3 mt-auto">
+          <span className="text-sm font-semibold text-primary-600 bg-primary-50 px-3 py-1.5 rounded-full whitespace-nowrap tabular-nums">
+            {t(service.priceKey)}
           </span>
-          <button
-            onClick={() => handleNav(`/uslugi/${slug}`)}
+          <Link
+            to={getPath(`/uslugi/${slug}`)}
+            aria-label={isEn ? `View ${t(service.nameKey)} details` : `Виж ${t(service.nameKey).toLowerCase()}`}
             className="px-4 py-2 bg-primary-500 text-background-50 text-sm font-medium rounded-full hover:bg-primary-600 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer btn-premium min-h-[48px]"
           >
-            {t('serviceBook')}
-          </button>
+            {isEn ? 'View details' : 'Виж услугата'}
+          </Link>
         </div>
       </div>
     </article>

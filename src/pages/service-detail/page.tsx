@@ -4,6 +4,7 @@ import { useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/feature/Navbar';
 import Footer from '@/components/feature/Footer';
+import MobileBottomCta from '@/components/feature/MobileBottomCta';
 import FaqAccordion from '@/components/feature/FaqAccordion';
 import CtaBanner from '@/components/feature/CtaBanner';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
@@ -252,6 +253,7 @@ export default function ServiceDetailPage() {
           </div>
         </section>
       </main>
+      <MobileBottomCta />
       <Footer />
     </div>
   );
@@ -260,7 +262,7 @@ export default function ServiceDetailPage() {
 function HeroSection({ content, isEn }: { content: NonNullable<ReturnType<typeof getContent>>; isEn: boolean }) {
   return (
     <div className="mb-10 md:mb-14">
-      <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground-950 mb-3">
+      <h1 className="page-title text-foreground-950 mb-3">
         {content.title}
       </h1>
       <p className="text-lg md:text-xl text-foreground-600 mb-3 font-medium">
@@ -285,7 +287,7 @@ function FullDescription({ content }: { content: NonNullable<ReturnType<typeof g
       <h2 className="font-heading text-xl md:text-2xl font-semibold text-foreground-950 mb-4">
         {content.title}
       </h2>
-      <div className="text-sm text-foreground-700 leading-relaxed space-y-3 whitespace-pre-line">
+      <div className="text-base text-foreground-700 leading-relaxed space-y-3 whitespace-pre-line">
         {content.fullDescription}
       </div>
     </div>
