@@ -65,7 +65,8 @@ function slot(time) { return [...document.querySelectorAll('button')].find((butt
 async function fill(id, value) {
   const input = document.getElementById(id);
   await act(async () => {
-    Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set.call(input, value);
+    const prototype = input.tagName === 'TEXTAREA' ? window.HTMLTextAreaElement.prototype : window.HTMLInputElement.prototype;
+    Object.getOwnPropertyDescriptor(prototype, 'value').set.call(input, value);
     input.dispatchEvent(new Event('input', { bubbles: true }));
     input.dispatchEvent(new Event('change', { bubbles: true }));
   });
@@ -153,9 +154,6 @@ test('Mobile menu contains focus, closes on Escape and restores the trigger', as
 
 test('Booking keeps payload/409/success flows and never offers unchecked slots', async () => {
   await mount(element(BookingForm), '/rezervaciya');
-  await fill('booking-name', 'Test Client');
-  await fill('booking-email', 'test@example.com');
-  await fill('booking-phone', '+359888000000');
   await click(buttonContaining('Класически'));
   await click(buttonContaining('Велико Търново'));
   await fill('booking-date', '2030-01-15');
@@ -171,10 +169,15 @@ test('Booking keeps payload/409/success flows and never offers unchecked slots',
   assert.equal(slot('10:00').disabled, true);
   await click(slot('09:00'));
   assert.equal(slot('09:00').getAttribute('aria-pressed'), 'true');
+  await fill('booking-name', 'Test Client');
+  await fill('booking-email', 'test@example.com');
+  await fill('booking-phone', '+359888000000');
+  await click(document.querySelector('#booking-form details summary'));
+  await fill('booking-message', 'Prefer lighter pressure');
   bookingResponse = { error: 'Slot already taken' };
   await act(async () => document.getElementById('booking-form').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true })));
   assert.equal(bookings.length, 1);
-  assert.deepEqual(bookings[0], { name: 'Test Client', email: 'test@example.com', phone: '+359888000000', service: 'classical', location: 'vt', appointment_date: '2030-01-15', appointment_time: '09:00', message: '' });
+  assert.deepEqual(bookings[0], { name: 'Test Client', email: 'test@example.com', phone: '+359888000000', service: 'classical', location: 'vt', appointment_date: '2030-01-15', appointment_time: '09:00', message: 'Prefer lighter pressure' });
   await settle(requests.at(-1), { takenSlots: ['09:00', '10:00'], blocked: false });
   assert.equal(slot('09:00').disabled, true);
   assert.ok(document.body.textContent.includes('Часът вече е зает'));
@@ -182,8 +185,10 @@ test('Booking keeps payload/409/success flows and never offers unchecked slots',
   bookingResponse = { success: true };
   await act(async () => document.getElementById('booking-form').dispatchEvent(new Event('submit', { bubbles: true, cancelable: true })));
   assert.equal(bookings.length, 2);
+  assert.equal(bookings[1].message, 'Prefer lighter pressure', 'optional notes survive a slot conflict and retry');
   assert.ok(document.body.textContent.includes('Резервацията е получена'));
   assert.equal(document.getElementById('booking-date').value, '');
+  assert.equal(document.getElementById('booking-message').value, '', 'successful booking resets optional notes');
   await click(buttonContaining('Велико Търново'));
   await fill('booking-date', '2030-01-16');
   await settle(requests.at(-1), { takenSlots: [], blocked: true });

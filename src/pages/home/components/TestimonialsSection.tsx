@@ -63,7 +63,7 @@ export default function TestimonialsSection() {
             return (
               <div
                 key={review.name}
-                className={`bg-background-100 rounded-2xl p-6 md:p-8 border border-background-200/60 transition-all duration-700 hover:border-background-300/80 hover:bg-background-200/30 ${
+                className={`bg-background-100 rounded-2xl p-6 md:p-8 border border-background-200/60 transition-opacity duration-300 ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
                 }`}
                 style={{ transitionDelay: `${index * 100}ms` }}
@@ -105,7 +105,7 @@ export default function TestimonialsSection() {
                   </div>
                 </div>
                 <div className="h-px bg-background-200/60 mb-5" />
-                <p className="text-sm text-foreground-600 leading-relaxed italic">
+                <p className="text-base text-foreground-600 leading-relaxed">
                   &ldquo;{displayText}&rdquo;
                 </p>
                 <p className="text-xs text-foreground-400 mt-3">

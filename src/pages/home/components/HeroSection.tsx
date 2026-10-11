@@ -24,15 +24,20 @@ export default function HeroSection() {
       </div>
 
       <div className="hero-content relative z-10 w-full px-4 md:px-6 lg:px-10 pt-24 sm:pt-20 md:pt-24 pb-12 md:pb-20 flex flex-col items-center text-center">
-        <div className="max-w-4xl">
+        <div className="max-w-4xl w-full">
           <h1 className="hero-heading font-heading text-background-50 mb-5 md:mb-6 text-shadow-hero">
             <span className="block">{t('heroTitle1')}</span>
             {t('heroTitle2')}{' '}
             <span className="text-accent-300">{t('heroTitle3')}</span>
           </h1>
-          <p className="hero-subtitle text-base md:text-lg text-background-100/95 max-w-xl mx-auto mb-6 md:mb-8 leading-relaxed">
+          <p className="hero-subtitle text-base md:text-lg text-background-100/95 max-w-xl mx-auto mb-5 leading-relaxed">
             {t('heroSubtitle')}
           </p>
+          <ul aria-label={isEn ? 'Duration and prices' : 'Продължителност и цени'} className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-background-100/95 mb-7 md:mb-8">
+            <li className="whitespace-nowrap">{isEn ? '40–60 minutes' : '40–60 минути'}</li>
+            <li className="whitespace-nowrap tabular-nums">15–30 €</li>
+            <li className="md:hidden basis-full">{isEn ? 'Veliko Tarnovo & Pavlikeni' : 'Велико Търново и Павликени'}</li>
+          </ul>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
               href={getPath('/rezervaciya')}
@@ -50,17 +55,12 @@ export default function HeroSection() {
                 e.preventDefault();
                 handleNav(getPath('/uslugi'));
               }}
-              className="hero-cta-outline inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-8 py-3 border-2 border-background-50/60 text-background-50 font-medium text-sm rounded-full hover:bg-background-50/15 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer min-h-[48px]"
+              className="inline-flex items-center justify-center w-full sm:w-auto px-5 py-3 text-background-50 font-medium text-sm underline underline-offset-4 hover:text-background-100 transition-colors duration-200 min-h-[48px]"
             >
               {t('heroServices')}
             </a>
           </div>
-          <div className="mt-4 sm:hidden">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-background-50/20 backdrop-blur-sm rounded-full text-background-50 text-xs font-medium border border-background-50/25">
-              <i className="ri-price-tag-3-line" />
-              {isEn ? 'Prices from 15 €' : 'Цени от 15 €'}
-            </span>
-          </div>
+          <p className="mt-4 text-xs sm:text-sm text-background-100/95">{isEn ? 'We will contact you personally to confirm your request.' : 'Ще се свържем лично с вас за потвърждение.'}</p>
         </div>
 
         <div className="hidden md:block mt-8 md:mt-0 md:absolute md:bottom-6 md:left-4 md:right-4 lg:left-10 lg:right-10">

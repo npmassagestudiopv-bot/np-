@@ -25,40 +25,40 @@ export const copyAddress = "Copy address";
 export const addressCopied = "Address copied";
 
 export const heroTitle1 = "Massage in Veliko Tarnovo";
-export const heroTitle2 = "with care";
-export const heroTitle3 = "and attention to you";
-export const heroSubtitle = "Massage tailored to your needs, with attention to every movement. Veliko Tarnovo and Pavlikeni · 5 services · 40–60 minutes · 15–30 €.";
+export const heroTitle2 = "A little time";
+export const heroTitle3 = "for you.";
+export const heroSubtitle = "A calm pause in your day. Massage with care for your needs and comfort.";
 export const heroCta = "Book a massage";
-export const heroServices = "View All Services";
+export const heroServices = "Explore the massages";
 export const heroPhone = "+359 988 926 120";
 
 export const servicesTitle = "Massages & prices";
-export const servicesSubtitle = "Choose what suits your needs. See what to expect, how long it takes and what it costs.";
+export const servicesSubtitle = "How would you like to feel today? Find the massage that suits your moment.";
 export const servicesIntro = "Five services, 40–60 minutes, 15–30 €. Visit us in Veliko Tarnovo or Pavlikeni. If you are unsure which massage to choose, we will help you find the right session.";
 
 export const serviceClassical = "Classical & Relaxing Massage";
-export const serviceClassicalDesc = "Traditional technique for muscle relaxation, stress reduction and improved overall well-being.";
+export const serviceClassicalDesc = "A quiet pause and time to relax your whole body.";
 export const serviceClassicalFull = "Classical massage is the foundation of every professional massage therapy. It combines the five basic techniques — effleurage, petrissage, friction, tapotement, and vibration — to achieve complete relaxation of body and mind. During a 60-minute session, the therapist works on all major muscle groups, improving circulation, stimulating the lymphatic system, and relieving muscle tension. Classical massage is ideal for people with sedentary lifestyles, stress, or those seeking deep relaxation.";
 export const serviceClassicalPrice = "60 min — 25 €";
 
 export const serviceSport = "Sports & Therapeutic Massage";
-export const serviceSportDesc = "Targeted therapy for athletes and active people, focused on recovery and injury prevention.";
+export const serviceSportDesc = "For active people, after a workout or a demanding day.";
 export const serviceSportFull = "Sports massage is a specialized therapy designed for athletes, fitness enthusiasts, and people with physical exertion. It includes deep manipulation of muscles and connective tissue to improve flexibility, reduce muscle fatigue, and speed up post-workout recovery. The therapist uses a combination of friction, compression, and stretching to relieve chronic muscle tension and prevent sports injuries. Regular sports massages improve range of motion and shorten recovery time.";
 export const serviceSportPrice = "60 min — 25 €";
 
 export const serviceAnticellulite = "Anti-cellulite Massage";
-export const serviceAnticelluliteDesc = "Effective procedure for smooth and firm skin using specialized techniques.";
+export const serviceAnticelluliteDesc = "Focused massage for the thighs, hips and abdomen.";
 export const serviceAnticelluliteFull = "Anti-cellulite massage is an intensive procedure aimed at reducing cellulite and improving skin appearance. The therapist uses a combination of deep manipulations and specialized massage techniques to stimulate microcirculation and break down fat deposits. During a 40-minute session, the focus is on problem areas — thighs, hips, and abdomen. Regular procedures improve skin elasticity, reduce the appearance of orange peel skin, and stimulate lymphatic drainage.";
 export const serviceAnticellulitePrice = "40 min — 20 €";
 export const serviceAnticellulitePack = "Anti-cellulite Therapy (10 sessions) — 175 €";
 
 export const serviceAromatherapy = "Aromatherapy";
-export const serviceAromatherapyDesc = "Combination of massage and essential oils for deep relaxation and harmonizing body and mind.";
+export const serviceAromatherapyDesc = "Massage with essential oils for a peaceful break.";
 export const serviceAromatherapyFull = "Aromatherapy combines the power of touch with the therapeutic properties of essential oils. Each session begins with selecting a personalized oil blend according to the client's needs — lavender for relaxation, eucalyptus for breathing, rosemary for recovery, or citrus oils for energy. The therapist applies gentle, flowing movements across the entire body, while the aromas work on the limbic system for complete psycho-emotional balancing. Aromatherapy is particularly effective for insomnia, anxiety, chronic stress, and fatigue.";
 export const serviceAromatherapyPrice = "60 min — 30 €";
 
 export const serviceBack = "Partial Back Massage";
-export const serviceBackDesc = "Targeted therapy for relieving tension in the back, shoulders, and neck.";
+export const serviceBackDesc = "Time for your back, neck and shoulders in a shorter session.";
 export const serviceBackFull = "Partial back massage is a focused therapy that works on the upper body — the back, shoulders, neck, and lower back. It is an ideal procedure for people with sedentary work who experience tension in the shoulders and neck pain. During a 40-minute session, the therapist uses a combination of deep and superficial techniques to stretch muscles, improve mobility, and relieve pain. This massage is an excellent choice for quick relief during a lunch break or after a workday.";
 export const serviceBackPrice = "40 min — 15 €";
 
@@ -217,8 +217,8 @@ export const bookingSubmit = "Book Appointment";
 export const bookingSuccess = "Booking received! We will contact you for confirmation.";
 export const bookingError = "An error occurred. Please call +359 988 926 120.";
 export const bookingInfoTitle = "How it works?";
-export const bookingStep1 = "1. Fill in the form with your details";
-export const bookingStep2 = "2. Choose service, location, date and time";
+export const bookingStep1 = "1. Choose a massage, studio and available time";
+export const bookingStep2 = "2. Leave your name, phone and email for confirmation";
 export const bookingStep3 = "3. We confirm your appointment by phone";
 export const bookingStep4 = "4. Arrive on time and enjoy";
 export const seoBookingTitle = "Book an Appointment | NP Massage Studio";

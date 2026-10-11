@@ -31,7 +31,7 @@ export default function AboutSection() {
           </div>
 
           <div className="w-full lg:w-1/2">
-            <span className="inline-block px-4 py-1.5 bg-accent-100 text-accent-800 text-xs font-medium rounded-full mb-5">
+            <span className="block text-accent-800 text-xs font-medium tracking-wide mb-4">
               {t('aboutLabel')}
             </span>
             <h2 className="section-title text-foreground-950 mb-5">
@@ -40,7 +40,7 @@ export default function AboutSection() {
             <p className="section-copy text-foreground-600 mb-4">
               {t('aboutText1')}
             </p>
-            <p className="section-copy text-foreground-700 italic mb-6 border-l-[3px] border-accent-400 pl-4 py-1">
+            <p className="section-copy text-foreground-700 mb-6">
               {t('aboutText2')}
             </p>
 

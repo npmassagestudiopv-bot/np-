@@ -112,7 +112,7 @@ export default function ServicesPage() {
               <p className="text-base text-foreground-500 max-w-2xl leading-relaxed">
                 {t('servicesIntro')}
               </p>
-              <Link to={getPath('/rezervaciya')} className="inline-flex items-center justify-center min-h-[48px] mt-6 px-6 py-3 bg-primary-500 text-background-50 text-sm font-medium rounded-full hover:bg-primary-600 transition-colors">
+              <Link to={getPath('/rezervaciya')} className="button-primary mt-6">
                 {t('heroCta')}
               </Link>
             </div>
@@ -213,7 +213,7 @@ function ServiceCard({
   return (
     <article
       ref={ref}
-      className={`bg-background-100 rounded-2xl overflow-hidden border border-background-200/70 transition-all duration-500 card-hover ${
+      className={`bg-background-100 rounded-2xl overflow-hidden border border-background-200/70 transition-opacity duration-300 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
       }`}
       onMouseEnter={() => onHover(service.id)}
@@ -224,17 +224,26 @@ function ServiceCard({
           <h2 className="service-card-title text-foreground-950">{t(service.nameKey)}</h2>
         </div>
         <p className="text-base text-foreground-600 mb-3 leading-relaxed">{t(service.descKey)}</p>
-        <p className="text-base text-foreground-700 leading-relaxed mb-6">{t(service.fullKey)}</p>
-        <div className="flex flex-wrap items-center justify-between gap-3 mt-auto">
-          <span className="text-sm font-semibold text-primary-600 bg-primary-50 px-3 py-1.5 rounded-full whitespace-nowrap tabular-nums">
-            {t(service.priceKey)}
+        <details className="mb-6">
+          <summary className="min-h-[44px] cursor-pointer text-sm font-medium text-foreground-700">
+            {isEn ? 'What to expect' : 'Как протича масажът'}
+          </summary>
+          <p className="text-base text-foreground-700 leading-relaxed mt-2">{t(service.fullKey)}</p>
+        </details>
+        <div className="flex items-baseline gap-3 mt-auto mb-5">
+          <span className="text-xl font-semibold text-primary-600 whitespace-nowrap tabular-nums">
+            {service.price} €
           </span>
+          <span className="text-sm text-foreground-600 whitespace-nowrap">{service.duration} {t('serviceDuration')}</span>
+        </div>
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-background-200/70">
+          <Link to={getPath('/rezervaciya')} className="button-primary">{t('heroCta')}</Link>
           <Link
             to={getPath(`/uslugi/${slug}`)}
             aria-label={isEn ? `View ${t(service.nameKey)} details` : `Виж ${t(service.nameKey).toLowerCase()}`}
-            className="px-4 py-2 bg-primary-500 text-background-50 text-sm font-medium rounded-full hover:bg-primary-600 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer btn-premium min-h-[48px]"
+            className="text-link"
           >
-            {isEn ? 'View details' : 'Виж услугата'}
+            {isEn ? 'Details' : 'За масажа'}
           </Link>
         </div>
       </div>

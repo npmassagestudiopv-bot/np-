@@ -69,20 +69,11 @@ const UNIQUE_POINTS = [
   }
 ];
 
-// Stats that differentiate NP from competitors
-const DIFFERENTIATOR_STATS = [
-  { value: '5', label: 'Масажни услуги', labelEn: 'Massage services' },
-  { value: '2', label: 'Студиа', labelEn: 'Studios' },
-  { value: '7/7', label: 'Дни в седмицата', labelEn: 'Days a week' },
-  { value: '15 €', label: 'Начална цена', labelEn: 'Starting price' },
-];
-
 export default function WhyChooseNp() {
   const { t } = useTranslation();
   const { getPath, handleNav, isEn } = useLocalizedNav();
 
   const { ref: whyRef, isVisible: whyVisible } = useScrollReveal({ threshold: 0.1 });
-  const { ref: statsRef, isVisible: statsVisible } = useScrollReveal({ threshold: 0.15 });
   const { ref: pointsRef, isVisible: pointsVisible } = useScrollReveal({ threshold: 0.05 });
 
   return (
@@ -94,7 +85,7 @@ export default function WhyChooseNp() {
             whyVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
-          <span className="inline-block px-4 py-1.5 bg-accent-100 text-accent-800 text-xs font-medium rounded-full mb-4">
+          <span className="block text-accent-800 text-xs font-medium tracking-wide mb-4">
             {isEn ? 'WHY NP MASSAGE STUDIO' : 'ЗАЩО NP MASSAGE STUDIO'}
           </span>
           <h2 className="section-title text-foreground-950 mb-4">
@@ -105,52 +96,19 @@ export default function WhyChooseNp() {
           </p>
         </div>
 
-        {/* Differentiator Stats Bar */}
-        <div
-          ref={statsRef}
-          className={`max-w-5xl mx-auto mb-14 md:mb-16 transition-all duration-700 delay-200 ${
-            statsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-          }`}
-        >
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {DIFFERENTIATOR_STATS.map((stat, i) => (
-              <div
-                key={isEn ? stat.labelEn : stat.label}
-                className="bg-background-100 rounded-2xl p-5 md:p-6 border border-background-200/70 text-center hover:border-primary-300/50 transition-all duration-500"
-                style={{ transitionDelay: `${i * 80}ms` }}
-              >
-                <div className="font-heading text-3xl md:text-4xl font-bold text-primary-600 mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-xs text-foreground-600 font-medium">
-                  {isEn ? stat.labelEn : stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* Unique Points Grid */}
         <div
           ref={pointsRef}
-          className={`max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 transition-all duration-700 delay-400 ${
+          className={`max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8 md:gap-y-10 transition-opacity duration-300 ${
             pointsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
           {UNIQUE_POINTS.map((point, index) => (
             <div
               key={isEn ? point.titleEn : point.title}
-              className="bg-background-100 rounded-2xl p-6 border border-background-200/70 hover:border-primary-300/50 transition-all duration-500 group"
+              className="pt-5 border-t border-background-200/70"
               style={{ transitionDelay: `${index * 80}ms` }}
             >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-accent-100 flex items-center justify-center flex-shrink-0 group-hover:bg-accent-200 transition-colors duration-300">
-                  <i className={`${point.icon} text-accent-700 text-lg`} />
-                </div>
-                <span className="text-xs font-bold text-primary-600 bg-primary-50 px-2 py-1 rounded-full tracking-wide">
-                  {isEn ? point.statEn : point.stat}
-                </span>
-              </div>
               <h3 className="font-heading text-xl font-medium text-foreground-950 mb-3">
                 {isEn ? point.titleEn : point.title}
               </h3>
@@ -162,7 +120,7 @@ export default function WhyChooseNp() {
         </div>
 
         {/* Cities We Serve */}
-        <div className="max-w-6xl mx-auto mt-12 md:mt-16 bg-background-100 rounded-2xl p-6 md:p-8 border border-background-200/70">
+        <div className="max-w-6xl mx-auto mt-12 md:mt-16 pt-8 border-t border-background-200/70">
           <h3 className="font-heading text-lg font-semibold text-foreground-950 mb-1 text-center">
             {isEn ? 'Welcoming clients from across the region' : 'Посрещаме клиенти от региона'}
           </h3>
@@ -172,7 +130,7 @@ export default function WhyChooseNp() {
               <Link
                 key={city.path}
                 to={isEn ? '/en/locations' : city.path}
-                className="inline-flex items-center min-h-[44px] px-4 py-2 bg-background-50 text-foreground-700 text-sm font-medium rounded-full border border-background-200/70 hover:border-primary-300/60 hover:text-primary-600 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer"
+                className="text-link px-3 py-2 whitespace-nowrap"
               >
                 {isEn ? city.nameEn : city.name}
               </Link>

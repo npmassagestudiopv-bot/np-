@@ -42,8 +42,7 @@ export default function BookingHero() {
 
       <div className="relative max-w-5xl mx-auto px-4 md:px-6 lg:px-10 pt-20 pb-12 md:pt-28 md:pb-20 lg:pt-32 lg:pb-24">
         <div className="max-w-2xl">
-          <div className="inline-flex items-center gap-2 bg-background-50/10 backdrop-blur-sm border border-background-50/20 rounded-full px-4 py-1.5 mb-6">
-            <i className="ri-calendar-check-line text-accent-400 text-sm" />
+          <div className="inline-flex items-center gap-2 mb-5">
             <span className="text-sm text-background-50 font-medium">
               {isEn ? "Online booking requests 24/7" : "Онлайн резервация 24/7"}
             </span>
@@ -58,6 +57,9 @@ export default function BookingHero() {
           </p>
 
           <div className="flex flex-wrap items-center gap-4">
+            <a href="#booking-form" className="inline-flex items-center justify-center min-h-[48px] px-6 py-3 bg-background-50 text-primary-700 text-sm font-semibold rounded-full hover:bg-background-100 transition-colors">
+              {isEn ? 'Choose a massage & time' : 'Избери масаж и час'}
+            </a>
             <a
               href="tel:+359988926120"
               className="inline-flex items-center gap-2 min-h-[44px] text-sm text-background-50 hover:text-accent-300 transition-colors"
@@ -67,13 +69,6 @@ export default function BookingHero() {
               </div>
               <span>+359 988 926 120</span>
             </a>
-            <span className="hidden md:inline text-background-50/30">|</span>
-            <div className="inline-flex items-center gap-2 text-sm text-background-50/80">
-              <div className="w-8 h-8 flex items-center justify-center bg-background-50/10 rounded-full">
-                <i className="ri-time-line text-sm" />
-              </div>
-              <span>{isEn ? "Open seven days a week" : "7 дни в седмицата"}</span>
-            </div>
           </div>
         </div>
       </div>

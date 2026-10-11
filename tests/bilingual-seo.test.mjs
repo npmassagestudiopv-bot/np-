@@ -117,3 +117,29 @@ test('Local studio price comparisons publish real services, matching prices and 
   assert.ok(catalog);
   assert.deepEqual(catalog.itemListElement.map(entry => entry.item.price + ' €'), expected.map(row => row[2]));
 });
+
+test('Public service cards keep real prices, durations and localized booking destinations', () => {
+  const expected = [
+    ['klasicheski-masazh', '60', '25'],
+    ['sporten-masazh', '60', '25'],
+    ['anticeluliten-masazh', '40', '20'],
+    ['aromaterapiya', '60', '30'],
+    ['masazh-na-grab', '40', '15'],
+  ];
+  for (const path of ['/', '/en', '/uslugi', '/en/services']) {
+    const d = pages.get(path).document;
+    const en = isEnglish(path);
+    for (const [slug, duration, price] of expected) {
+      const servicePath = `${en ? '/en/services' : '/uslugi'}/${slug}`;
+      // React streams lazy home sections into deferred fragments before hydration.
+      const detail = [...d.querySelectorAll('article a[href]')].find(a => a.getAttribute('href') === servicePath);
+      assert.ok(detail, `${path}: missing ${slug}`);
+      const card = detail.closest('article');
+      const text = card.textContent.replace(/\s+/g, ' ');
+      assert.ok(text.includes(`${price} €`), `${path}: wrong price for ${slug}`);
+      assert.ok(text.includes(`${duration} ${en ? 'min' : 'мин'}`), `${path}: wrong duration for ${slug}`);
+      assert.ok(card.querySelector(`a[href="${en ? '/en/booking' : '/rezervaciya'}"]`), `${path}: wrong booking destination`);
+      assert.ok(pages.has(servicePath), servicePath);
+    }
+  }
+});

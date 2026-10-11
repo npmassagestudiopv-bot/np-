@@ -234,7 +234,7 @@ export default function BookingForm() {
   const minDate = studioNow().date;
   const isPastSlot = (slot: string) => isPastStudioSlot(formData.appointment_date, slot);
 
-  const inputBase = 'w-full px-4 py-3 rounded-lg border text-base md:text-sm bg-background-50 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-400/50';
+  const inputBase = 'w-full px-4 py-3 rounded-lg border text-base bg-background-50 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-400/50';
 
   const getInputClasses = (field: string) => {
     const hasError = touched[field] && errors[field];
@@ -293,84 +293,13 @@ export default function BookingForm() {
       )}
 
       <form onSubmit={handleSubmit} className="space-y-6" id="booking-form">
-        {/* Step 1: Personal Data */}
-        <div className="bg-background-100 rounded-2xl p-5 md:p-6 border border-background-200/70">
+        {/* Step 1: Service Selection */}
+        <div className={`bg-background-100 rounded-2xl p-5 md:p-6 border ${touched.service && errors.service ? 'border-red-300' : 'border-background-200/70'}`}>
           <div className="flex items-center gap-3 mb-5">
             <div className="w-8 h-8 flex items-center justify-center bg-primary-500 rounded-full">
               <span className="text-background-50 text-sm font-semibold">1</span>
             </div>
-            <h3 className="font-heading text-base font-semibold text-foreground-950">{isEn ? "Your details" : "Вашите данни"}</h3>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="booking-name" className="block text-sm font-medium text-foreground-800 mb-1.5">
-                {t('contactName')} *
-              </label>
-              <input
-                id="booking-name"
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={(e) => handleChange('name', e.target.value)}
-                onBlur={() => validate('name')}
-                className={getInputClasses('name')}
-                placeholder={isEn ? "Your name" : "Вашето име"}
-                autoComplete="name"
-              />
-              {touched.name && errors.name && (
-                <p className="text-xs text-red-500 mt-1">{errors.name}</p>
-              )}
-            </div>
-            <div>
-              <label htmlFor="booking-phone" className="block text-sm font-medium text-foreground-800 mb-1.5">
-                {t('contactPhone')} *
-              </label>
-              <input
-                id="booking-phone"
-                type="tel"
-                name="phone"
-                value={formData.phone}
-                onChange={(e) => handleChange('phone', e.target.value)}
-                onBlur={() => validate('phone')}
-                className={getInputClasses('phone')}
-                placeholder="+359 888 123 456"
-                autoComplete="tel"
-              />
-              {touched.phone && errors.phone && (
-                <p className="text-xs text-red-500 mt-1">{errors.phone}</p>
-              )}
-            </div>
-          </div>
-
-          <div className="mt-4">
-            <label htmlFor="booking-email" className="block text-sm font-medium text-foreground-800 mb-1.5">
-              {t('contactEmail')} *
-            </label>
-            <input
-              id="booking-email"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={(e) => handleChange('email', e.target.value)}
-              onBlur={() => validate('email')}
-              className={getInputClasses('email')}
-              placeholder="email@abv.bg"
-              autoComplete="email"
-            />
-            {touched.email && errors.email && (
-              <p className="text-xs text-red-500 mt-1">{errors.email}</p>
-            )}
-          </div>
-        </div>
-
-        {/* Step 2: Service Selection */}
-        <div className="bg-background-100 rounded-2xl p-5 md:p-6 border border-background-200/70">
-          <div className="flex items-center gap-3 mb-5">
-            <div className="w-8 h-8 flex items-center justify-center bg-primary-500 rounded-full">
-              <span className="text-background-50 text-sm font-semibold">2</span>
-            </div>
-            <h3 className="font-heading text-base font-semibold text-foreground-950">{isEn ? "Choose a service" : "Изберете услуга"}</h3>
+            <h2 className="font-heading text-lg font-semibold text-foreground-950">{isEn ? "Choose a service" : "Изберете услуга"}</h2>
           </div>
 
           {touched.service && errors.service && (
@@ -424,13 +353,13 @@ export default function BookingForm() {
           </div>
         </div>
 
-        {/* Step 3: Location, Date, Time */}
-        <div className="bg-background-100 rounded-2xl p-5 md:p-6 border border-background-200/70">
+        {/* Step 2: Location, Date, Time */}
+        <div className={`bg-background-100 rounded-2xl p-5 md:p-6 border ${['location', 'appointment_date', 'appointment_time'].some(field => touched[field] && errors[field]) ? 'border-red-300' : 'border-background-200/70'}`}>
           <div className="flex items-center gap-3 mb-5">
             <div className="w-8 h-8 flex items-center justify-center bg-primary-500 rounded-full">
-              <span className="text-background-50 text-sm font-semibold">3</span>
+              <span className="text-background-50 text-sm font-semibold">2</span>
             </div>
-            <h3 className="font-heading text-base font-semibold text-foreground-950">{isEn ? "Studio, date and time" : "Локация, дата и час"}</h3>
+            <h2 className="font-heading text-lg font-semibold text-foreground-950">{isEn ? "Studio, date and time" : "Локация, дата и час"}</h2>
           </div>
 
           {/* Location Cards */}
@@ -596,15 +525,82 @@ export default function BookingForm() {
           </div>
         </div>
 
-        {/* Step 4: Message */}
+        {/* Step 3: Personal Data */}
         <div className="bg-background-100 rounded-2xl p-5 md:p-6 border border-background-200/70">
           <div className="flex items-center gap-3 mb-5">
             <div className="w-8 h-8 flex items-center justify-center bg-primary-500 rounded-full">
-              <span className="text-background-50 text-sm font-semibold">4</span>
+              <span className="text-background-50 text-sm font-semibold">3</span>
             </div>
-            <h3 className="font-heading text-base font-semibold text-foreground-950">{isEn ? "Additional information" : "Допълнителна информация"}</h3>
+            <h2 className="font-heading text-lg font-semibold text-foreground-950">{isEn ? "Your details" : "Вашите данни"}</h2>
           </div>
 
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="booking-name" className="block text-sm font-medium text-foreground-800 mb-1.5">
+                {t('contactName')} *
+              </label>
+              <input
+                id="booking-name"
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={(e) => handleChange('name', e.target.value)}
+                onBlur={() => validate('name')}
+                className={getInputClasses('name')}
+                placeholder={isEn ? "Your name" : "Вашето име"}
+                autoComplete="name"
+              />
+              {touched.name && errors.name && (
+                <p className="text-xs text-red-500 mt-1">{errors.name}</p>
+              )}
+            </div>
+            <div>
+              <label htmlFor="booking-phone" className="block text-sm font-medium text-foreground-800 mb-1.5">
+                {t('contactPhone')} *
+              </label>
+              <input
+                id="booking-phone"
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={(e) => handleChange('phone', e.target.value)}
+                onBlur={() => validate('phone')}
+                className={getInputClasses('phone')}
+                placeholder="+359 888 123 456"
+                autoComplete="tel"
+              />
+              {touched.phone && errors.phone && (
+                <p className="text-xs text-red-500 mt-1">{errors.phone}</p>
+              )}
+            </div>
+          </div>
+
+          <div className="mt-4">
+            <label htmlFor="booking-email" className="block text-sm font-medium text-foreground-800 mb-1.5">
+              {t('contactEmail')} *
+            </label>
+            <input
+              id="booking-email"
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={(e) => handleChange('email', e.target.value)}
+              onBlur={() => validate('email')}
+              className={getInputClasses('email')}
+              placeholder="email@abv.bg"
+              autoComplete="email"
+            />
+            {touched.email && errors.email && (
+              <p className="text-xs text-red-500 mt-1">{errors.email}</p>
+            )}
+          </div>
+        </div>
+
+        {/* Optional message */}
+        <details className="bg-background-100 rounded-2xl p-5 md:p-6 border border-background-200/70">
+          <summary className="min-h-[44px] cursor-pointer text-sm font-medium text-foreground-800 mb-2">
+            {isEn ? "Additional information (optional)" : "Допълнителна информация (по желание)"}
+          </summary>
           <label htmlFor="booking-message" className="block text-sm font-medium text-foreground-800 mb-1.5">
             {t('contactMessage')}
           </label>
@@ -624,14 +620,14 @@ export default function BookingForm() {
               {formData.message.length}/500
             </p>
           </div>
-        </div>
+        </details>
 
         {/* Submit */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <button
             type="submit"
             disabled={submitting || dayBlocked || (Boolean(formData.appointment_date && formData.location) && !slotsReady)}
-            className="w-full sm:w-auto px-10 py-3.5 bg-primary-500 text-background-50 font-medium text-sm rounded-full hover:bg-primary-600 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer disabled:opacity-60 btn-premium"
+            className="button-primary w-full sm:w-auto px-10 disabled:opacity-60"
           >
             {submitting ? (
               <span className="inline-flex items-center gap-2">

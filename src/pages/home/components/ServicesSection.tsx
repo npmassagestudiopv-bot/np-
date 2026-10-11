@@ -20,9 +20,6 @@ export default function ServicesSection() {
             titleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
           }`}
         >
-          <span className="text-xs font-medium text-accent-600 uppercase tracking-widest mb-3 block">
-            NP Massage Studio
-          </span>
           <h2 className="section-title text-foreground-950 mb-4">
             {t('servicesTitle')}
           </h2>
@@ -64,46 +61,35 @@ function ServiceCard({ service, index, slug }: { service: (typeof services)[0]; 
   return (
     <article
       ref={ref}
-      className={`group flex flex-col bg-background-100 rounded-2xl overflow-hidden border border-background-200/70 hover:border-primary-300/60 transition-all duration-500 card-hover ${
+      className={`flex flex-col bg-background-100 rounded-2xl overflow-hidden border border-background-200/70 transition-opacity duration-300 ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
       }`}
       style={{ transitionDelay: `${index * 80}ms` }}
     >
-      <div className="flex flex-col flex-1 p-5 md:p-7">
-        <div className="mb-4">
-          <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-xl bg-primary-100 flex items-center justify-center flex-shrink-0 group-hover:bg-primary-200 transition-colors duration-300">
-              <i className={`${serviceIcons[index] || 'ri-heart-pulse-line'} text-primary-600 text-lg`} />
-            </div>
-            <h3 className="service-card-title text-foreground-950 min-w-0">
-              {t(service.nameKey)}
-            </h3>
-          </div>
-        </div>
-        <p className="text-base text-foreground-600 mb-6 leading-relaxed">
+      <div className="flex flex-col flex-1 p-6 md:p-7">
+        <h3 className="service-card-title text-foreground-950 mb-3">
+          {t(service.nameKey)}
+        </h3>
+        <p className="text-base text-foreground-600 mb-5 leading-relaxed">
           {t(service.descKey)}
         </p>
-        <div className="flex flex-wrap items-center justify-between gap-3 mt-auto">
-          <span className="text-sm font-semibold text-primary-600 bg-primary-50 px-3 py-1.5 rounded-full whitespace-nowrap tabular-nums">
-            {t(service.priceKey)}
+        <div className="flex items-baseline gap-3 mt-auto mb-5">
+          <span className="text-xl font-semibold text-primary-600 whitespace-nowrap tabular-nums">
+            {service.price} €
           </span>
+          <span className="text-sm text-foreground-600 whitespace-nowrap">{service.duration} {t('serviceDuration')}</span>
+        </div>
+        <div className="flex flex-wrap items-center justify-between gap-2 pt-4 border-t border-background-200/70">
+          <Link to={getPath('/rezervaciya')} className="button-primary">{t('heroCta')}</Link>
           <Link
             to={getPath(`/uslugi/${slug}`)}
             aria-label={isEn ? `View ${t(service.nameKey)} details` : `Виж ${t(service.nameKey).toLowerCase()}`}
-            className="px-4 py-2 bg-primary-500 text-background-50 text-sm font-medium rounded-full hover:bg-primary-600 active:scale-[0.98] transition-all duration-300 whitespace-nowrap cursor-pointer min-h-[44px]"
+            className="text-link"
           >
-            {isEn ? 'View details' : 'Виж услугата'}
+            {isEn ? 'Details' : 'За масажа'}
           </Link>
         </div>
       </div>
     </article>
   );
 }
-
-const serviceIcons = [
-  'ri-mental-health-line',
-  'ri-run-line',
-  'ri-body-scan-line',
-  'ri-leaf-line',
-  'ri-user-heart-line',
-];
