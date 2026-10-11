@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { supabase } from '@/lib/supabase';
 import AdminLayout from '@/pages/admin/components/AdminLayout';
 
@@ -96,6 +96,9 @@ export default function AdminAppointmentsPage() {
   const [newTime, setNewTime] = useState('');
   const [newMessage, setNewMessage] = useState('');
   const [takenSlots, setTakenSlots] = useState<string[]>([]);
+  const [slotsFor, setSlotsFor] = useState('');
+  const slotsRequest = useRef(0);
+  const slotsReady = slotsFor === `${newDate}|${newLocation}`;
   const [formError, setFormError] = useState('');
   const [formLoading, setFormLoading] = useState(false);
 
@@ -133,6 +136,9 @@ export default function AdminAppointmentsPage() {
         supabase.from('blocked_dates').select('blocked_date'),
       ]);
 
+      if (apptRes.error) throw apptRes.error;
+      if (blockedRes.error) throw blockedRes.error;
+
       setMonthAppts((apptRes.data ?? []) as Appointment[]);
       setBlockedDates(new Set((blockedRes.data ?? []).map((r: any) => r.blocked_date)));
     } catch {
@@ -145,11 +151,12 @@ export default function AdminAppointmentsPage() {
   const loadDayAppts = useCallback(async () => {
     setDayLoading(true);
     try {
-      const { data } = await supabase
+      const { data, error: loadError } = await supabase
         .from('appointments')
         .select('*')
         .eq('appointment_date', selectedDate)
         .order('appointment_time', { ascending: true });
+      if (loadError) throw loadError;
       setDayAppts(data ?? []);
     } catch {
       setError('Грешка при зареждане.');
@@ -159,23 +166,31 @@ export default function AdminAppointmentsPage() {
 
   // ── Load taken slots for form ───────────────────────
   const loadTakenSlots = useCallback(async (d: string, loc: string) => {
+    const request = ++slotsRequest.current;
+    setSlotsFor('');
     try {
       const otherLoc = loc === 'vt' ? 'pv' : 'vt';
-      const [localRes, otherRes] = await Promise.all([
+      const [localRes, otherRes, blockedRes] = await Promise.all([
         supabase.from('appointments').select('appointment_time').eq('appointment_date', d).eq('location', loc).neq('status', 'cancelled'),
         supabase.from('appointments').select('appointment_time').eq('appointment_date', d).eq('location', otherLoc).neq('status', 'cancelled'),
+        supabase.from('blocked_dates').select('blocked_date').eq('blocked_date', d),
       ]);
+      if (localRes.error || otherRes.error || blockedRes.error) throw new Error('Availability unavailable');
+      if (request !== slotsRequest.current) return;
       const taken = new Set<string>();
-      (localRes.data ?? []).forEach((r: any) => taken.add(r.appointment_time));
+      (localRes.data ?? []).forEach((r: any) => taken.add(r.appointment_time.slice(0, 5)));
       (otherRes.data ?? []).forEach((r: any) => {
-        taken.add(r.appointment_time);
+        taken.add(r.appointment_time.slice(0, 5));
         const [h, m] = r.appointment_time.split(':').map(Number);
         const nextH = h + 1;
         if (nextH <= 18) taken.add(`${String(nextH).padStart(2, '0')}:${String(m).padStart(2, '0')}`);
       });
-      setTakenSlots(Array.from(taken));
+      setTakenSlots(blockedRes.data?.length ? VALID_TIMES : Array.from(taken));
+      setSlotsFor(`${d}|${loc}`);
     } catch {
-      setTakenSlots([]);
+      if (request !== slotsRequest.current) return;
+      setTakenSlots(VALID_TIMES);
+      setFormError('Свободните часове не могат да се проверят. Опитай отново.');
     }
   }, []);
 
@@ -253,7 +268,8 @@ export default function AdminAppointmentsPage() {
   async function updateStatus(id: string, status: string) {
     setActionLoading(id);
     try {
-      await supabase.from('appointments').update({ status }).eq('id', id);
+      const { error: updateError } = await supabase.from('appointments').update({ status }).eq('id', id).select('id').single();
+      if (updateError) throw updateError;
       setDayAppts((prev) => prev.map((a) => (a.id === id ? { ...a, status } : a)));
       // Refresh month dots
       loadMonthData();
@@ -267,7 +283,8 @@ export default function AdminAppointmentsPage() {
     if (!confirm('Изтрий тази резервация?')) return;
     setActionLoading(id);
     try {
-      await supabase.from('appointments').delete().eq('id', id);
+      const { error: deleteError } = await supabase.from('appointments').delete().eq('id', id).select('id').single();
+      if (deleteError) throw deleteError;
       setDayAppts((prev) => prev.filter((a) => a.id !== id));
       loadMonthData();
     } catch {
@@ -301,13 +318,16 @@ export default function AdminAppointmentsPage() {
     setBulkLoading(true);
     try {
       for (const id of ids) {
-        await supabase.from('appointments').update({ status }).eq('id', id);
+        const { error: updateError } = await supabase.from('appointments').update({ status }).eq('id', id).select('id').single();
+        if (updateError) throw updateError;
       }
       setDayAppts((prev) => prev.map((a) => (ids.includes(a.id) ? { ...a, status } : a)));
       setSelectedIds(new Set());
       loadMonthData();
     } catch {
       setError('Грешка при масова операция.');
+      await loadDayAppts();
+      await loadMonthData();
     }
     setBulkLoading(false);
   }
@@ -319,13 +339,16 @@ export default function AdminAppointmentsPage() {
     setBulkLoading(true);
     try {
       for (const id of ids) {
-        await supabase.from('appointments').delete().eq('id', id);
+        const { error: deleteError } = await supabase.from('appointments').delete().eq('id', id).select('id').single();
+        if (deleteError) throw deleteError;
       }
       setDayAppts((prev) => prev.filter((a) => !ids.includes(a.id)));
       setSelectedIds(new Set());
       loadMonthData();
     } catch {
       setError('Грешка при изтриване.');
+      await loadDayAppts();
+      await loadMonthData();
     }
     setBulkLoading(false);
   }
@@ -334,6 +357,7 @@ export default function AdminAppointmentsPage() {
   async function handleCreateAppointment(e: React.FormEvent) {
     e.preventDefault();
     setFormError('');
+    if (!slotsReady) { setFormError('Изчакай проверката на свободните часове.'); return; }
     if (!newName || !newPhone || !newTime) { setFormError('Име, телефон и час са задължителни.'); return; }
     if (blockedDates.has(newDate)) { setFormError('Този ден е блокиран (почивен).'); return; }
     if (takenSlots.includes(newTime)) { setFormError('Този час вече е зает.'); return; }
@@ -763,7 +787,7 @@ export default function AdminAppointmentsPage() {
                   {VALID_TIMES.map((t) => {
                     const isTaken = takenSlots.includes(t);
                     return (
-                      <button key={t} type="button" disabled={isTaken}
+                      <button key={t} type="button" disabled={isTaken || !slotsReady}
                         onClick={() => setNewTime(t)}
                         className={`h-11 rounded-xl text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
                           isTaken
@@ -793,7 +817,7 @@ export default function AdminAppointmentsPage() {
                 </div>
               )}
 
-              <button type="submit" disabled={formLoading}
+              <button type="submit" disabled={formLoading || !slotsReady}
                 className="w-full h-12 bg-primary-500 text-background-50 rounded-xl text-sm font-semibold hover:bg-primary-600 disabled:opacity-50 transition-all whitespace-nowrap cursor-pointer active:scale-[0.98]">
                 {formLoading ? 'Запазване...' : 'Запази час'}
               </button>

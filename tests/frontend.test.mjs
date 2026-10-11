@@ -27,7 +27,7 @@ before(async () => {
     invokeBooking: async (payload) => { bookings.push(payload); return bookingResponse; },
   };
   server = await createServer({
-    server: { middlewareMode: true }, appType: 'custom',
+    server: { middlewareMode: true, hmr: false }, appType: 'custom',
     plugins: [{
       name: 'mock-booking-no-network', enforce: 'pre',
       resolveId(id) { if (id.endsWith('/lib/supabase') || id.endsWith('/lib/supabase.ts')) return '\0booking-test-api'; },
@@ -104,6 +104,17 @@ test('Blog HTML preserves article links/formatting and removes executable conten
   assert.match(document.querySelector('a').rel, /noopener/);
   assert.equal(document.querySelectorAll('script,img,svg,[onerror],[onload]').length, 0);
   assert.equal(document.querySelectorAll('a[href^="javascript:"]').length, 0);
+});
+
+test('Admin article previews preserve Markdown while blocking executable HTML', () => {
+  const html = articles.adminArticlePreviewToHtml('# Заглавие\n\n**Удебелен** и *курсив*\n- Точка\n<a href="https://example.test" target="_blank">Линк</a><img src=x onerror=alert(1)><svg onload=alert(1)></svg><script>alert(1)</script><a href="javascript:alert(1)">bad</a>');
+  const document = new JSDOM(html).window.document;
+  assert.equal(document.querySelector('h1')?.textContent, 'Заглавие');
+  assert.equal(document.querySelector('strong')?.textContent, 'Удебелен');
+  assert.equal(document.querySelector('em')?.textContent, 'курсив');
+  assert.equal(document.querySelector('li')?.textContent, 'Точка');
+  assert.equal(document.querySelectorAll('script,img,svg,[onerror],[onload],[href^="javascript:"]').length, 0);
+  assert.ok(document.querySelector('a[href="https://example.test"]')?.rel.includes('noopener'));
 });
 
 test('SEO updates canonical/locale/schema content even with unchanged titles and schema counts', async () => {

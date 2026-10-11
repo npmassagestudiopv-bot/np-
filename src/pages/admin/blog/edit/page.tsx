@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '@/lib/supabase';
+import { adminArticlePreviewToHtml } from '@/lib/articleContent';
 import AdminLayout from '@/pages/admin/components/AdminLayout';
 
 export default function AdminBlogEditPage() {
@@ -83,17 +84,7 @@ export default function AdminBlogEditPage() {
     setLoading(false);
   }
 
-  function renderPreview(content: string) {
-    return content
-      .replace(/^### (.+)$/gm, '<h3 class="text-base font-semibold mt-3 mb-1">$1</h3>')
-      .replace(/^## (.+)$/gm, '<h2 class="text-lg font-semibold mt-4 mb-1">$1</h2>')
-      .replace(/^# (.+)$/gm, '<h1 class="text-xl font-bold mt-4 mb-2">$1</h1>')
-      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*(.+?)\*/g, '<em>$1</em>')
-      .replace(/^- (.+)$/gm, '<li class="ml-4 list-disc text-sm">$1</li>')
-      .replace(/\n\n/g, '</p><p class="text-sm mb-2">')
-      .replace(/^(.+)$/gm, '<p class="text-sm mb-2">$1</p>');
-  }
+
 
   if (pageLoading) {
     return (
@@ -184,7 +175,7 @@ export default function AdminBlogEditPage() {
         {previewContent && (
           <div className="border border-background-200/70 rounded-lg p-3">
             <p className="text-[10px] text-foreground-400 mb-2 uppercase">Преглед</p>
-            <div className="prose prose-sm max-w-none text-foreground-900" dangerouslySetInnerHTML={{ __html: renderPreview(previewContent) }} />
+            <div className="prose prose-sm max-w-none text-foreground-900" dangerouslySetInnerHTML={{ __html: adminArticlePreviewToHtml(previewContent) }} />
           </div>
         )}
 

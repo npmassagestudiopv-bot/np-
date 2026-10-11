@@ -16,6 +16,25 @@ export function headingId(value: string): string {
   return value.toLowerCase().trim().replace(/[^\p{L}\p{N}\s-]/gu, '').replace(/\s+/g, '-');
 }
 
+// Preserve the editor's current Markdown preview formatting while preventing
+// pasted/stored HTML from executing inside an administrator's session.
+export function adminArticlePreviewToHtml(content: string): string {
+  const html = content
+    .replace(/^### (.+)$/gm, '<h3 class="text-base font-semibold mt-3 mb-1">$1</h3>')
+    .replace(/^## (.+)$/gm, '<h2 class="text-lg font-semibold mt-4 mb-1">$1</h2>')
+    .replace(/^# (.+)$/gm, '<h1 class="text-xl font-bold mt-4 mb-2">$1</h1>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/^- (.+)$/gm, '<li class="ml-4 list-disc text-sm">$1</li>')
+    .replace(/\n\n/g, '</p><p class="text-sm mb-2">')
+    .replace(/^(.+)$/gm, '<p class="text-sm mb-2">$1</p>');
+  return DOMPurify.sanitize(html, {
+    ALLOWED_TAGS: ['p', 'br', 'h1', 'h2', 'h3', 'strong', 'b', 'em', 'i', 'a', 'ul', 'ol', 'li', 'blockquote'],
+    ALLOWED_ATTR: ['id', 'class', 'href', 'title', 'rel', 'target'],
+    ALLOW_DATA_ATTR: false,
+  });
+}
+
 // Keep existing article formatting and links; sanitize before rendering stored
 // content. Restrict to article markup, excluding embeds, styles and handlers.
 export function articleContentToHtml(content: string): string {
